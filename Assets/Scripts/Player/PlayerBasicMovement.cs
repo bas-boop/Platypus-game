@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,18 @@ public class PlayerBasicMovement : MonoBehaviour
         _sp = GetComponent<SpriteRenderer>(); 
     }
 
+    private void FixedUpdate()
+    {
+        Walking();
+    }
+
+    private void Walking()
+    {
+        var appliedForce = new Vector2(moveDirection.x * walkSpeed, 0);
+        Debug.Log(appliedForce);
+        _rb.AddForce(appliedForce);
+    }
+    
     public void SetMoveDirection(Vector2 input)
     {
         moveDirection = input;

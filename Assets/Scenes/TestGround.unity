@@ -222,7 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362767f84b6bcc14c865c98fe30262eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 0
+  moveDirection: {x: 0, y: 0}
+  walkSpeed: 7.5
 --- !u!50 &176707120
 Rigidbody2D:
   serializedVersion: 4
@@ -282,6 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15d65d79cc92be140afb3620cb6d5d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovement: {fileID: 176707119}
 --- !u!114 &176707123
 MonoBehaviour:
   m_ObjectHideFlags: 0
