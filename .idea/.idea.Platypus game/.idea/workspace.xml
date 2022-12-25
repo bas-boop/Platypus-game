@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dd7215f9-900d-49a7-aba0-5868a5d06822" name="Changes" comment="" />
+    <list default="true" id="dd7215f9-900d-49a7-aba0-5868a5d06822" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TestGround.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TestGround.unity" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,12 +56,14 @@
       <option name="presentableId" value="Default" />
       <updated>1672009584189</updated>
       <workItem from="1672009588991" duration="54000" />
+      <workItem from="1672010888128" duration="363000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
