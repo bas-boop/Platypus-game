@@ -16,13 +16,13 @@ public class PlayerBasicMovement : MonoBehaviour
 
     private Vector2 _lastMoveDirection;
 
-    [Header("Value's")]
+    [Header("Read value's")]
     [SerializeField] private float topSpeed;
     [SerializeField] private Vector2 moveDirection;
     [SerializeField] private bool canMove;
     [SerializeField] private bool isRolling;
 
-    [Header("ATRIBUTES")]
+    [Header("Stats")]
     [SerializeField] private float deadzone;
     [SerializeField] private float accelerationTime;
     [SerializeField] private float groundedSpeed;
@@ -39,8 +39,6 @@ public class PlayerBasicMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Debug.Log(_rb.velocity);
-
         if(!canMove) return;
         
         Walking();
@@ -59,8 +57,8 @@ public class PlayerBasicMovement : MonoBehaviour
 
         var velocity = _rb.velocity;
         
-        var appliedForce = velocity.x =+ _currentSpeed * Time.deltaTime;
-        var appliedVelocity = new Vector2(appliedForce * moveDirection.x, velocity.y);
+        var moveForce = velocity.x =+ _currentSpeed * Time.deltaTime;
+        var appliedVelocity = new Vector2(moveForce * moveDirection.x, velocity.y);
         
         _rb.velocity = appliedVelocity;
     }
@@ -106,6 +104,7 @@ public class PlayerBasicMovement : MonoBehaviour
         moveDirection = input;
 
         _isWalking = moveDirection != Vector2.zero;
+        
         if (moveDirection != Vector2.zero) _lastMoveDirection = moveDirection;
         else _currentSpeed = 0;
     }
