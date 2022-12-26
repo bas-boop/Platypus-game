@@ -10,6 +10,8 @@ public class PlayerBasicMovement : MonoBehaviour
     // private SpriteRenderer _sp;
 
     private float _currentSpeed;
+    private float _accelerationSpeed;
+    private float _decerationSpeed;
 
     private bool _canRoll;
     private bool _isWalking;
@@ -49,11 +51,17 @@ public class PlayerBasicMovement : MonoBehaviour
         if(isRolling) return;
 
         topSpeed = _gc.IsGrounded ? groundedSpeed : airedSpeed;
-
-        var acceleration = topSpeed / accelerationTime;
         
-        if(_currentSpeed < topSpeed) _currentSpeed += acceleration * Time.deltaTime;
+        var acceleration = topSpeed / accelerationTime;
+
+        if(_accelerationSpeed < topSpeed) _accelerationSpeed += acceleration * Time.deltaTime;
         else if (_currentSpeed >= topSpeed) _currentSpeed = topSpeed;
+
+        _decerationSpeed = _currentSpeed;
+        if(_decerationSpeed > topSpeed) _decerationSpeed -= acceleration * Time.deltaTime;
+
+        _currentSpeed = _isWalking ? _accelerationSpeed : _decerationSpeed;
+        // Debug.Log(_currentSpeed);
 
         var velocity = _rb.velocity;
         
@@ -104,9 +112,9 @@ public class PlayerBasicMovement : MonoBehaviour
         moveDirection = input;
 
         _isWalking = moveDirection != Vector2.zero;
-        
-        if (moveDirection != Vector2.zero) _lastMoveDirection = moveDirection;
-        else _currentSpeed = 0;
+
+        if (moveDirection != Vector2.zero)_lastMoveDirection = moveDirection;
+        else _accelerationSpeed = 0;
     }
 
     public void ToggleCanMove(bool input)
