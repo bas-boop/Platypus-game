@@ -6,18 +6,21 @@ using UnityEngine;
 public class PlayerBasicMovement : MonoBehaviour
 {
     private Rigidbody2D _rb;
-    private SpriteRenderer _sp;
+    private GroundChecker _gc;
+    // private SpriteRenderer _sp;
 
     [Header("Value's")]
     [SerializeField] private Vector2 moveDirection;
     
     [Header("ATRIBUTES")]
-    [SerializeField] private float walkSpeed;
+    [SerializeField] private float groundedSpeed;
+    [SerializeField] private float airedSpeed;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _sp = GetComponent<SpriteRenderer>(); 
+        _gc = GetComponent<GroundChecker>();
+        // _sp = GetComponent<SpriteRenderer>(); 
     }
 
     private void FixedUpdate()
@@ -27,8 +30,10 @@ public class PlayerBasicMovement : MonoBehaviour
 
     private void Walking()
     {
-        var appliedForce = new Vector2(moveDirection.x * walkSpeed, 0);
-        Debug.Log(appliedForce);
+        var currentSpeed = _gc.IsGrounded ? groundedSpeed : airedSpeed;
+        var appliedSpeed = moveDirection.x * currentSpeed;
+        var appliedForce = new Vector2(appliedSpeed, 0);
+
         _rb.AddForce(appliedForce);
     }
     

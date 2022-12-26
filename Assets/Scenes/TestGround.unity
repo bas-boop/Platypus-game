@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 176707123}
   - component: {fileID: 176707119}
   - component: {fileID: 176707122}
+  - component: {fileID: 176707124}
   m_Layer: 0
   m_Name: TestPlayer
   m_TagString: Untagged
@@ -223,7 +224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0}
-  walkSpeed: 7.5
+  groundedSpeed: 7.5
+  airedSpeed: 5
 --- !u!50 &176707120
 Rigidbody2D:
   serializedVersion: 4
@@ -314,6 +316,24 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerInput
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &176707124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176707116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d367a936a9c4b14283d60462d446f6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrounded: 0
+  rayDistance: 1
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
+  offSet: {x: 0, y: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,7 +428,7 @@ GameObject:
   - component: {fileID: 1382959051}
   - component: {fileID: 1382959050}
   - component: {fileID: 1382959052}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
