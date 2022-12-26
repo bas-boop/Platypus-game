@@ -9,13 +9,15 @@ public class PlayerBasicMovement : MonoBehaviour
     private GroundChecker _gc;
     // private SpriteRenderer _sp;
 
+    private float _acceleration;
+    
     private bool _canRoll;
     private bool _isWalking;
 
     private Vector2 _lastMoveDirection;
 
     [Header("Value's")]
-    [SerializeField] private float currentSpeed;
+    [SerializeField] private float topSpeed;
     [SerializeField] private Vector2 moveDirection;
     [SerializeField] private bool canMove;
     [SerializeField] private bool isRolling;
@@ -37,7 +39,7 @@ public class PlayerBasicMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(_rb.velocity);
+        // Debug.Log(_rb.velocity);
 
         if(!canMove) return;
         
@@ -48,16 +50,25 @@ public class PlayerBasicMovement : MonoBehaviour
     {
         if(isRolling) return;
         
-        currentSpeed = _gc.IsGrounded ? groundedSpeed : airedSpeed;
+        topSpeed = _gc.IsGrounded ? groundedSpeed : airedSpeed;
 
-        var acceleration = moveDirection.x * currentSpeed / accelerateFrames;
+        var step = 0;
 
-        var appliedSpeed = new float();
+        while (_isWalking)
+        {
+            step++;
+            Debug.Log(step);
+            if(step > accelerateFrames) break;
+        }
         
-        if (_isWalking) appliedSpeed += acceleration; // hier klopt iets niet aan
+        var acceleration = topSpeed / accelerateFrames;
 
-        var appliedForce = new Vector2(appliedSpeed, _rb.velocity.y);
+        var currentSpeed = topSpeed - (acceleration * step);
+        
+        if (currentSpeed > topSpeed) currentSpeed = topSpeed;
 
+        var appliedForce = new Vector2(currentSpeed, _rb.velocity.y);
+        // Debug.Log("Acceleration: " + acceleration + " current speed: " + currentSpeed);
         _rb.velocity = appliedForce;
     }
     

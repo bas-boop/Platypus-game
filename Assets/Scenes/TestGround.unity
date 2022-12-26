@@ -136,8 +136,8 @@ GameObject:
   - component: {fileID: 176707121}
   - component: {fileID: 176707120}
   - component: {fileID: 176707123}
-  - component: {fileID: 176707119}
   - component: {fileID: 176707122}
+  - component: {fileID: 176707119}
   - component: {fileID: 176707124}
   m_Layer: 0
   m_Name: TestPlayer
@@ -223,12 +223,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362767f84b6bcc14c865c98fe30262eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpeed: 0
+  topSpeed: 0
   moveDirection: {x: 0, y: 0}
   canMove: 1
   isRolling: 0
   deadzone: 0.65
-  accelerateFrames: 10
+  accelerateFrames: 5
   groundedSpeed: 7.5
   airedSpeed: 5
   rollPower: 2.5
