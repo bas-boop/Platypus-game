@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd7215f9-900d-49a7-aba0-5868a5d06822" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Platypus game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Platypus game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TestGround.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TestGround.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Input/PlayerInputMap.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Input/PlayerInputMap.inputactions" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerBasicMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerBasicMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +68,7 @@
       <option name="presentableId" value="Default" />
       <updated>1672009584189</updated>
       <workItem from="1672009588991" duration="54000" />
-      <workItem from="1672010888128" duration="3926000" />
+      <workItem from="1672010888128" duration="4307000" />
     </task>
     <servers />
   </component>

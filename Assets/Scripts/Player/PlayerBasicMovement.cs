@@ -11,8 +11,9 @@ public class PlayerBasicMovement : MonoBehaviour
 
     [Header("Value's")]
     [SerializeField] private Vector2 moveDirection;
-    
+
     [Header("ATRIBUTES")]
+    [SerializeField] private float deadzone;
     [SerializeField] private float groundedSpeed;
     [SerializeField] private float airedSpeed;
 
@@ -39,6 +40,10 @@ public class PlayerBasicMovement : MonoBehaviour
     
     public void SetMoveDirection(Vector2 input)
     {
+        if (input.x > deadzone) input.x = 1;
+        else if (input.x < -deadzone) input.x = -1;
+        else input.x = 0;
+
         moveDirection = input;
     }
 }
