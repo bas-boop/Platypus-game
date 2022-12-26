@@ -10,6 +10,7 @@ public class PlayerBasicMovement : MonoBehaviour
     // private SpriteRenderer _sp;
 
     private bool _canRoll;
+    private bool _isWalking;
 
     private Vector2 _lastMoveDirection;
 
@@ -21,6 +22,7 @@ public class PlayerBasicMovement : MonoBehaviour
 
     [Header("ATRIBUTES")]
     [SerializeField] private float deadzone;
+    [SerializeField] private int accelerateFrames;
     [SerializeField] private float groundedSpeed;
     [SerializeField] private float airedSpeed;
     [SerializeField] private float rollPower;
@@ -47,17 +49,23 @@ public class PlayerBasicMovement : MonoBehaviour
         if(isRolling) return;
         
         currentSpeed = _gc.IsGrounded ? groundedSpeed : airedSpeed;
-        var appliedSpeed = moveDirection.x * currentSpeed;
-        var appliedForce = new Vector2(appliedSpeed, 0);
 
-        _rb.AddForce(appliedForce);
+        var acceleration = moveDirection.x * currentSpeed / accelerateFrames;
+
+        var appliedSpeed = new float();
+        
+        if (_isWalking) appliedSpeed += acceleration; // hier klopt iets niet aan
+
+        var appliedForce = new Vector2(appliedSpeed, _rb.velocity.y);
+
+        _rb.velocity = appliedForce;
     }
     
     public void ActivateRoll()
     {
         if(isRolling || !_gc.IsGrounded || _lastMoveDirection.x == 0) return;
 
-        StartCoroutine(Roll(_lastMoveDirection.x));
+        // StartCoroutine(Roll(_lastMoveDirection.x));
     }
     
     IEnumerator Roll(float rollDirection)
@@ -93,6 +101,7 @@ public class PlayerBasicMovement : MonoBehaviour
 
         moveDirection = input;
 
+        _isWalking = moveDirection != Vector2.zero;
         if(moveDirection != Vector2.zero) _lastMoveDirection = moveDirection;
     }
 
