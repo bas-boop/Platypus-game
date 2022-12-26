@@ -10,7 +10,9 @@ public class PlayerBasicMovement : MonoBehaviour
     // private SpriteRenderer _sp;
 
     [Header("Value's")]
+    [SerializeField] private float currentSpeed;
     [SerializeField] private Vector2 moveDirection;
+    [SerializeField] private bool canMove = true;
 
     [Header("ATRIBUTES")]
     [SerializeField] private float deadzone;
@@ -26,12 +28,14 @@ public class PlayerBasicMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(!canMove) return;
+        
         Walking();
     }
 
     private void Walking()
     {
-        var currentSpeed = _gc.IsGrounded ? groundedSpeed : airedSpeed;
+        currentSpeed = _gc.IsGrounded ? groundedSpeed : airedSpeed;
         var appliedSpeed = moveDirection.x * currentSpeed;
         var appliedForce = new Vector2(appliedSpeed, 0);
 
@@ -45,5 +49,10 @@ public class PlayerBasicMovement : MonoBehaviour
         else input.x = 0;
 
         moveDirection = input;
+    }
+
+    public void ToggleCanMove(bool input)
+    {
+        canMove = input;
     }
 }
