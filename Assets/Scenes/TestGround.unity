@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0}
+  deadzone: 0.65
   groundedSpeed: 7.5
   airedSpeed: 5
 --- !u!50 &176707120
