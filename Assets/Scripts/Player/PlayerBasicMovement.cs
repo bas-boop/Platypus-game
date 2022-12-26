@@ -9,8 +9,8 @@ public class PlayerBasicMovement : MonoBehaviour
     private GroundChecker _gc;
     // private SpriteRenderer _sp;
 
-    private float _acceleration;
-    
+    private float _currentSpeed;
+
     private bool _canRoll;
     private bool _isWalking;
 
@@ -24,7 +24,7 @@ public class PlayerBasicMovement : MonoBehaviour
 
     [Header("ATRIBUTES")]
     [SerializeField] private float deadzone;
-    [SerializeField] private int accelerateFrames;
+    [SerializeField] private float accelerationTime;
     [SerializeField] private float groundedSpeed;
     [SerializeField] private float airedSpeed;
     [SerializeField] private float rollPower;
@@ -49,27 +49,20 @@ public class PlayerBasicMovement : MonoBehaviour
     private void Walking()
     {
         if(isRolling) return;
-        
+
         topSpeed = _gc.IsGrounded ? groundedSpeed : airedSpeed;
 
-        var step = 0;
-
-        while (_isWalking)
-        {
-            step++;
-            Debug.Log(step);
-            if(step > accelerateFrames) break;
-        }
+        var acceleration = topSpeed / accelerationTime;
         
-        var acceleration = topSpeed / accelerateFrames;
+        if(_currentSpeed < topSpeed) _currentSpeed += acceleration * Time.deltaTime;
+        else if (_currentSpeed > topSpeed) _currentSpeed = topSpeed;
 
-        var currentSpeed = topSpeed - (acceleration * step);
+        var velocity = _rb.velocity;
         
-        if (currentSpeed > topSpeed) currentSpeed = topSpeed;
-
-        var appliedForce = new Vector2(currentSpeed, _rb.velocity.y);
-        // Debug.Log("Acceleration: " + acceleration + " current speed: " + currentSpeed);
-        _rb.velocity = appliedForce;
+        var appliedForce = velocity.x =+ _currentSpeed * Time.deltaTime;
+        var appliedVelocity = new Vector2(appliedForce * moveDirection.x, velocity.y);
+        
+        _rb.velocity = appliedVelocity;
     }
     
     public void ActivateRoll()
@@ -113,7 +106,8 @@ public class PlayerBasicMovement : MonoBehaviour
         moveDirection = input;
 
         _isWalking = moveDirection != Vector2.zero;
-        if(moveDirection != Vector2.zero) _lastMoveDirection = moveDirection;
+        if (moveDirection != Vector2.zero) _lastMoveDirection = moveDirection;
+        else _currentSpeed = 0;
     }
 
     public void ToggleCanMove(bool input)
