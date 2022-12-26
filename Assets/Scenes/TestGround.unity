@@ -223,7 +223,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362767f84b6bcc14c865c98fe30262eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSpeed: 0
   moveDirection: {x: 0, y: 0}
+  canMove: 1
   deadzone: 0.65
   groundedSpeed: 7.5
   airedSpeed: 5
