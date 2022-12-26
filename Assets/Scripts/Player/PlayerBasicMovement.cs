@@ -12,6 +12,8 @@ public class PlayerBasicMovement : MonoBehaviour
     private float _currentSpeed;
     private float _accelerationSpeed;
     private float _decerationSpeed;
+    private float _moveDuration;
+    private float _maxSpeed;
 
     private bool _canRoll;
     private bool _isWalking;
@@ -41,6 +43,8 @@ public class PlayerBasicMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_moveDuration > 0) _maxSpeed = _rb.velocity.x;
+        
         if(!canMove) return;
         
         Walking();
@@ -57,17 +61,16 @@ public class PlayerBasicMovement : MonoBehaviour
         if(_accelerationSpeed < topSpeed) _accelerationSpeed += acceleration * Time.deltaTime;
         else if (_currentSpeed >= topSpeed) _currentSpeed = topSpeed;
 
-        _decerationSpeed = _currentSpeed;
-        if(_decerationSpeed > topSpeed) _decerationSpeed -= acceleration * Time.deltaTime;
-
         _currentSpeed = _isWalking ? _accelerationSpeed : _decerationSpeed;
-        // Debug.Log(_currentSpeed);
 
         var velocity = _rb.velocity;
         
         var moveForce = velocity.x =+ _currentSpeed * Time.deltaTime;
-        var appliedVelocity = new Vector2(moveForce * moveDirection.x, velocity.y);
+        var move = moveForce * moveDirection.x;
+        if (!_isWalking) move = _decerationSpeed;
         
+        var appliedVelocity = new Vector2(move, velocity.y);
+
         _rb.velocity = appliedVelocity;
     }
     
@@ -105,6 +108,8 @@ public class PlayerBasicMovement : MonoBehaviour
 
     public void SetMoveDirection(Vector2 input)
     {
+        _moveDuration += Time.deltaTime;
+        
         if (input.x > deadzone) input.x = 1;
         else if (input.x < -deadzone) input.x = -1;
         else input.x = 0;
@@ -113,7 +118,7 @@ public class PlayerBasicMovement : MonoBehaviour
 
         _isWalking = moveDirection != Vector2.zero;
 
-        if (moveDirection != Vector2.zero)_lastMoveDirection = moveDirection;
+        if (moveDirection != Vector2.zero) _lastMoveDirection = moveDirection;
         else _accelerationSpeed = 0;
     }
 
