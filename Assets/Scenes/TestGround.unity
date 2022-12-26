@@ -226,9 +226,12 @@ MonoBehaviour:
   currentSpeed: 0
   moveDirection: {x: 0, y: 0}
   canMove: 1
+  isRolling: 0
   deadzone: 0.65
   groundedSpeed: 7.5
   airedSpeed: 5
+  rollPower: 2.5
+  rollTime: 0.3
 --- !u!50 &176707120
 Rigidbody2D:
   serializedVersion: 4

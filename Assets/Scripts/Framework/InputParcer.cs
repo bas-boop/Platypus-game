@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class InputParcer : MonoBehaviour
     {
         _playerInput = GetComponent<PlayerInput>();
         _playerControlsActions = _playerInput.actions;
+        
+        _playerControlsActions["Roll"].performed += Roll;
     }
 
     private void FixedUpdate()
@@ -22,4 +25,16 @@ public class InputParcer : MonoBehaviour
         var moveInput = _playerControlsActions["Move"].ReadValue<Vector2>();
         playerMovement.SetMoveDirection(moveInput);
     }
+
+    private void OnDestroy()
+    {
+        RemoveListeners();
+    }
+
+    private void RemoveListeners()
+    {
+        _playerControlsActions["Roll"].performed -= Roll;
+    }
+
+    private void Roll(InputAction.CallbackContext context) => playerMovement.ActivateRoll();
 }

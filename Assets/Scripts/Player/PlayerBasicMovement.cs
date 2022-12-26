@@ -9,15 +9,22 @@ public class PlayerBasicMovement : MonoBehaviour
     private GroundChecker _gc;
     // private SpriteRenderer _sp;
 
+    private bool _canRoll;
+
+    private Vector2 _lastMoveDirection;
+
     [Header("Value's")]
     [SerializeField] private float currentSpeed;
     [SerializeField] private Vector2 moveDirection;
-    [SerializeField] private bool canMove = true;
+    [SerializeField] private bool canMove;
+    [SerializeField] private bool isRolling;
 
     [Header("ATRIBUTES")]
     [SerializeField] private float deadzone;
     [SerializeField] private float groundedSpeed;
     [SerializeField] private float airedSpeed;
+    [SerializeField] private float rollPower;
+    [SerializeField] private float rollTime;
 
     private void Awake()
     {
@@ -28,6 +35,8 @@ public class PlayerBasicMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log(_rb.velocity);
+
         if(!canMove) return;
         
         Walking();
@@ -35,6 +44,8 @@ public class PlayerBasicMovement : MonoBehaviour
 
     private void Walking()
     {
+        if(isRolling) return;
+        
         currentSpeed = _gc.IsGrounded ? groundedSpeed : airedSpeed;
         var appliedSpeed = moveDirection.x * currentSpeed;
         var appliedForce = new Vector2(appliedSpeed, 0);
@@ -42,6 +53,38 @@ public class PlayerBasicMovement : MonoBehaviour
         _rb.AddForce(appliedForce);
     }
     
+    public void ActivateRoll()
+    {
+        if(isRolling || !_gc.IsGrounded || _lastMoveDirection.x == 0) return;
+
+        StartCoroutine(Roll(_lastMoveDirection.x));
+    }
+    
+    IEnumerator Roll(float rollDirection)
+    {
+        ToggleCanMove(false);
+
+        var rollForce = Vector2.zero;
+        rollForce.x = rollDirection * rollPower / 100;
+        
+        var timer = rollTime;
+        while (timer > 0)
+        {
+            isRolling = true;
+            _rb.AddForce(rollForce, ForceMode2D.Impulse);
+
+            timer -= Time.deltaTime;
+        }
+
+        yield return new WaitForSeconds(rollTime);
+        
+        isRolling = false;
+        _rb.velocity = Vector2.zero;
+        ToggleCanMove(true);
+
+        yield return null;
+    }
+
     public void SetMoveDirection(Vector2 input)
     {
         if (input.x > deadzone) input.x = 1;
@@ -49,6 +92,8 @@ public class PlayerBasicMovement : MonoBehaviour
         else input.x = 0;
 
         moveDirection = input;
+
+        if(moveDirection != Vector2.zero) _lastMoveDirection = moveDirection;
     }
 
     public void ToggleCanMove(bool input)
