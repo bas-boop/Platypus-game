@@ -55,7 +55,7 @@ public class PlayerBasicMovement : MonoBehaviour
         var acceleration = topSpeed / accelerationTime;
         
         if(_currentSpeed < topSpeed) _currentSpeed += acceleration * Time.deltaTime;
-        else if (_currentSpeed > topSpeed) _currentSpeed = topSpeed;
+        else if (_currentSpeed >= topSpeed) _currentSpeed = topSpeed;
 
         var velocity = _rb.velocity;
         

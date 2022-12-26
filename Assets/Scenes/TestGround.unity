@@ -229,8 +229,8 @@ MonoBehaviour:
   isRolling: 0
   deadzone: 0.65
   accelerationTime: 0.6
-  groundedSpeed: 100
-  airedSpeed: 5
+  groundedSpeed: 125
+  airedSpeed: 75
   rollPower: 2.5
   rollTime: 0.3
 --- !u!50 &176707120
