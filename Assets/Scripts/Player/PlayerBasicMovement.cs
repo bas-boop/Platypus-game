@@ -8,32 +8,32 @@ public class PlayerBasicMovement : MonoBehaviour
     private Rigidbody2D _rb;
     private GroundChecker _gc;
     // private SpriteRenderer _sp;
-
-    private float _currentSpeed;
+    
     private float _accelerationSpeed;
-    private float _decerationSpeed;
-    private float _moveDuration;
-    private float _maxSpeed;
 
     private bool _canRoll;
     private bool _isWalking;
 
     private Vector2 _lastMoveDirection;
-
+    
     [Header("Read value's")]
     [SerializeField] private float topSpeed;
     [SerializeField] private Vector2 moveDirection;
     [SerializeField] private bool canMove;
     [SerializeField] private bool isRolling;
 
-    [Header("Stats")]
-    [SerializeField] private float deadzone;
-    [SerializeField] private float accelerationTime;
+    [Header("Walk")]
     [SerializeField] private float groundedSpeed;
     [SerializeField] private float airedSpeed;
+    [SerializeField] private float accelerationTime;
+    
+    [Header("Roll")]
     [SerializeField] private float rollPower;
     [SerializeField] private float rollTime;
 
+    [Header("Other")]
+    [SerializeField] private float deadzone;
+    
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -43,8 +43,6 @@ public class PlayerBasicMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_moveDuration > 0) _maxSpeed = _rb.velocity.x;
-        
         if(!canMove) return;
         
         Walking();
@@ -59,13 +57,11 @@ public class PlayerBasicMovement : MonoBehaviour
         var acceleration = topSpeed / accelerationTime;
 
         if(_accelerationSpeed < topSpeed) _accelerationSpeed += acceleration;
-        else if (_currentSpeed >= topSpeed) _currentSpeed = topSpeed;
-
-        _currentSpeed = _isWalking ? _accelerationSpeed : _decerationSpeed;
+        else if (_accelerationSpeed >= topSpeed) _accelerationSpeed = topSpeed;
 
         var velocity = _rb.velocity;
         
-        var moveForce = velocity.x =+ _currentSpeed;
+        var moveForce = velocity.x =+ _accelerationSpeed;
         var move = moveForce * moveDirection.x;
 
         var appliedVelocity = new Vector2(move, velocity.y);
@@ -86,7 +82,7 @@ public class PlayerBasicMovement : MonoBehaviour
     {
         if(isRolling || !_gc.IsGrounded || _lastMoveDirection.x == 0) return;
 
-        // StartCoroutine(Roll(_lastMoveDirection.x));
+        StartCoroutine(Roll(_lastMoveDirection.x));
     }
     
     IEnumerator Roll(float rollDirection)
@@ -94,13 +90,13 @@ public class PlayerBasicMovement : MonoBehaviour
         ToggleCanMove(false);
 
         var rollForce = Vector2.zero;
-        rollForce.x = rollDirection * rollPower / 100;
+        rollForce.x = rollDirection * rollPower;
         
         var timer = rollTime;
         while (timer > 0)
         {
             isRolling = true;
-            _rb.AddForce(rollForce, ForceMode2D.Impulse);
+            _rb.velocity = rollForce;
 
             timer -= Time.deltaTime;
         }
@@ -116,8 +112,6 @@ public class PlayerBasicMovement : MonoBehaviour
 
     public void SetMoveDirection(Vector2 input)
     {
-        _moveDuration += Time.deltaTime;
-        
         if (input.x > deadzone) input.x = 1;
         else if (input.x < -deadzone) input.x = -1;
         else input.x = 0;
