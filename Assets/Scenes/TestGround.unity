@@ -229,8 +229,8 @@ MonoBehaviour:
   isRolling: 0
   deadzone: 0.65
   accelerationTime: 0.6
-  groundedSpeed: 125
-  airedSpeed: 75
+  groundedSpeed: 7.5
+  airedSpeed: 5
   rollPower: 2.5
   rollTime: 0.3
 --- !u!50 &176707120
@@ -253,7 +253,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &176707121
 BoxCollider2D:
   m_ObjectHideFlags: 0

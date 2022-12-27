@@ -58,19 +58,24 @@ public class PlayerBasicMovement : MonoBehaviour
         
         var acceleration = topSpeed / accelerationTime;
 
-        if(_accelerationSpeed < topSpeed) _accelerationSpeed += acceleration * Time.deltaTime;
+        if(_accelerationSpeed < topSpeed) _accelerationSpeed += acceleration;
         else if (_currentSpeed >= topSpeed) _currentSpeed = topSpeed;
 
+        /*_decerationSpeed = _currentSpeed;
+        if(_decerationSpeed > topSpeed) _decerationSpeed -= acceleration;*/
+        
         _currentSpeed = _isWalking ? _accelerationSpeed : _decerationSpeed;
 
         var velocity = _rb.velocity;
         
-        var moveForce = velocity.x =+ _currentSpeed * Time.deltaTime;
+        var moveForce = velocity.x =+ _currentSpeed;
         var move = moveForce * moveDirection.x;
-        if (!_isWalking) move = _decerationSpeed;
+        // if (!_isWalking) move = _decerationSpeed;
         
         var appliedVelocity = new Vector2(move, velocity.y);
-
+        
+        // Debug.Log(appliedVelocity);
+        
         _rb.velocity = appliedVelocity;
     }
     
