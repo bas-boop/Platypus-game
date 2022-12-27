@@ -61,24 +61,27 @@ public class PlayerBasicMovement : MonoBehaviour
         if(_accelerationSpeed < topSpeed) _accelerationSpeed += acceleration;
         else if (_currentSpeed >= topSpeed) _currentSpeed = topSpeed;
 
-        /*_decerationSpeed = _currentSpeed;
-        if(_decerationSpeed > topSpeed) _decerationSpeed -= acceleration;*/
-        
         _currentSpeed = _isWalking ? _accelerationSpeed : _decerationSpeed;
 
         var velocity = _rb.velocity;
         
         var moveForce = velocity.x =+ _currentSpeed;
         var move = moveForce * moveDirection.x;
-        // if (!_isWalking) move = _decerationSpeed;
-        
+
         var appliedVelocity = new Vector2(move, velocity.y);
-        
-        // Debug.Log(appliedVelocity);
-        
+
         _rb.velocity = appliedVelocity;
+        
+        // Decelerate(move);
     }
-    
+
+    private void Decelerate(float power)
+    {
+        var multiplier = 100f;
+        var decelForce = new Vector2(power * multiplier, 0);
+        if (moveDirection.x == 0){ _rb.AddForce(decelForce, ForceMode2D.Impulse);}
+    }
+
     public void ActivateRoll()
     {
         if(isRolling || !_gc.IsGrounded || _lastMoveDirection.x == 0) return;
