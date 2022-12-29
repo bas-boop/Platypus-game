@@ -5,7 +5,6 @@ public class PlayerBasicMovement : MonoBehaviour
 {
     private Rigidbody2D _rb;
     private GroundChecker _gc;
-    // private SpriteRenderer _sp;
 
     private float _gravity;
     private float _accelerationSpeed;
@@ -38,7 +37,6 @@ public class PlayerBasicMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _gc = GetComponent<GroundChecker>();
-        // _sp = GetComponent<SpriteRenderer>(); 
     }
 
     private void FixedUpdate()
