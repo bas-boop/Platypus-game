@@ -24,11 +24,6 @@ public class InputParcer : MonoBehaviour
     {
         var moveInput = _playerControlsActions["Move"].ReadValue<Vector2>();
         playerMovement.SetMoveDirection(moveInput);
-
-        if (!dashAbillity.isDashing) return;
-
-        var mousePos = _playerControlsActions["MousePosition"].ReadValue<Vector2>();
-        dashAbillity.SetMousePos(mousePos);
     }
 
     private void OnDestroy()
