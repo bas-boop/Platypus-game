@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(GroundChecker))]
 public class DashAbillity : MonoBehaviour
 {
     private Rigidbody2D _rb;

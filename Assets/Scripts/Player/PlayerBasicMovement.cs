@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(GroundChecker))]
 public class PlayerBasicMovement : MonoBehaviour
 {
     private Rigidbody2D _rb;
