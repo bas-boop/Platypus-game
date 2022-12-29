@@ -9,12 +9,15 @@ public class InputParcer : MonoBehaviour
 
     [Header("Scripts")] 
     [SerializeField] private PlayerBasicMovement playerMovement;
+    [SerializeField] private DashAbillity dashAbillity;
+    
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
         _playerControlsActions = _playerInput.actions;
         
         _playerControlsActions["Roll"].performed += Roll;
+        _playerControlsActions["Dash"].performed += Dash;
     }
 
     private void FixedUpdate()
@@ -31,7 +34,9 @@ public class InputParcer : MonoBehaviour
     public void RemoveListeners()
     {
         _playerControlsActions["Roll"].performed -= Roll;
+        _playerControlsActions["Dash"].performed -= Dash;
     }
 
     private void Roll(InputAction.CallbackContext context) => playerMovement.ActivateRoll();
+    private void Dash(InputAction.CallbackContext context) => dashAbillity.ActivateDash();
 }

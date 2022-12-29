@@ -5,11 +5,12 @@ public class PlayerBasicMovement : MonoBehaviour
 {
     private Rigidbody2D _rb;
     private GroundChecker _gc;
-    // private SpriteRenderer _sp;
-    
+
+    private float _gravity;
     private float _accelerationSpeed;
     
     private bool _isWalking;
+    private bool _isDecelerating;
 
     private Vector2 _lastMoveDirection;
     
@@ -23,6 +24,7 @@ public class PlayerBasicMovement : MonoBehaviour
     [SerializeField] private float groundedSpeed;
     [SerializeField] private float airedSpeed;
     [SerializeField] private float accelerationTime;
+    [SerializeField] private float decelerationStrength;
     
     [Header("Roll")]
     [SerializeField] private float rollPower;
@@ -35,14 +37,15 @@ public class PlayerBasicMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _gc = GetComponent<GroundChecker>();
-        // _sp = GetComponent<SpriteRenderer>(); 
     }
 
     private void FixedUpdate()
     {
+        _gravity = _rb.velocity.y;
+        
         if(!canMove) return;
         
-        Walking();
+        if(_isWalking) Walking();
     }
 
     private void Walking()
@@ -61,18 +64,22 @@ public class PlayerBasicMovement : MonoBehaviour
         var moveForce = velocity.x =+ _accelerationSpeed;
         var move = moveForce * moveDirection.x;
 
-        var appliedVelocity = new Vector2(move, velocity.y);
+        var appliedVelocity = new Vector2(move, _gravity);
 
         _rb.velocity = appliedVelocity;
-        
-        // Decelerate(move);
+        _isDecelerating = false;
     }
 
-    private void Decelerate(float power)
+    private void Decelerate()
     {
-        var multiplier = 100f;
-        var decelForce = new Vector2(power * multiplier, 0);
-        if (moveDirection.x == 0){ _rb.AddForce(decelForce, ForceMode2D.Impulse);}
+        _accelerationSpeed = 0;
+        
+        if(_isDecelerating) return;
+
+        var resetVelocity = new Vector2(decelerationStrength * _lastMoveDirection.x, _gravity);
+        _rb.velocity = resetVelocity;
+
+        _isDecelerating = true;
     }
 
     public void ActivateRoll()
@@ -118,13 +125,17 @@ public class PlayerBasicMovement : MonoBehaviour
         if (input.x > deadzone) input.x = 1;
         else if (input.x < -deadzone) input.x = -1;
         else input.x = 0;
+        
+        if (input.y > deadzone) input.y = 1;
+        else if (input.y < -deadzone) input.y = -1;
+        else input.y = 0;
 
         moveDirection = input;
 
         _isWalking = moveDirection != Vector2.zero;
 
-        if (moveDirection != Vector2.zero) _lastMoveDirection = moveDirection;
-        else _accelerationSpeed = 0;
+        if (moveDirection != Vector2.zero) _lastMoveDirection.x = moveDirection.x;
+        else Decelerate();
     }
 
     public void ToggleCanMove(bool input)
