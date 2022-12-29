@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Processors;
@@ -31,7 +28,7 @@ public class InputParcer : MonoBehaviour
         RemoveListeners();
     }
 
-    private void RemoveListeners()
+    public void RemoveListeners()
     {
         _playerControlsActions["Roll"].performed -= Roll;
     }
