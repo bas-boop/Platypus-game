@@ -13,8 +13,8 @@ public class DashAbillity : MonoBehaviour
     private Vector2 _mouseWorldPosition;
     // private Vector2 _stickDirection;
     
-    public bool isDashing;
-
+    private bool _isDashing;
+    
     [SerializeField] private float dashPower;
 
     private void Awake()
@@ -27,25 +27,22 @@ public class DashAbillity : MonoBehaviour
 
     public void ActivateDash()
     {
-        if(isDashing) return;
-        
-        isDashing = true;
+        if(_isDashing) return;
+        _isDashing = true;
 
         _mouseWorldPosition = SetMousePos();
-        // _stickDirection = SetDashDirection();
-        
         Dash();
         
-        isDashing = false;
+        _isDashing = false;
     }
 
     private void Dash()
     {
         var currentPos = new Vector2(transform.position.x, transform.position.y);
 
-        var yes = _mouseWorldPosition - currentPos;
+        var dashDirection = _mouseWorldPosition - currentPos;
 
-        _rb.AddForce(yes * dashPower, ForceMode2D.Impulse);
+        _rb.AddForce(dashDirection * dashPower, ForceMode2D.Impulse);
     }
     
     private Vector2 SetMousePos()
