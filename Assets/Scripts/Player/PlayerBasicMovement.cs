@@ -81,6 +81,12 @@ public class PlayerBasicMovement : MonoBehaviour
 
         StartCoroutine(Roll(_lastMoveDirection.x));
     }
+
+    public void CancelRoll()
+    {
+        StopCoroutine(Roll(_lastMoveDirection.x));
+        isRolling = false;
+    }
     
     IEnumerator Roll(float rollDirection)
     {
