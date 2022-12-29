@@ -231,6 +231,7 @@ MonoBehaviour:
   groundedSpeed: 7.5
   airedSpeed: 5
   accelerationTime: 0.6
+  decelerationStrength: 3.25
   rollPower: 15
   rollTime: 0.3
   deadzone: 0.65
