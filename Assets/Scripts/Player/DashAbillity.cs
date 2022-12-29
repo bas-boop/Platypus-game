@@ -11,6 +11,7 @@ public class DashAbillity : MonoBehaviour
     private InputActionAsset _playerControlsActions;
     
     private Vector2 _mouseWorldPosition;
+    // private Vector2 _stickDirection;
     
     public bool isDashing;
 
@@ -30,7 +31,9 @@ public class DashAbillity : MonoBehaviour
         
         isDashing = true;
 
-        SetMousePos();
+        _mouseWorldPosition = SetMousePos();
+        // _stickDirection = SetDashDirection();
+        
         Dash();
         
         isDashing = false;
@@ -42,14 +45,17 @@ public class DashAbillity : MonoBehaviour
 
         var yes = _mouseWorldPosition - currentPos;
 
-        Debug.Log(yes);
-
         _rb.AddForce(yes * dashPower, ForceMode2D.Impulse);
     }
     
-    private void SetMousePos()
+    private Vector2 SetMousePos()
     {
         var mousePos = _playerControlsActions["MousePosition"].ReadValue<Vector2>();
-        _mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Mathf.Abs(Camera.main.transform.position.z)));
+        return Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Mathf.Abs(Camera.main.transform.position.z)));
+    }
+
+    private Vector2 SetDashDirection()
+    {
+        return _playerControlsActions["Move"].ReadValue<Vector2>();
     }
 }

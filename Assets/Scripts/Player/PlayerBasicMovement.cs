@@ -112,12 +112,16 @@ public class PlayerBasicMovement : MonoBehaviour
         if (input.x > deadzone) input.x = 1;
         else if (input.x < -deadzone) input.x = -1;
         else input.x = 0;
+        
+        if (input.y > deadzone) input.y = 1;
+        else if (input.y < -deadzone) input.y = -1;
+        else input.y = 0;
 
         moveDirection = input;
 
         _isWalking = moveDirection != Vector2.zero;
 
-        if (moveDirection != Vector2.zero) _lastMoveDirection = moveDirection;
+        if (moveDirection != Vector2.zero) _lastMoveDirection.x = moveDirection.x;
         else _accelerationSpeed = 0;
     }
 
