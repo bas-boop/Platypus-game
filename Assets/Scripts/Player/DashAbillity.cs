@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class DashAbillity : MonoBehaviour
 {
+    private Rigidbody2D _rb;
     private PlayerInput _playerInput;
     private InputActionAsset _playerControlsActions;
     
@@ -13,14 +14,20 @@ public class DashAbillity : MonoBehaviour
     
     public bool isDashing;
 
+    [SerializeField] private float dashPower;
+
     private void Awake()
     {
+        _rb = GetComponent<Rigidbody2D>();
+        
         _playerInput = GetComponent<PlayerInput>();
         _playerControlsActions = _playerInput.actions;
     }
 
     public void ActivateDash()
     {
+        if(isDashing) return;
+        
         isDashing = true;
 
         SetMousePos();
@@ -31,7 +38,13 @@ public class DashAbillity : MonoBehaviour
 
     private void Dash()
     {
-        transform.position = _mouseWorldPosition;
+        var currentPos = new Vector2(transform.position.x, transform.position.y);
+
+        var yes = _mouseWorldPosition - currentPos;
+
+        Debug.Log(yes);
+
+        _rb.AddForce(yes * dashPower, ForceMode2D.Impulse);
     }
     
     private void SetMousePos()

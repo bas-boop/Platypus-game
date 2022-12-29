@@ -34,6 +34,7 @@ public class InputParcer : MonoBehaviour
     public void RemoveListeners()
     {
         _playerControlsActions["Roll"].performed -= Roll;
+        _playerControlsActions["Dash"].performed -= Dash;
     }
 
     private void Roll(InputAction.CallbackContext context) => playerMovement.ActivateRoll();

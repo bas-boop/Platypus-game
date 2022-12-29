@@ -42,7 +42,7 @@ public class PlayerBasicMovement : MonoBehaviour
     {
         if(!canMove) return;
         
-        Walking();
+        if(_isWalking) Walking();
     }
 
     private void Walking()
