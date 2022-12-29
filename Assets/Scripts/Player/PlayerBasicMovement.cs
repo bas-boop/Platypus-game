@@ -10,8 +10,7 @@ public class PlayerBasicMovement : MonoBehaviour
     // private SpriteRenderer _sp;
     
     private float _accelerationSpeed;
-
-    private bool _canRoll;
+    
     private bool _isWalking;
 
     private Vector2 _lastMoveDirection;
