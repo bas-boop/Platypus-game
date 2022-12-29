@@ -10,6 +10,7 @@ public class InputParcer : MonoBehaviour
     [Header("Scripts")] 
     [SerializeField] private PlayerBasicMovement playerMovement;
     [SerializeField] private DashAbillity dashAbillity;
+    [SerializeField] private Smack smack;
     
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class InputParcer : MonoBehaviour
         
         _playerControlsActions["Roll"].performed += Roll;
         _playerControlsActions["Dash"].performed += Dash;
+        _playerControlsActions["Smack"].performed += Smack;
     }
 
     private void FixedUpdate()
@@ -39,4 +41,5 @@ public class InputParcer : MonoBehaviour
 
     private void Roll(InputAction.CallbackContext context) => playerMovement.ActivateRoll();
     private void Dash(InputAction.CallbackContext context) => dashAbillity.ActivateDash();
+    private void Smack(InputAction.CallbackContext context) => smack.ActivateSmack();
 }
