@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,7 @@ public class DashAbillity : MonoBehaviour
     
     [Header("Value")]
     [SerializeField] private float dashPower;
+    [SerializeField] private float dashTime; //todo: kijk frame voor frame hoeveel seconde het is.
 
     [Header("threshold's")]
     [SerializeField] private float minY;
@@ -37,8 +39,6 @@ public class DashAbillity : MonoBehaviour
         
         _mouseWorldPosition = SetMousePos();
         Dash();
-        
-        _isDashing = false;
     }
 
     private void Dash()
@@ -50,6 +50,15 @@ public class DashAbillity : MonoBehaviour
         if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x) return;
         
         _rb.AddForce(dashDirection * dashPower, ForceMode2D.Impulse);
+
+        StartCoroutine(DashHasEnded());
+    }
+
+    IEnumerator DashHasEnded()
+    {
+        yield return new WaitForSeconds(dashTime);
+        _isDashing = false;
+        yield return null;
     }
     
     private Vector2 SetMousePos()
@@ -61,5 +70,11 @@ public class DashAbillity : MonoBehaviour
     private Vector2 SetDashDirection()
     {
         return _playerControlsActions["Move"].ReadValue<Vector2>();
+    }
+    
+    public bool IsDashing
+    {
+        get => _isDashing;
+        private set => _isDashing = value;
     }
 }

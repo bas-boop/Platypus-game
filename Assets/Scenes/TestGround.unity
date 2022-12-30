@@ -359,6 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashPower: 1.5
+  dashTime: 2.7
   minY: 0
   longDistance: {x: 0, y: 0}
 --- !u!114 &176707126
