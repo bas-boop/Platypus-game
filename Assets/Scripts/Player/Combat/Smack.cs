@@ -9,6 +9,8 @@ public class Smack : MonoBehaviour
     
     private bool _isSmacking;
 
+    private Vector2 _gizmoPosition;// temp
+
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Vector2 offset;
     [SerializeField] private float hitRadius;
@@ -29,19 +31,25 @@ public class Smack : MonoBehaviour
     private void Smacking()
     {
         var currentPos = new Vector2(transform.position.x, transform.position.y);
-        offset = new Vector2(offset.x *= _pbm.LastMoveDirection.x, offset.y);
+        offset = new Vector2(Mathf.Abs(offset.x) * _pbm.LastMoveDirection.x, offset.y);
         
         var trueOffset = currentPos + offset;
-        Debug.Log(trueOffset);
+
+        _gizmoPosition = trueOffset; // temp
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(trueOffset, hitRadius, enemyLayer);
         if (hitColliders == null) return;
-
-        foreach (var enemies in hitColliders)
+        
+        for (int i = 0; i < hitColliders.Length; i++)
         {
-            enemies.GetComponent<TestSmackObject>().GotHit();
+            hitColliders[i].GetComponent<TestSmackObject>().GotHit();
         }
 
         _isSmacking = false;
+    }
+
+    private void OnDrawGizmos()// temp
+    {
+        Gizmos.DrawSphere(_gizmoPosition, hitRadius);
     }
 }
