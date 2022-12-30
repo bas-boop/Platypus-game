@@ -373,6 +373,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80de4b0f8fe82d429382f8bb27337fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  offset: {x: 1, y: 0}
+  hitRadius: 1
 --- !u!1 &212183927
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,6 +908,7 @@ GameObject:
   - component: {fileID: 2136738142}
   - component: {fileID: 2136738141}
   - component: {fileID: 2136738143}
+  - component: {fileID: 2136738144}
   m_Layer: 6
   m_Name: smack-test-object
   m_TagString: Untagged
@@ -1027,3 +1033,15 @@ PolygonCollider2D:
       - {x: 0.265625, y: -0.4375}
       - {x: 0.29296875, y: -0.390625}
       - {x: 0.30859375, y: -0.36328125}
+--- !u!114 &2136738144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136738140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597ced1ac8819d04ca6be6a416c2a145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

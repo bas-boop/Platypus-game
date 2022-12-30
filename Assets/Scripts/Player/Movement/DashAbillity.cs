@@ -45,9 +45,7 @@ public class DashAbillity : MonoBehaviour
     {
         var currentPos = new Vector2(transform.position.x, transform.position.y);
         var dashDirection = _mouseWorldPosition - currentPos;
-        
-        Debug.Log(dashDirection);
-        
+
         if(dashDirection.y < minY) return;
         if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x) return;
         
