@@ -6,7 +6,7 @@ using UnityEngine;
 public class Smack : MonoBehaviour
 {
     private PlayerBasicMovement _pbm;
-    
+
     private bool _isSmacking;
 
     private Vector2 _gizmoPosition;// temp
@@ -22,7 +22,7 @@ public class Smack : MonoBehaviour
 
     public void ActivateSmack()
     {
-        if (_isSmacking) return;
+        if (_isSmacking || _pbm.IsRolling) return;
         _isSmacking = true;
         
         Smacking();

@@ -150,4 +150,10 @@ public class PlayerBasicMovement : MonoBehaviour
         get => _lastMoveDirection;
         private set => _lastMoveDirection = value;
     }
+    
+    public bool IsRolling
+    {
+        get => isRolling;
+        private set => isRolling = value;
+    }
 }
