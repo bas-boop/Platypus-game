@@ -7,6 +7,7 @@ public class PlayerBasicMovement : MonoBehaviour
 {
     private Rigidbody2D _rb;
     private GroundChecker _gc;
+    private DashAbillity _da;
 
     private float _gravity;
     private float _accelerationSpeed;
@@ -39,6 +40,7 @@ public class PlayerBasicMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _gc = GetComponent<GroundChecker>();
+        _da = GetComponent<DashAbillity>();
     }
 
     private void FixedUpdate()
@@ -116,7 +118,7 @@ public class PlayerBasicMovement : MonoBehaviour
         yield return new WaitForSeconds(rollTime);
         
         isRolling = false;
-        _rb.velocity = Vector2.zero;
+        if (!_da.IsDashing) _rb.velocity = Vector2.zero;
         ToggleCanMove(true);
 
         yield return null;
