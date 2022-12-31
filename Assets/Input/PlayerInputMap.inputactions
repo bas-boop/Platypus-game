@@ -38,6 +38,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Smack",
+                    "type": "Button",
+                    "id": "6532658f-f49d-4897-9db1-8325e730e754",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "RightStick",
                     "type": "Value",
                     "id": "64790383-5125-45fc-b0f9-3b47d0cf76b6",
@@ -231,6 +239,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "RightStick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ff7d6413-6d06-45f6-a261-98f000d067a3",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Smack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

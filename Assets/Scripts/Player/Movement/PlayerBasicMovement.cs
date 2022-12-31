@@ -144,4 +144,16 @@ public class PlayerBasicMovement : MonoBehaviour
     {
         canMove = input;
     }
+
+    public Vector2 LastMoveDirection
+    {
+        get => _lastMoveDirection;
+        private set => _lastMoveDirection = value;
+    }
+    
+    public bool IsRolling
+    {
+        get => isRolling;
+        private set => isRolling = value;
+    }
 }
