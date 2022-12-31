@@ -6,10 +6,7 @@ public class TestSmackObject : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer sprite;
 
-    public void GotHit()
-    {
-        StartCoroutine(ColorChange());
-    }
+    public void GotHit() => StartCoroutine(ColorChange());
 
     IEnumerator ColorChange()
     {
