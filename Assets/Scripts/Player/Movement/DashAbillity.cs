@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +19,7 @@ public class DashAbillity : MonoBehaviour
     
     [Header("Value")]
     [SerializeField] private float dashPower;
+    [SerializeField] private float dashTime;
 
     [Header("threshold's")]
     [SerializeField] private float minY;
@@ -64,6 +68,7 @@ public class DashAbillity : MonoBehaviour
     public void SetIsDashing(bool input)
     {
         _isDashing = input;
+        Debug.Log(_isDashing);
     }
     
     public bool IsDashing

@@ -3,6 +3,9 @@ using UnityEngine.Events;
 
 public class GroundChecker : MonoBehaviour
 {
+    private bool _isOnGround;
+    private bool _leavesGround;
+    
     [SerializeField] private bool isGrounded;
     [SerializeField] private float rayDistance;
     [SerializeField] private LayerMask whatIsGround;
@@ -21,8 +24,19 @@ public class GroundChecker : MonoBehaviour
     {
         var origin = transform.position + new Vector3(offSet.x, offSet.y, 0);
         isGrounded = Physics2D.Raycast(origin, Vector2.down, rayDistance, whatIsGround);
-        
-        if (isGrounded) onGroundEnter?.Invoke();
-        else onGroundLeave?.Invoke();
+
+        if (!isGrounded) _isOnGround = false;
+        if (isGrounded) _leavesGround = false;
+
+        if (isGrounded && !_isOnGround)
+        {
+            onGroundEnter?.Invoke();
+            _isOnGround = true;
+        }
+        else if (isGrounded && !_leavesGround)
+        {
+            onGroundLeave?.Invoke();
+            _leavesGround = true;
+        }
     }
 }
