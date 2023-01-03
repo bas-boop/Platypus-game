@@ -52,6 +52,15 @@ public class DashAbillity : MonoBehaviour
         if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x) return;
         
         _rb.AddForce(dashDirection * dashPower, ForceMode2D.Impulse);
+        
+        StartCoroutine(DashHasEnded());
+    }
+    
+    IEnumerator DashHasEnded()
+    {
+        yield return new WaitForSeconds(dashTime);
+        _isDashing = false;
+        yield return null;
     }
 
     private Vector2 SetMousePos()
@@ -65,12 +74,8 @@ public class DashAbillity : MonoBehaviour
         return _playerControlsActions["Move"].ReadValue<Vector2>();
     }
 
-    public void SetIsDashing(bool input)
-    {
-        _isDashing = input;
-        Debug.Log(_isDashing);
-    }
-    
+    public void SetIsDashing(bool input) => _isDashing = input;
+
     public bool IsDashing
     {
         get => _isDashing;

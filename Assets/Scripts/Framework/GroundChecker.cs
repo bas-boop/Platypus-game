@@ -28,15 +28,16 @@ public class GroundChecker : MonoBehaviour
         if (!isGrounded) _isOnGround = false;
         if (isGrounded) _leavesGround = false;
 
-        if (isGrounded && !_isOnGround)
+        switch (isGrounded)
         {
-            onGroundEnter?.Invoke();
-            _isOnGround = true;
-        }
-        else if (isGrounded && !_leavesGround)
-        {
-            onGroundLeave?.Invoke();
-            _leavesGround = true;
+            case true when !_isOnGround:
+                onGroundEnter?.Invoke();
+                _isOnGround = true;
+                break;
+            case true when !_leavesGround:
+                onGroundLeave?.Invoke();
+                _leavesGround = true;
+                break;
         }
     }
 }
