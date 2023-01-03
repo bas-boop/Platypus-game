@@ -49,7 +49,7 @@ public class PlayerBasicMovement : MonoBehaviour
         
         if(!canMove) return;
         
-        if(_isWalking) Walking();
+        if(_isWalking && !_da.IsDashing) Walking();
     }
 
     private void Walking()
