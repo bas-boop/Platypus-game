@@ -346,6 +346,24 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   offSet: {x: 0, y: 0}
+  onGroundEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 176707125}
+        m_TargetAssemblyTypeName: DashAbillity, Assembly-CSharp
+        m_MethodName: SetIsDashing
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onGroundLeave:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &176707125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,9 +377,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashPower: 1.5
-  dashTime: 2.7
-  minY: 0
-  longDistance: {x: 0, y: 0}
+  minY: 1
+  longDistance: {x: 5, y: 2}
 --- !u!114 &176707126
 MonoBehaviour:
   m_ObjectHideFlags: 0
