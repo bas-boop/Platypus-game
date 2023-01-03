@@ -8,7 +8,7 @@ public class GroundChecker : MonoBehaviour
     
     [SerializeField] private bool isGrounded;
     [SerializeField] private float rayDistance;
-    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private LayerMask thisIsGround;
     [SerializeField] private Vector2 offSet;
 
     [SerializeField] private UnityEvent onGroundEnter = new UnityEvent();
@@ -23,7 +23,7 @@ public class GroundChecker : MonoBehaviour
     private void FixedUpdate()
     {
         var origin = transform.position + new Vector3(offSet.x, offSet.y, 0);
-        isGrounded = Physics2D.Raycast(origin, Vector2.down, rayDistance, whatIsGround);
+        isGrounded = Physics2D.Raycast(origin, Vector2.down, rayDistance, thisIsGround);
 
         if (!isGrounded) _isOnGround = false;
         if (isGrounded) _leavesGround = false;
