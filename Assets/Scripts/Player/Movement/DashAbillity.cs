@@ -16,7 +16,7 @@ public class DashAbillity : MonoBehaviour
     private bool _isDashing;
     
     [Header("Value")]
-    [SerializeField] private float dashPower;
+    [SerializeField] private float dashForcePower;
     [SerializeField] private float dashTime;
 
     [Header("threshold's")]
@@ -49,7 +49,7 @@ public class DashAbillity : MonoBehaviour
         if(dashDirection.y < minY) return;
         if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x) return;
         
-        _rb.AddForce(dashDirection * dashPower, ForceMode2D.Impulse);
+        _rb.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
         
         StartCoroutine(DashHasEnded());
     }
