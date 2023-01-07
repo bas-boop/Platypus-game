@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,7 +16,8 @@ public class DashAbillity : MonoBehaviour
     private bool _isDashing;
     
     [Header("Value")]
-    [SerializeField] private float dashPower;
+    [SerializeField] private float dashForcePower;
+    [SerializeField] private float dashTime;
 
     [Header("threshold's")]
     [SerializeField] private float minY;
@@ -47,7 +49,16 @@ public class DashAbillity : MonoBehaviour
         if(dashDirection.y < minY) return;
         if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x) return;
         
-        _rb.AddForce(dashDirection * dashPower, ForceMode2D.Impulse);
+        _rb.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
+        
+        StartCoroutine(DashHasEnded());
+    }
+    
+    IEnumerator DashHasEnded()
+    {
+        yield return new WaitForSeconds(dashTime);
+        _isDashing = false;
+        yield return null;
     }
 
     private Vector2 SetMousePos()
@@ -61,11 +72,8 @@ public class DashAbillity : MonoBehaviour
         return _playerControlsActions["Move"].ReadValue<Vector2>();
     }
 
-    public void SetIsDashing(bool input)
-    {
-        _isDashing = input;
-    }
-    
+    public void SetIsDashing(bool input) => _isDashing = input;
+
     public bool IsDashing
     {
         get => _isDashing;

@@ -429,7 +429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGrounded: 0
   rayDistance: 1
-  whatIsGround:
+  thisIsGround:
     serializedVersion: 2
     m_Bits: 8
   offSet: {x: 0, y: 0}
@@ -463,7 +463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc8fdb429faa2045b7bec2da408f062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashPower: 1.5
+  dashForcePower: 1.5
+  dashTime: 0.8
   minY: 1
   longDistance: {x: 5, y: 2}
 --- !u!114 &176707126
