@@ -151,8 +151,8 @@ MonoBehaviour:
   isRolling: 0
   groundedSpeed: 7.5
   airedSpeed: 5
-  accelerationTime: 0.6
-  decelerationStrength: 3.25
+  accelerationTime: 0.3
+  decelerationStrength: 2
   rollPower: 15
   rollTime: 0.3
   deadzone: 0.65
@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d367a936a9c4b14283d60462d446f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 3614955163935981306}
   isGrounded: 0
   rayDistance: 1
   thisIsGround:
@@ -204,6 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc8fdb429faa2045b7bec2da408f062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 3614955163935981306}
   dashForcePower: 1.5
   dashTime: 0.8
   minY: 1
@@ -220,6 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80de4b0f8fe82d429382f8bb27337fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 3614955163935981306}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64

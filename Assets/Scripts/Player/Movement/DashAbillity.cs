@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(GroundChecker))]
 public class DashAbillity : MonoBehaviour
 {
+    [Header("Refrence's")]
+    [SerializeField] private Animator animator;
     private Rigidbody2D _rb;
     private GroundChecker _gc;
     private PlayerInput _playerInput;
@@ -37,8 +39,26 @@ public class DashAbillity : MonoBehaviour
         if(_isDashing || !_gc.IsGrounded) return;
         _isDashing = true;
         
+        
+        
         _mouseWorldPosition = SetMousePos();
+        StartCoroutine(StartDash());
+    }
+    
+    IEnumerator StartDash()
+    {
+        animator.SetBool("IsDashing", true);
+        
+        yield return new WaitForSeconds(0.35f);
+        
         Dash();
+        
+        yield return new WaitForSeconds(dashTime);
+
+        _isDashing = false;
+        animator.SetBool("IsDashing", false);
+        
+        yield return null;
     }
 
     private void Dash()
@@ -50,15 +70,6 @@ public class DashAbillity : MonoBehaviour
         if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x) return;
         
         _rb.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
-        
-        StartCoroutine(DashHasEnded());
-    }
-    
-    IEnumerator DashHasEnded()
-    {
-        yield return new WaitForSeconds(dashTime);
-        _isDashing = false;
-        yield return null;
     }
 
     private Vector2 SetMousePos()
