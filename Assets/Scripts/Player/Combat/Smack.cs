@@ -1,7 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 public class Smack : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
     private PlayerBasicMovement _pbm;
 
     private bool _isSmacking;
@@ -18,9 +20,20 @@ public class Smack : MonoBehaviour
     public void ActivateSmack()
     {
         if (_isSmacking || _pbm.IsRolling) return;
+        
         _isSmacking = true;
+        animator.SetBool("IsSmacking", true);
+        
+        StartCoroutine(StartSmack());
+    }
+    
+    IEnumerator StartSmack()
+    {
+        yield return new WaitForSeconds(0.2f);
         
         Smacking();
+        
+        yield return null;
     }
 
     private void Smacking()
@@ -39,5 +52,6 @@ public class Smack : MonoBehaviour
         }
 
         _isSmacking = false;
+        animator.SetBool("IsSmacking", false);
     }
 }

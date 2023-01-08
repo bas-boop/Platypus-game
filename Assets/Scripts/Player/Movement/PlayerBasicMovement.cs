@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(GroundChecker))]
 public class PlayerBasicMovement : MonoBehaviour
 {
+    [Header("Refrence's")]
+    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private Animator animator;
     private Rigidbody2D _rb;
     private GroundChecker _gc;
     private DashAbillity _da;
@@ -72,6 +75,8 @@ public class PlayerBasicMovement : MonoBehaviour
 
         _rb.velocity = appliedVelocity;
         _isDecelerating = false;
+        
+        animator.SetBool("IsWalking", true);
     }
 
     private void Decelerate()
@@ -84,6 +89,7 @@ public class PlayerBasicMovement : MonoBehaviour
         _rb.velocity = resetVelocity;
 
         _isDecelerating = true;
+        animator.SetBool("IsWalking", false);
     }
 
     public void ActivateRoll()
@@ -111,6 +117,7 @@ public class PlayerBasicMovement : MonoBehaviour
         {
             isRolling = true;
             _rb.velocity = rollForce;
+            animator.SetBool("IsRolling", true);
 
             timer -= Time.deltaTime;
         }
@@ -119,6 +126,7 @@ public class PlayerBasicMovement : MonoBehaviour
         
         isRolling = false;
         if (!_da.IsDashing) _rb.velocity = Vector2.zero;
+        animator.SetBool("IsRolling", false);
         ToggleCanMove(true);
 
         yield return null;
@@ -140,6 +148,9 @@ public class PlayerBasicMovement : MonoBehaviour
 
         if (moveDirection != Vector2.zero) _lastMoveDirection.x = moveDirection.x;
         else Decelerate();
+
+        sprite.flipX = _lastMoveDirection.x > 0;
+        // if (moveDirection.x != 0 && moveDirection.x != _lastMoveDirection.x && _rb.velocity.x != 0) animator.SetTrigger("TurnAround");
     }
 
     public void ToggleCanMove(bool input)

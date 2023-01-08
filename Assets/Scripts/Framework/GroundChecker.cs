@@ -3,6 +3,8 @@ using UnityEngine.Events;
 
 public class GroundChecker : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
+    
     private bool _isOnGround;
     private bool _leavesGround;
     
@@ -25,8 +27,17 @@ public class GroundChecker : MonoBehaviour
         var origin = transform.position + new Vector3(offSet.x, offSet.y, 0);
         isGrounded = Physics2D.Raycast(origin, Vector2.down, rayDistance, thisIsGround);
 
-        if (!isGrounded) _isOnGround = false;
-        if (isGrounded) _leavesGround = false;
+        if (!isGrounded)
+        {
+            _isOnGround = false;
+            if(animator != null) animator.SetBool("Isn'tGrounded", true);
+        }
+
+        if (isGrounded)
+        {
+            _leavesGround = false;
+            if(animator != null) animator.SetBool("Isn'tGrounded", false);
+        }
 
         switch (isGrounded)
         {
