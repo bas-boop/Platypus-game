@@ -150,7 +150,9 @@ public class PlayerBasicMovement : MonoBehaviour
         else Decelerate();
 
         sprite.flipX = _lastMoveDirection.x > 0;
-        // if (moveDirection.x != 0 && moveDirection.x != _lastMoveDirection.x && _rb.velocity.x != 0) animator.SetTrigger("TurnAround");
+        
+        /*if (moveDirection.x != _lastMoveDirection.x && _isWalking) animator.SetBool("IsTuring", true);
+        else if (!_isWalking) animator.SetBool("IsTuring", false);*/
     }
 
     public void ToggleCanMove(bool input)
