@@ -15,6 +15,7 @@ public class PlayerBasicMovement : MonoBehaviour
     private float _gravity;
     private float _accelerationSpeed;
     private float _blinkTimer;
+    private float _sitTimer;
     
     private bool _isWalking;
     private bool _isDecelerating;
@@ -40,6 +41,7 @@ public class PlayerBasicMovement : MonoBehaviour
     [Header("Other")]
     [SerializeField] private float deadzone;
     [SerializeField] private float blinkTimerStartTime;
+    [SerializeField] private float sitTimerStartTime;
     
     private void Awake()
     {
@@ -167,11 +169,18 @@ public class PlayerBasicMovement : MonoBehaviour
         if(_isWalking) return;
         
         _blinkTimer -= Time.deltaTime;
+        _sitTimer -= Time.deltaTime;
 
-        if (_blinkTimer <= 0f)
+        if (_blinkTimer <= 0)
         {
             animator.SetTrigger("DoBlink");
             _blinkTimer = blinkTimerStartTime;
+        }
+
+        if (_sitTimer <= 0)
+        {
+            animator.SetTrigger("DoSit");
+            _sitTimer = sitTimerStartTime;
         }
     }
 

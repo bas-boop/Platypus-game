@@ -157,6 +157,7 @@ MonoBehaviour:
   rollTime: 0.4
   deadzone: 0.65
   blinkTimerStartTime: 3
+  sitTimerStartTime: 15
 --- !u!114 &4266640848073341710
 MonoBehaviour:
   m_ObjectHideFlags: 0
