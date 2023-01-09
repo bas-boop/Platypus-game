@@ -159,9 +159,6 @@ public class PlayerBasicMovement : MonoBehaviour
 
         sprite.flipX = _lastMoveDirection.x > 0;
         animator.SetFloat("LastMoveDirection", _lastMoveDirection.x);
-        
-        /*if (moveDirection.x != _lastMoveDirection.x && _isWalking) animator.SetBool("IsTuring", true);
-        else if (!_isWalking) animator.SetBool("IsTuring", false);*/
     }
 
     private void UpdateAnimations()
