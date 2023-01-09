@@ -39,8 +39,6 @@ public class DashAbillity : MonoBehaviour
         if(_isDashing || !_gc.IsGrounded) return;
         _isDashing = true;
         
-        
-        
         _mouseWorldPosition = SetMousePos();
         StartCoroutine(StartDash());
     }
@@ -49,7 +47,7 @@ public class DashAbillity : MonoBehaviour
     {
         animator.SetBool("IsDashing", true);
         
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.4f);
         
         Dash();
         

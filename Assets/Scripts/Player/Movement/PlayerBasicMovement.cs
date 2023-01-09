@@ -108,7 +108,10 @@ public class PlayerBasicMovement : MonoBehaviour
     IEnumerator Roll(float rollDirection)
     {
         ToggleCanMove(false);
-
+        animator.SetBool("IsRolling", true);
+        
+        yield return new WaitForSeconds(0.2f);
+        
         var rollForce = Vector2.zero;
         rollForce.x = rollDirection * rollPower;
         
@@ -117,7 +120,6 @@ public class PlayerBasicMovement : MonoBehaviour
         {
             isRolling = true;
             _rb.velocity = rollForce;
-            animator.SetBool("IsRolling", true);
 
             timer -= Time.deltaTime;
         }
@@ -150,6 +152,7 @@ public class PlayerBasicMovement : MonoBehaviour
         else Decelerate();
 
         sprite.flipX = _lastMoveDirection.x > 0;
+        animator.SetFloat("LastMoveDirection", _lastMoveDirection.x);
         
         /*if (moveDirection.x != _lastMoveDirection.x && _isWalking) animator.SetBool("IsTuring", true);
         else if (!_isWalking) animator.SetBool("IsTuring", false);*/

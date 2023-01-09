@@ -154,7 +154,7 @@ MonoBehaviour:
   accelerationTime: 0.3
   decelerationStrength: 2
   rollPower: 15
-  rollTime: 0.3
+  rollTime: 0.4
   deadzone: 0.65
 --- !u!114 &4266640848073341710
 MonoBehaviour:
@@ -318,7 +318,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -6451126496931921249, guid: b135d662bccf52441b463a52927bc48f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
