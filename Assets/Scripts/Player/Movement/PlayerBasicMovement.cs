@@ -14,6 +14,7 @@ public class PlayerBasicMovement : MonoBehaviour
 
     private float _gravity;
     private float _accelerationSpeed;
+    private float _blinkTimer;
     
     private bool _isWalking;
     private bool _isDecelerating;
@@ -38,6 +39,7 @@ public class PlayerBasicMovement : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private float deadzone;
+    [SerializeField] private float blinkTimerStartTime;
     
     private void Awake()
     {
@@ -49,6 +51,8 @@ public class PlayerBasicMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _gravity = _rb.velocity.y;
+        
+        UpdateAnimations();
         
         if(!canMove) return;
         
@@ -156,6 +160,19 @@ public class PlayerBasicMovement : MonoBehaviour
         
         /*if (moveDirection.x != _lastMoveDirection.x && _isWalking) animator.SetBool("IsTuring", true);
         else if (!_isWalking) animator.SetBool("IsTuring", false);*/
+    }
+
+    private void UpdateAnimations()
+    {
+        if(_isWalking) return;
+        
+        _blinkTimer -= Time.deltaTime;
+
+        if (_blinkTimer <= 0f)
+        {
+            animator.SetTrigger("DoBlink");
+            _blinkTimer = blinkTimerStartTime;
+        }
     }
 
     public void ToggleCanMove(bool input)
