@@ -98,6 +98,8 @@ public class PlayerBasicMovement : MonoBehaviour
         animator.SetBool("IsWalking", false);
     }
 
+    #region Roll
+
     public void ActivateRoll()
     {
         if(isRolling || !_gc.IsGrounded || _lastMoveDirection.x == 0) return;
@@ -139,6 +141,8 @@ public class PlayerBasicMovement : MonoBehaviour
 
         yield return null;
     }
+
+    #endregion
 
     public void SetMoveDirection(Vector2 input)
     {
