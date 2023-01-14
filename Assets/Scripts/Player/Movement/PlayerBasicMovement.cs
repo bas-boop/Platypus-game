@@ -167,7 +167,12 @@ public class PlayerBasicMovement : MonoBehaviour
 
     private void UpdateAnimations()
     {
-        if(_isWalking) return;
+        if (_isWalking)
+        {
+            _blinkTimer = blinkTimerStartTime;
+            _sitTimer = sitTimerStartTime;
+            return;
+        }
         
         _blinkTimer -= Time.deltaTime;
         _sitTimer -= Time.deltaTime;
