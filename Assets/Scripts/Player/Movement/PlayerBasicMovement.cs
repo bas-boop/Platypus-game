@@ -5,12 +5,17 @@ using UnityEngine;
 [RequireComponent(typeof(GroundChecker))]
 public class PlayerBasicMovement : MonoBehaviour
 {
+    [Header("Refrence's")]
+    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private Animator animator;
     private Rigidbody2D _rb;
     private GroundChecker _gc;
     private DashAbillity _da;
 
     private float _gravity;
     private float _accelerationSpeed;
+    private float _blinkTimer;
+    private float _sitTimer;
     
     private bool _isWalking;
     private bool _isDecelerating;
@@ -35,6 +40,8 @@ public class PlayerBasicMovement : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private float deadzone;
+    [SerializeField] private float blinkTimerStartTime;
+    [SerializeField] private float sitTimerStartTime;
     
     private void Awake()
     {
@@ -46,6 +53,8 @@ public class PlayerBasicMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _gravity = _rb.velocity.y;
+        
+        UpdateAnimations();
         
         if(!canMove) return;
         
@@ -72,6 +81,8 @@ public class PlayerBasicMovement : MonoBehaviour
 
         _rb.velocity = appliedVelocity;
         _isDecelerating = false;
+        
+        animator.SetBool("IsWalking", true);
     }
 
     private void Decelerate()
@@ -84,7 +95,10 @@ public class PlayerBasicMovement : MonoBehaviour
         _rb.velocity = resetVelocity;
 
         _isDecelerating = true;
+        animator.SetBool("IsWalking", false);
     }
+
+    #region Roll
 
     public void ActivateRoll()
     {
@@ -102,7 +116,10 @@ public class PlayerBasicMovement : MonoBehaviour
     IEnumerator Roll(float rollDirection)
     {
         ToggleCanMove(false);
-
+        animator.SetBool("IsRolling", true);
+        
+        yield return new WaitForSeconds(0.2f);
+        
         var rollForce = Vector2.zero;
         rollForce.x = rollDirection * rollPower;
         
@@ -119,10 +136,13 @@ public class PlayerBasicMovement : MonoBehaviour
         
         isRolling = false;
         if (!_da.IsDashing) _rb.velocity = Vector2.zero;
+        animator.SetBool("IsRolling", false);
         ToggleCanMove(true);
 
         yield return null;
     }
+
+    #endregion
 
     public void SetMoveDirection(Vector2 input)
     {
@@ -140,6 +160,34 @@ public class PlayerBasicMovement : MonoBehaviour
 
         if (moveDirection != Vector2.zero) _lastMoveDirection.x = moveDirection.x;
         else Decelerate();
+
+        sprite.flipX = _lastMoveDirection.x > 0;
+        animator.SetFloat("LastMoveDirection", _lastMoveDirection.x);
+    }
+
+    private void UpdateAnimations()
+    {
+        if (_isWalking)
+        {
+            _blinkTimer = blinkTimerStartTime;
+            _sitTimer = sitTimerStartTime;
+            return;
+        }
+        
+        _blinkTimer -= Time.deltaTime;
+        _sitTimer -= Time.deltaTime;
+
+        if (_blinkTimer <= 0)
+        {
+            animator.SetTrigger("DoBlink");
+            _blinkTimer = blinkTimerStartTime;
+        }
+
+        if (_sitTimer <= 0)
+        {
+            animator.SetTrigger("DoSit");
+            _sitTimer = sitTimerStartTime;
+        }
     }
 
     public void ToggleCanMove(bool input)
