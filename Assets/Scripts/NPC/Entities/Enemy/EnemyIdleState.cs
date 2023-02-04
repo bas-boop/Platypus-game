@@ -14,6 +14,6 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void UpdateState(EnemyStateManger enemy)
     {
-        throw new System.NotImplementedException();
+        
     }
 }

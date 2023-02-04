@@ -15,11 +15,11 @@ public class EnemyMovingState : EnemyBaseState
     
     public override void EnterState(EnemyStateManger enemy)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void UpdateState(EnemyStateManger enemy)
     {
-        throw new System.NotImplementedException();
+        
     }
 }
