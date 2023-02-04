@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyIdleState : EnemyBaseState
+public class EnemyMovingState : EnemyBaseState
 {
-    [SerializeField] private bool isOn;
-
+    public int ja = 69;
+    
+    [Header("Kiekeboe")]
+    [SerializeField] [Range(0,1)] private float slider;
+    
     public override void EnterState(EnemyStateManger enemy)
     {
         throw new System.NotImplementedException();

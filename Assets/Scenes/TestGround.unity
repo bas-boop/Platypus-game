@@ -937,6 +937,9 @@ GameObject:
   - component: {fileID: 2136738141}
   - component: {fileID: 2136738143}
   - component: {fileID: 2136738144}
+  - component: {fileID: 2136738147}
+  - component: {fileID: 2136738146}
+  - component: {fileID: 2136738145}
   m_Layer: 6
   m_Name: smack-test-object
   m_TagString: Untagged
@@ -1074,3 +1077,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 2136738141}
+--- !u!114 &2136738145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136738140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306a2c8d6c75bf84fb41186b53e5f2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ja: 69
+  slider: 0
+--- !u!114 &2136738146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136738140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 228b8b2f0c238574ba628472a81508d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOn: 0
+--- !u!114 &2136738147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136738140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ad6b46b435b07046b32538efd81b293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IdleState: {fileID: 0}
+  MovingState: {fileID: 0}
