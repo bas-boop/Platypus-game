@@ -9,7 +9,7 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void EnterState(EnemyStateManger enemy)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Idle mode activated!");
     }
 
     public override void UpdateState(EnemyStateManger enemy)

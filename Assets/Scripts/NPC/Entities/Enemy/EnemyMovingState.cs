@@ -9,6 +9,9 @@ public class EnemyMovingState : EnemyBaseState
     
     [Header("Kiekeboe")]
     [SerializeField] [Range(0,1)] private float slider;
+
+    [Header("Iets")]
+    [SerializeField] private Vector2 pos;
     
     public override void EnterState(EnemyStateManger enemy)
     {

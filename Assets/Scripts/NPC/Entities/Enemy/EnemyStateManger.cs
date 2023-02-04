@@ -13,6 +13,14 @@ public class EnemyStateManger : MonoBehaviour
     {
         IdleState = GetComponent<EnemyIdleState>();
         MovingState = GetComponent<EnemyMovingState>();
+
+        _currentState = IdleState;
+        _currentState.EnterState(this);
+    }
+
+    private void Update()
+    {
+        _currentState.UpdateState(this);
     }
 
     public void SwitchState(EnemyBaseState state)

@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class EnemyFlyingState : EnemyMovingState
 {
-    
+    [Header("Kiekeboe")]
+    [SerializeField] private float flySpeed;
 }
