@@ -1,20 +1,19 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyStateManger : MonoBehaviour
 {
     private EnemyBaseState _currentState;
-    public EnemyIdleState IdleState;
-    public EnemyMovingState MovingState;
+    
+    [Header("States")]
+    public EnemyIdleState idleState;
+    public EnemyMovingState movingState;
 
     private void Awake()
     {
-        IdleState = GetComponent<EnemyIdleState>();
-        MovingState = GetComponent<EnemyMovingState>();
+        idleState = GetComponent<EnemyIdleState>();
+        movingState = GetComponent<EnemyMovingState>();
 
-        _currentState = IdleState;
+        _currentState = idleState;
         _currentState.EnterState(this);
     }
 

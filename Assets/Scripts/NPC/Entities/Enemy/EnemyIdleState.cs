@@ -1,19 +1,22 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyIdleState : EnemyBaseState
 {
-    [SerializeField] private bool isOn;
-
+    [SerializeField] private float maxIdleTime;
+    
     public override void EnterState(EnemyStateManger enemy)
     {
-        Debug.Log("Idle mode activated!");
+        //Idle Animation
+        StartCoroutine(WaitToWalk(enemy));
     }
 
-    public override void UpdateState(EnemyStateManger enemy)
+    public override void UpdateState(EnemyStateManger enemy) { }
+
+    IEnumerator WaitToWalk(EnemyStateManger enemy)
     {
-        
+        var waitTime = Random.Range(0, maxIdleTime);
+        yield return new WaitForSeconds(waitTime);
+        enemy.SwitchState(enemy.movingState);
     }
 }
