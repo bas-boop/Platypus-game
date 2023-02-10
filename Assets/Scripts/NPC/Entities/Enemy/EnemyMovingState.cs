@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class EnemyMovingState : EnemyBaseState
 {
@@ -33,7 +32,7 @@ public class EnemyMovingState : EnemyBaseState
 
     private void SetWalkDirection()
     {
-        var random = Random.Range(-1f, 1f);
+        var random = UnityEngine.Random.Range(-1f, 1f);
 
         if (random > 0) _walkDirection = -1;
         else if (random < 0) _walkDirection = 1;

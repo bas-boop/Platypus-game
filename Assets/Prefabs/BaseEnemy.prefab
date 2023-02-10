@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228b8b2f0c238574ba628472a81508d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minIdleTime: 1
   maxIdleTime: 5
 --- !u!114 &-6415558049794951790
 MonoBehaviour:

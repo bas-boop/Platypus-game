@@ -51,6 +51,4 @@ public class GroundChecker : MonoBehaviour
                 break;
         }
     }
-
-    public LayerMask ThisIsGround => thisIsGround;
 }

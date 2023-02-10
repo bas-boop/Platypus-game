@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class EnemyIdleState : EnemyBaseState
 {
-    [SerializeField] private float maxIdleTime = 2;
+    [SerializeField] [Range(0, 30)] private float minIdleTime = 0.1f;
+    [SerializeField] [Range(1, 60)] private float maxIdleTime = 2;
     
     public override void EnterState(EnemyStateManger enemy)
     {
@@ -16,7 +17,7 @@ public class EnemyIdleState : EnemyBaseState
 
     IEnumerator WaitToWalk(EnemyStateManger enemy)
     {
-        var waitTime = Random.Range(1, maxIdleTime);
+        var waitTime = Random.Range(minIdleTime, maxIdleTime);
         yield return new WaitForSeconds(waitTime);
         enemy.SwitchState(enemy.movingState);
     }
