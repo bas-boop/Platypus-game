@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3405430404426713332}
   - component: {fileID: 3405430404426713335}
   - component: {fileID: 6183026404726876375}
-  - component: {fileID: 5222781085207547307}
   - component: {fileID: 1772740662970771966}
+  - component: {fileID: 5222781085207547307}
   - component: {fileID: 3405430404426713290}
   - component: {fileID: 3405430404426713289}
   - component: {fileID: 3405430404426713288}
@@ -110,31 +110,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5222781085207547307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3405430404426713334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d367a936a9c4b14283d60462d446f6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  isGrounded: 0
-  rayDistance: 0
-  thisIsGround:
-    serializedVersion: 2
-    m_Bits: 8
-  offSet: {x: 0, y: 0}
-  onGroundEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  onGroundLeave:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!61 &1772740662970771966
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -161,6 +136,31 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.8828125}
   m_EdgeRadius: 0
+--- !u!114 &5222781085207547307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3405430404426713334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d367a936a9c4b14283d60462d446f6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  isGrounded: 0
+  rayDistance: 0
+  thisIsGround:
+    serializedVersion: 2
+    m_Bits: 8
+  offSet: {x: 0, y: 0}
+  onGroundEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onGroundLeave:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3405430404426713290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,8 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad6b46b435b07046b32538efd81b293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IdleState: {fileID: 0}
-  MovingState: {fileID: 0}
+  idleState: {fileID: 0}
+  movingState: {fileID: 0}
 --- !u!114 &3405430404426713288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228b8b2f0c238574ba628472a81508d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 0
+  maxIdleTime: 5
 --- !u!114 &-6415558049794951790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,6 +213,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ff10cbc346eaa4ab56a6ec562d0620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ja: 69
-  slider: 0
-  pos: {x: 0, y: 0}
+  speed: 500
+  moveTime: 5
