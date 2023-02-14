@@ -24,6 +24,7 @@ public class EnemyStateManger : MonoBehaviour
 
     public void SwitchState(EnemyBaseState state)
     {
+        _currentState.ExitState(this);
         _currentState = state;
         state.EnterState(this);
     }

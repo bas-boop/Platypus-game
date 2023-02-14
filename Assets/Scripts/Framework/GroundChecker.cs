@@ -9,7 +9,7 @@ public class GroundChecker : MonoBehaviour
     private bool _leavesGround;
 
     [SerializeField] private bool isGrounded;
-    [SerializeField] private float rayDistance;
+    [SerializeField] private float rayDistance = 1f;
     [SerializeField] private LayerMask thisIsGround;
     [SerializeField] private Vector2 offSet;
 

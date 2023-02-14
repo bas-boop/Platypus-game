@@ -10,7 +10,7 @@ public class EnemyMovingState : EnemyBaseState
     [SerializeField] private float moveTime = 1;
     
     private int _walkDirection = 1;
-    
+
     public override void EnterState(EnemyStateManger enemy)
     {
         Debug.Log("MovingState");
@@ -22,6 +22,11 @@ public class EnemyMovingState : EnemyBaseState
     public override void UpdateState(EnemyStateManger enemy)
     {
         Walk();
+    }
+    
+    public override void ExitState(EnemyStateManger enemy)
+    {
+        Debug.Log("Exiting MovingState");
     }
 
     private void Awake()

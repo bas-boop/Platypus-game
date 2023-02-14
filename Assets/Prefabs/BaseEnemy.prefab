@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   isGrounded: 0
-  rayDistance: 0
+  rayDistance: 1
   thisIsGround:
     serializedVersion: 2
     m_Bits: 8

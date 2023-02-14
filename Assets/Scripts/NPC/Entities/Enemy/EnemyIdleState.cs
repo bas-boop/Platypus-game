@@ -14,6 +14,11 @@ public class EnemyIdleState : EnemyBaseState
     }
 
     public override void UpdateState(EnemyStateManger enemy) { }
+    
+    public override void ExitState(EnemyStateManger enemy)
+    {
+        Debug.Log("Exiting IdleState");
+    }
 
     IEnumerator WaitToWalk(EnemyStateManger enemy)
     {
