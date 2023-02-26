@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3405430404426713289}
   - component: {fileID: 3405430404426713288}
   - component: {fileID: -6415558049794951790}
+  - component: {fileID: 4600399318113569090}
   m_Layer: 6
   m_Name: BaseEnemy
   m_TagString: Untagged
@@ -188,6 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleState: {fileID: 0}
   movingState: {fileID: 0}
+  attackState: {fileID: 0}
 --- !u!114 &3405430404426713288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,3 +218,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 500
   moveTime: 5
+--- !u!114 &4600399318113569090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3405430404426713334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde849c4e9e8cb740869b8950293c050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  hitOffset: {x: 1, y: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128

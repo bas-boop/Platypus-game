@@ -10,6 +10,7 @@ public class EnemyMovingState : EnemyBaseState
     [SerializeField] private float moveTime = 1;
     
     private int _walkDirection = 1;
+    public int WalkDirection => _walkDirection;
 
     public override void EnterState(EnemyStateManger enemy)
     {
