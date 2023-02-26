@@ -17,7 +17,8 @@ GameObject:
   - component: {fileID: 4266640848073341710}
   - component: {fileID: 4266640848073341711}
   - component: {fileID: 4266640848073341708}
-  m_Layer: 0
+  - component: {fileID: 1183489825}
+  m_Layer: 7
   m_Name: Platypus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,6 +231,35 @@ MonoBehaviour:
     m_Bits: 64
   offset: {x: 0.5, y: 0}
   hitRadius: 0.65
+--- !u!114 &1183489825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4266640848073341718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 665c672f2e2777c47b3254da291fff52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
+  onHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onHealthAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  onDamageTaken:
+    m_PersistentCalls:
+      m_Calls: []
+  onDie:
+    m_PersistentCalls:
+      m_Calls: []
+  onResurrected:
+    m_PersistentCalls:
+      m_Calls: []
+  isDead: 0
 --- !u!1 &4376565836614875925
 GameObject:
   m_ObjectHideFlags: 0

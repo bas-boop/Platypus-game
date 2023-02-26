@@ -4,12 +4,12 @@ using UnityEngine.Events;
 public class GroundChecker : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    
+
     private bool _isOnGround;
     private bool _leavesGround;
-    
+
     [SerializeField] private bool isGrounded;
-    [SerializeField] private float rayDistance;
+    [SerializeField] private float rayDistance = 1f;
     [SerializeField] private LayerMask thisIsGround;
     [SerializeField] private Vector2 offSet;
 
@@ -18,7 +18,7 @@ public class GroundChecker : MonoBehaviour
 
     public bool IsGrounded
     {
-        get => isGrounded; 
+        get => isGrounded;
         private set => isGrounded = value;
     }
 
@@ -30,13 +30,13 @@ public class GroundChecker : MonoBehaviour
         if (!isGrounded)
         {
             _isOnGround = false;
-            if(animator != null) animator.SetBool("Isn'tGrounded", true);
+            if (animator != null) animator.SetBool("Isn'tGrounded", true);
         }
 
         if (isGrounded)
         {
             _leavesGround = false;
-            if(animator != null) animator.SetBool("Isn'tGrounded", false);
+            if (animator != null) animator.SetBool("Isn'tGrounded", false);
         }
 
         switch (isGrounded)
