@@ -10,7 +10,6 @@ public class EnemyAttackState : EnemyBaseState
     
     public override void EnterState(EnemyStateManger enemy)
     {
-        Debug.Log("AttackState");
         Smacking(enemy);
     }
 

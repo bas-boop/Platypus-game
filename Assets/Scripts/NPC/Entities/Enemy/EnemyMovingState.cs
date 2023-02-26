@@ -14,8 +14,8 @@ public class EnemyMovingState : EnemyBaseState
 
     public override void EnterState(EnemyStateManger enemy)
     {
-        Debug.Log("MovingState");
         //todo: Moving Animation
+        
         SetWalkDirection();
         StartCoroutine(StopMoving(enemy));
     }
@@ -25,10 +25,7 @@ public class EnemyMovingState : EnemyBaseState
         Walk();
     }
     
-    public override void ExitState(EnemyStateManger enemy)
-    {
-        Debug.Log("Exiting MovingState");
-    }
+    public override void ExitState(EnemyStateManger enemy){ }
 
     private void Awake()
     {

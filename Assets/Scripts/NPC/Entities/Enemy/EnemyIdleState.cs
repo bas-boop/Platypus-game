@@ -10,17 +10,14 @@ public class EnemyIdleState : EnemyBaseState
     
     public override void EnterState(EnemyStateManger enemy)
     {
-        Debug.Log("IdleState");
         //todo: Idle Animation
+        
         StartCoroutine(WaitToWalk(enemy));
     }
 
     public override void UpdateState(EnemyStateManger enemy) { }
     
-    public override void ExitState(EnemyStateManger enemy)
-    {
-        Debug.Log("Exiting IdleState");
-    }
+    public override void ExitState(EnemyStateManger enemy) { }
 
     IEnumerator WaitToWalk(EnemyStateManger enemy)
     {
