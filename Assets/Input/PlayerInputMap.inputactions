@@ -52,6 +52,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "DisableMovement",
+                    "type": "Button",
+                    "id": "d18427d0-e061-4672-9496-3de9342d5ef3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -252,6 +260,39 @@
                     "action": "Smack",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Button With One Modifier",
+                    "id": "92d2e2cd-95b9-4755-ac2d-59b923f5316b",
+                    "path": "ButtonWithOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DisableMovement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "82667786-8068-4980-8c2a-5dd7ca0bd555",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DisableMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "button",
+                    "id": "1424c1f6-b31c-4266-9603-d172d31a83b4",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DisableMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

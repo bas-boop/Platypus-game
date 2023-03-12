@@ -15,8 +15,9 @@ public class DashAbillity : MonoBehaviour
     
     private Vector2 _mouseWorldPosition;
 
+    private bool _canDash = true;
     private bool _isDashing;
-    
+
     [Header("Value")]
     [SerializeField] private float dashForcePower;
     [SerializeField] private float dashTime;
@@ -36,11 +37,12 @@ public class DashAbillity : MonoBehaviour
 
     public void ActivateDash()
     {
+        // var notAllowedToDash = _isDashing || !_gc.IsGrounded;
         if(_isDashing || !_gc.IsGrounded) return;
         _isDashing = true;
         
         _mouseWorldPosition = SetMousePos();
-        StartCoroutine(StartDash());
+        if(_canDash) StartCoroutine(StartDash());
     }
     
     IEnumerator StartDash()
@@ -82,6 +84,7 @@ public class DashAbillity : MonoBehaviour
     }
 
     public void SetIsDashing(bool input) => _isDashing = input;
+    public void ToggleCanDash() => _canDash = !_canDash;
 
     public bool IsDashing
     {

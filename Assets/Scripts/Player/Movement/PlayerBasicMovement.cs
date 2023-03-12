@@ -25,7 +25,7 @@ public class PlayerBasicMovement : MonoBehaviour
     [Header("Read value's")]
     [SerializeField] private float topSpeed;
     [SerializeField] private Vector2 moveDirection;
-    [SerializeField] private bool canMove;
+    [SerializeField] private bool canMove = true;
     [SerializeField] private bool isRolling;
 
     [Header("Walk")]
@@ -102,6 +102,7 @@ public class PlayerBasicMovement : MonoBehaviour
 
     public void ActivateRoll()
     {
+        if(!canMove) return;
         if(isRolling || !_gc.IsGrounded || _lastMoveDirection.x == 0) return;
 
         StartCoroutine(Roll(_lastMoveDirection.x));
@@ -115,7 +116,7 @@ public class PlayerBasicMovement : MonoBehaviour
     
     IEnumerator Roll(float rollDirection)
     {
-        ToggleCanMove(false);
+        ToggleCanMove();
         animator.SetBool("IsRolling", true);
         
         yield return new WaitForSeconds(0.2f);
@@ -137,7 +138,7 @@ public class PlayerBasicMovement : MonoBehaviour
         isRolling = false;
         if (!_da.IsDashing) _rb.velocity = Vector2.zero;
         animator.SetBool("IsRolling", false);
-        ToggleCanMove(true);
+        ToggleCanMove();
 
         yield return null;
     }
@@ -161,6 +162,8 @@ public class PlayerBasicMovement : MonoBehaviour
         if (moveDirection != Vector2.zero) _lastMoveDirection.x = moveDirection.x;
         else Decelerate();
 
+        if(!canMove) return;
+        
         sprite.flipX = _lastMoveDirection.x > 0;
         animator.SetFloat("LastMoveDirection", _lastMoveDirection.x);
     }
@@ -190,10 +193,7 @@ public class PlayerBasicMovement : MonoBehaviour
         }
     }
 
-    public void ToggleCanMove(bool input)
-    {
-        canMove = input;
-    }
+    public void ToggleCanMove() => canMove = !canMove;
 
     public Vector2 LastMoveDirection
     {
