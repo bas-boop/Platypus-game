@@ -15,8 +15,8 @@ public class DashAbillity : MonoBehaviour
     
     private Vector2 _mouseWorldPosition;
 
-    private bool _isDashing;
-    
+    private bool _canDash = true;
+
     [Header("Value")]
     [SerializeField] private float dashForcePower;
     [SerializeField] private float dashTime;
@@ -36,15 +36,16 @@ public class DashAbillity : MonoBehaviour
 
     public void ActivateDash()
     {
-        if(_isDashing || !_gc.IsGrounded) return;
-        _isDashing = true;
-        
+        if (!_canDash) return;
+        if(IsDashing || !_gc.IsGrounded) return;
+
         _mouseWorldPosition = SetMousePos();
         StartCoroutine(StartDash());
     }
     
-    IEnumerator StartDash()
+    private IEnumerator StartDash()
     {
+        IsDashing = true;
         animator.SetBool("IsDashing", true);
         
         yield return new WaitForSeconds(0.4f);
@@ -53,7 +54,7 @@ public class DashAbillity : MonoBehaviour
         
         yield return new WaitForSeconds(dashTime);
 
-        _isDashing = false;
+        IsDashing = false;
         animator.SetBool("IsDashing", false);
         
         yield return null;
@@ -76,16 +77,9 @@ public class DashAbillity : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(new Vector2(mousePos.x, mousePos.y));
     }
 
-    private Vector2 SetDashDirection()
-    {
-        return _playerControlsActions["Move"].ReadValue<Vector2>();
-    }
-
-    public void SetIsDashing(bool input) => _isDashing = input;
-
-    public bool IsDashing
-    {
-        get => _isDashing;
-        private set => _isDashing = value;
-    }
+    private Vector2 SetDashDirection() => _playerControlsActions["Move"].ReadValue<Vector2>();
+    
+    public void SetIsDashing(bool input) => IsDashing = input;
+    public void ToggleCanDash() => _canDash = !_canDash;
+    public bool IsDashing { get; private set; }
 }
