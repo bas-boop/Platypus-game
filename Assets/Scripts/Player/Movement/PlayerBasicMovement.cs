@@ -147,6 +147,8 @@ public class PlayerBasicMovement : MonoBehaviour
 
     public void SetMoveDirection(Vector2 input)
     {
+        if(!canMove) return;
+        
         if (input.x > deadzone) input.x = 1;
         else if (input.x < -deadzone) input.x = -1;
         else input.x = 0;
@@ -162,8 +164,6 @@ public class PlayerBasicMovement : MonoBehaviour
         if (moveDirection != Vector2.zero) _lastMoveDirection.x = moveDirection.x;
         else Decelerate();
 
-        if(!canMove) return;
-        
         sprite.flipX = _lastMoveDirection.x > 0;
         animator.SetFloat("LastMoveDirection", _lastMoveDirection.x);
     }
