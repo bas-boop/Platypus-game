@@ -44,14 +44,17 @@ public class InputParcer : MonoBehaviour
         _playerControlsActions["DisableMovement"].performed -= DisableMovement;
     }
 
+    #region Ohter Scripts
+
     private void Roll(InputAction.CallbackContext context) => playerMovement.ActivateRoll();
     private void Dash(InputAction.CallbackContext context) => dashAbillity.ActivateDash();
     private void Smack(InputAction.CallbackContext context) => smack.ActivateSmack();
 
     private void DisableMovement(InputAction.CallbackContext context)
     {
-        Debug.Log("Input");
         playerMovement.ToggleCanMove();
         dashAbillity.ToggleCanDash();
     }
+
+    #endregion
 }

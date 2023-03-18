@@ -36,11 +36,11 @@ public class DashAbillity : MonoBehaviour
 
     public void ActivateDash()
     {
-        // var notAllowedToDash = _isDashing || !_gc.IsGrounded;
+        if (!_canDash) return;
         if(IsDashing || !_gc.IsGrounded) return;
-        
+
         _mouseWorldPosition = SetMousePos();
-        if(_canDash) StartCoroutine(StartDash());
+        StartCoroutine(StartDash());
     }
     
     private IEnumerator StartDash()
