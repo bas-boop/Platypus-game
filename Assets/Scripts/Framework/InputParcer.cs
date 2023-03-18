@@ -20,6 +20,8 @@ public class InputParcer : MonoBehaviour
         _playerControlsActions["Roll"].performed += Roll;
         _playerControlsActions["Dash"].performed += Dash;
         _playerControlsActions["Smack"].performed += Smack;
+
+        _playerControlsActions["DisableMovement"].performed += DisableMovement;
     }
 
     private void FixedUpdate()
@@ -37,9 +39,22 @@ public class InputParcer : MonoBehaviour
     {
         _playerControlsActions["Roll"].performed -= Roll;
         _playerControlsActions["Dash"].performed -= Dash;
+        _playerControlsActions["Smack"].performed -= Smack;
+        
+        _playerControlsActions["DisableMovement"].performed -= DisableMovement;
     }
+
+    #region Ohter Scripts
 
     private void Roll(InputAction.CallbackContext context) => playerMovement.ActivateRoll();
     private void Dash(InputAction.CallbackContext context) => dashAbillity.ActivateDash();
     private void Smack(InputAction.CallbackContext context) => smack.ActivateSmack();
+
+    private void DisableMovement(InputAction.CallbackContext context)
+    {
+        playerMovement.ToggleCanMove();
+        dashAbillity.ToggleCanDash();
+    }
+
+    #endregion
 }
