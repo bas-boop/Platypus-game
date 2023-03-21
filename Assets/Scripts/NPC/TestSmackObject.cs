@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class TestSmackObject : TargetSmack
+public class TestSmackObject : SmackTarget
 {
     [SerializeField] private SpriteRenderer sprite;
 

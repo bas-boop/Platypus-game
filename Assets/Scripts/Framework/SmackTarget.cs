@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class TargetSmack : MonoBehaviour
+public abstract class SmackTarget : MonoBehaviour
 {
     public abstract void ActivateTargetSmack();
 }
