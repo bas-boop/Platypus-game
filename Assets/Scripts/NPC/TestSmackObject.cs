@@ -1,11 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class TestSmackObject : MonoBehaviour
+public class TestSmackObject : TargetSmack
 {
     [SerializeField] private SpriteRenderer sprite;
 
-    public void GotHit() => StartCoroutine(ColorChange());
+    public override void ActivateTargetSmack() => StartCoroutine(ColorChange());
 
     IEnumerator ColorChange()
     {
