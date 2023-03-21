@@ -7,7 +7,7 @@ public class TestSmackObject : TargetSmack
 
     public override void ActivateTargetSmack() => StartCoroutine(ColorChange());
 
-    IEnumerator ColorChange()
+    private IEnumerator ColorChange()
     {
         sprite.color = Color.red;
         yield return new WaitForSeconds(0.5f);
