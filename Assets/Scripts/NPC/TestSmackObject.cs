@@ -1,13 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-public class TestSmackObject : MonoBehaviour
+public class TestSmackObject : SmackTarget
 {
     [SerializeField] private SpriteRenderer sprite;
 
-    public void GotHit() => StartCoroutine(ColorChange());
+    public override void ActivateTargetSmack() => StartCoroutine(ColorChange());
 
-    IEnumerator ColorChange()
+    private IEnumerator ColorChange()
     {
         sprite.color = Color.red;
         yield return new WaitForSeconds(0.5f);

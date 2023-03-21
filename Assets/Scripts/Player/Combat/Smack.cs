@@ -48,7 +48,7 @@ public class Smack : MonoBehaviour
         
         for (int i = 0; i < hitColliders.Length; i++)
         {
-            hitColliders[i].GetComponent<TestSmackObject>().GotHit();
+            hitColliders[i].GetComponent<SmackTarget>().ActivateTargetSmack();
         }
 
         _isSmacking = false;
