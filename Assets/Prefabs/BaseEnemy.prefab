@@ -190,6 +190,10 @@ MonoBehaviour:
   idleState: {fileID: 0}
   movingState: {fileID: 0}
   attackState: {fileID: 0}
+  states:
+  - {fileID: 3405430404426713288}
+  - {fileID: -6415558049794951790}
+  - {fileID: 4600399318113569090}
 --- !u!114 &3405430404426713288
 MonoBehaviour:
   m_ObjectHideFlags: 0

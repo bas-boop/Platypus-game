@@ -2,9 +2,9 @@ using UnityEngine;
 
 public abstract class BaseState : MonoBehaviour
 {
-    protected StateMachineManger _parent;
+    protected StateMachineManger Parent;
     
-    public void SetParent(StateMachineManger targetMachine) => _parent = targetMachine;
+    public void SetParent(StateMachineManger targetMachine) => Parent = targetMachine;
     
     public abstract void EnterState(StateMachineManger entity);
     public abstract void UpdateState(StateMachineManger entity);

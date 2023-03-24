@@ -17,8 +17,8 @@ public class EnemyStateManger : StateMachineManger
 
         SetStatesParent();
         
-        _currentState = idleState;
-        _currentState.EnterState(this);
+        CurrentState = idleState;
+        CurrentState.EnterState(this);
     }
 
     private void SetStatesParent()
@@ -31,8 +31,8 @@ public class EnemyStateManger : StateMachineManger
 
     public override void SwitchState(BaseState state)
     {
-        _currentState.ExitState(this);
-        _currentState = state;
+        CurrentState.ExitState(this);
+        CurrentState = state;
         state.EnterState(this);
     }
 }

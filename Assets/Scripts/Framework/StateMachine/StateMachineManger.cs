@@ -2,11 +2,11 @@ using UnityEngine;
 
 public abstract class StateMachineManger : MonoBehaviour
 {
-    protected static BaseState _currentState;
+    protected static BaseState CurrentState;
 
     private void Update()
     {
-        _currentState.UpdateState(this);
+        CurrentState.UpdateState(this);
     }
 
     public abstract void SwitchState(BaseState state);
