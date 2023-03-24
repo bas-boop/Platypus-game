@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class StateMachineManger : MonoBehaviour
 {
-    [SerializeField] public BaseState startingState;
+    [SerializeField] protected BaseState startingState;
     
     protected static BaseState CurrentState;
 
