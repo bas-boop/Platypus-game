@@ -17,7 +17,7 @@ public class EnemyStateManger : StateMachineManger
 
         SetStatesParent();
         
-        CurrentState = idleState;
+        CurrentState = startingState;
         CurrentState.EnterState(this);
     }
 
