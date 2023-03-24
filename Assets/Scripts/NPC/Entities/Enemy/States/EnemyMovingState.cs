@@ -55,4 +55,19 @@ public class EnemyMovingState : EnemyBaseState
         enemy.SwitchState(enemy.idleState);
         _rigidbody2D.velocity = Vector2.zero;
     }
+
+    public override void EnterState(StateMachineManger entity)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void UpdateState(StateMachineManger entity)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void ExitState(StateMachineManger entity)
+    {
+        throw new System.NotImplementedException();
+    }
 }

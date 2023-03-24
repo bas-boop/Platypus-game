@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyStateManger : MonoBehaviour
+public class EnemyStateManger : StateMachineManger
 {
     private EnemyBaseState _currentState;
     
@@ -19,15 +19,5 @@ public class EnemyStateManger : MonoBehaviour
         _currentState.EnterState(this);
     }
 
-    private void Update()
-    {
-        _currentState.UpdateState(this);
-    }
-
-    public void SwitchState(EnemyBaseState state)
-    {
-        _currentState.ExitState(this);
-        _currentState = state;
-        state.EnterState(this);
-    }
+    
 }

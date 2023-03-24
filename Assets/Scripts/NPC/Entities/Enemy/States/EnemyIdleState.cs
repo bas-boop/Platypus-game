@@ -35,4 +35,19 @@ public class EnemyIdleState : EnemyBaseState
             _wasMoving = false;
         }
     }
+
+    public override void EnterState(StateMachineManger entity)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void UpdateState(StateMachineManger entity)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void ExitState(StateMachineManger entity)
+    {
+        throw new System.NotImplementedException();
+    }
 }

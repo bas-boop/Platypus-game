@@ -34,4 +34,19 @@ public class EnemyAttackState : EnemyBaseState
 
         enemy.SwitchState(enemy.idleState);
     }
+
+    public override void EnterState(StateMachineManger entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void UpdateState(StateMachineManger entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void ExitState(StateMachineManger entity)
+    {
+        throw new NotImplementedException();
+    }
 }
