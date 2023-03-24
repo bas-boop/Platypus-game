@@ -7,7 +7,7 @@ public class EnemyStateManger : StateMachineManger
     public EnemyMovingState movingState;
     public EnemyAttackState attackState;
 
-    [SerializeField] private EnemyBaseState[] states;
+    [SerializeField] private BaseState[] states;
 
     private void Awake()
     {
