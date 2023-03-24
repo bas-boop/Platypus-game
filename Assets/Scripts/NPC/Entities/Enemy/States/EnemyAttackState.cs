@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class EnemyAttackState : EnemyBaseState
@@ -8,14 +7,14 @@ public class EnemyAttackState : EnemyBaseState
     [SerializeField] private LayerMask playerLayer;
     private HealthData _playerHealth;
     
-    public override void EnterState(EnemyStateManger enemy)
+    protected override void EnterState(EnemyStateManger enemy)
     {
         Smacking(enemy);
     }
 
-    public override void UpdateState(EnemyStateManger enemy) { }
+    protected override void UpdateState(EnemyStateManger enemy) { }
 
-    public override void ExitState(EnemyStateManger enemy) { }
+    protected override void ExitState(EnemyStateManger enemy) { }
 
     private void Awake()
     {
@@ -33,20 +32,5 @@ public class EnemyAttackState : EnemyBaseState
         if (didHit) _playerHealth.TakeDamage(damage);
 
         enemy.SwitchState(enemy.idleState);
-    }
-
-    public override void EnterState(StateMachineManger entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void UpdateState(StateMachineManger entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void ExitState(StateMachineManger entity)
-    {
-        throw new NotImplementedException();
     }
 }

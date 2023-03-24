@@ -369,6 +369,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6415558049794951790, guid: 3a20cac7a5053aa4ead4c8d7d69d9838, type: 3}
+      propertyPath: a
+      value: 
+      objectReference: {fileID: 1202312792}
+    - target: {fileID: 3405430404426713288, guid: 3a20cac7a5053aa4ead4c8d7d69d9838, type: 3}
+      propertyPath: a
+      value: 
+      objectReference: {fileID: 1202312792}
     - target: {fileID: 3405430404426713332, guid: 3a20cac7a5053aa4ead4c8d7d69d9838, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -417,6 +425,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4600399318113569090, guid: 3a20cac7a5053aa4ead4c8d7d69d9838, type: 3}
+      propertyPath: a
+      value: 
+      objectReference: {fileID: 1202312792}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a20cac7a5053aa4ead4c8d7d69d9838, type: 3}
 --- !u!1 &589956637
@@ -811,6 +823,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
+--- !u!114 &1202312792 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3405430404426713289, guid: 3a20cac7a5053aa4ead4c8d7d69d9838, type: 3}
+  m_PrefabInstance: {fileID: 393661298}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ad6b46b435b07046b32538efd81b293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1256070402
 GameObject:
   m_ObjectHideFlags: 0

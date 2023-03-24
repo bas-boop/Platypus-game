@@ -12,7 +12,7 @@ public class EnemyMovingState : EnemyBaseState
     private int _walkDirection = 1;
     public int WalkDirection => _walkDirection;
 
-    public override void EnterState(EnemyStateManger enemy)
+    protected override void EnterState(EnemyStateManger enemy)
     {
         //todo: Moving Animation
         
@@ -20,12 +20,12 @@ public class EnemyMovingState : EnemyBaseState
         StartCoroutine(StopMoving(enemy));
     }
 
-    public override void UpdateState(EnemyStateManger enemy)
+    protected override void UpdateState(EnemyStateManger enemy)
     {
         Walk();
     }
     
-    public override void ExitState(EnemyStateManger enemy){ }
+    protected override void ExitState(EnemyStateManger enemy){ }
 
     private void Awake()
     {
@@ -54,20 +54,5 @@ public class EnemyMovingState : EnemyBaseState
         yield return new WaitForSeconds(moveTime);
         enemy.SwitchState(enemy.idleState);
         _rigidbody2D.velocity = Vector2.zero;
-    }
-
-    public override void EnterState(StateMachineManger entity)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void UpdateState(StateMachineManger entity)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void ExitState(StateMachineManger entity)
-    {
-        throw new System.NotImplementedException();
     }
 }

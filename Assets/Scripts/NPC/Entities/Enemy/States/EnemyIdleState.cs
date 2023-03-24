@@ -8,18 +8,18 @@ public class EnemyIdleState : EnemyBaseState
 
     private bool _wasMoving;
     
-    public override void EnterState(EnemyStateManger enemy)
+    protected override void EnterState(EnemyStateManger enemy)
     {
         //todo: Idle Animation
         
         StartCoroutine(WaitToWalk(enemy));
     }
 
-    public override void UpdateState(EnemyStateManger enemy) { }
+    protected override void UpdateState(EnemyStateManger enemy) { }
     
-    public override void ExitState(EnemyStateManger enemy) { }
+    protected override void ExitState(EnemyStateManger enemy) { }
 
-    IEnumerator WaitToWalk(EnemyStateManger enemy)
+    private IEnumerator WaitToWalk(EnemyStateManger enemy)
     {
         var waitTime = Random.Range(minIdleTime, maxIdleTime);
         yield return new WaitForSeconds(waitTime);
@@ -34,20 +34,5 @@ public class EnemyIdleState : EnemyBaseState
             enemy.SwitchState(enemy.attackState);
             _wasMoving = false;
         }
-    }
-
-    public override void EnterState(StateMachineManger entity)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void UpdateState(StateMachineManger entity)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void ExitState(StateMachineManger entity)
-    {
-        throw new System.NotImplementedException();
     }
 }
