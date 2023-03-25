@@ -16,7 +16,7 @@ public class EnemyIdleState : EnemyBaseState
     }
 
     protected override void UpdateState(EnemyStateManger enemy) { }
-    
+    protected override void FixedUpdateState(EnemyStateManger enemy) { }
     protected override void ExitState(EnemyStateManger enemy) { }
 
     private IEnumerator WaitToWalk(EnemyStateManger enemy)

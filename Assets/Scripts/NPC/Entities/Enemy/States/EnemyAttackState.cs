@@ -13,7 +13,7 @@ public class EnemyAttackState : EnemyBaseState
     }
 
     protected override void UpdateState(EnemyStateManger enemy) { }
-
+    protected override void FixedUpdateState(EnemyStateManger enemy) { }
     protected override void ExitState(EnemyStateManger enemy) { }
 
     private void Awake()

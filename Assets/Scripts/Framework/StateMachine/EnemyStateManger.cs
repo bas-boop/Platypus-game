@@ -7,32 +7,12 @@ public class EnemyStateManger : StateMachineManger
     public EnemyMovingState movingState;
     public EnemyAttackState attackState;
 
-    [SerializeField] private BaseState[] states;
-
-    private void Awake()
+    private  void Awake()
     {
         idleState = GetComponent<EnemyIdleState>();
         movingState = GetComponent<EnemyMovingState>();
         attackState = GetComponent<EnemyAttackState>();
-
-        SetStatesParent();
         
-        CurrentState = startingState;
-        CurrentState.EnterState(this);
-    }
-
-    private void SetStatesParent()
-    {
-        foreach (var state in states)
-        {
-            state.SetParent(this);
-        }
-    }
-
-    public override void SwitchState(BaseState state)
-    {
-        CurrentState.ExitState(this);
-        CurrentState = state;
-        state.EnterState(this);
+        InitStateMachine();
     }
 }

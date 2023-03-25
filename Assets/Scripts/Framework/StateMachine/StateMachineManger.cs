@@ -2,14 +2,39 @@ using UnityEngine;
 
 public abstract class StateMachineManger : MonoBehaviour
 {
+    [Header("Base StateMachine")]
     [SerializeField] protected BaseState startingState;
+    [SerializeField] protected BaseState[] states;
     
-    protected static BaseState CurrentState;
+    private static BaseState _currentState;
 
-    private void Update()
+    private void Update() => _currentState.UpdateState(this);
+    private void FixedUpdate() => _currentState.FixedUpdateState(this);
+
+    protected void InitStateMachine()
     {
-        CurrentState.UpdateState(this);
+        SetStatesParent();
+        EnterStartingState();
     }
 
-    public abstract void SwitchState(BaseState state);
+    private void SetStatesParent()
+    {
+        foreach (var state in states)
+        {
+            state.SetParent(this);
+        }
+    }
+
+    private void EnterStartingState()
+    {
+        _currentState = startingState;
+        _currentState.EnterState(this);
+    }
+
+    public void SwitchState(BaseState state)
+    {
+        _currentState.ExitState(this);
+        _currentState = state;
+        state.EnterState(this);
+    }
 }
