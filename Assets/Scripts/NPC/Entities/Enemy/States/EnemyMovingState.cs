@@ -25,7 +25,11 @@ public class EnemyMovingState : EnemyBaseState
     }
     
     protected override void FixedUpdateState(EnemyStateManger enemy) { }
-    protected override void ExitState(EnemyStateManger enemy){ }
+
+    protected override void ExitState(EnemyStateManger enemy)
+    {
+        _rigidbody2D.velocity = Vector2.zero;
+    }
 
     private void Awake()
     {
@@ -52,7 +56,7 @@ public class EnemyMovingState : EnemyBaseState
     private IEnumerator StopMoving(EnemyStateManger enemy)
     {
         yield return new WaitForSeconds(moveTime);
+        IsValidToSwitch = true;
         enemy.SwitchState(enemy.idleState);
-        _rigidbody2D.velocity = Vector2.zero;
     }
 }

@@ -31,6 +31,7 @@ public class EnemyAttackState : EnemyBaseState
 
         if (didHit) _playerHealth.TakeDamage(damage);
 
+        IsValidToSwitch = true;
         enemy.SwitchState(enemy.idleState);
     }
 }

@@ -5,7 +5,12 @@ public abstract class EnemyBaseState : BaseState
 {
     #region BaseState to EnemyState
 
-    public override void EnterState(StateMachineManger entity) => EnterState((EnemyStateManger)Parent);
+    public override void EnterState(StateMachineManger entity)
+    {
+        base.EnterState(Parent);
+        EnterState((EnemyStateManger) Parent);
+    }
+
     public override void UpdateState(StateMachineManger entity) => UpdateState((EnemyStateManger)Parent);
     public override void FixedUpdateState(StateMachineManger entity) => FixedUpdateState((EnemyStateManger)Parent);
     public override void ExitState(StateMachineManger entity) => ExitState((EnemyStateManger)Parent);

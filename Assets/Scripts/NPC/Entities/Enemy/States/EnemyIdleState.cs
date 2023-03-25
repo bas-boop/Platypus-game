@@ -24,6 +24,8 @@ public class EnemyIdleState : EnemyBaseState
         var waitTime = Random.Range(minIdleTime, maxIdleTime);
         yield return new WaitForSeconds(waitTime);
 
+        IsValidToSwitch = true;
+        
         if (!_wasMoving)
         {
             enemy.SwitchState(enemy.movingState);
