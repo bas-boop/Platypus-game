@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerSmackState : PlayerBaseState
 {
     [SerializeField] private Animator animator;
-    private PlayerBasicMovement _pbm;
 
     private bool _isSmacking;
 
@@ -22,14 +21,9 @@ public class PlayerSmackState : PlayerBaseState
     protected override void FixedUpdateState(PlayerStateManager player) { }
     protected override void ExitState(PlayerStateManager player) { }
 
-    private void Awake()
-    {
-        _pbm = GetComponent<PlayerBasicMovement>();
-    }
-
     public void ActivateSmack()
     {
-        if (_isSmacking || _pbm.IsRolling) return;
+        if (_isSmacking) return;
         
         _isSmacking = true;
         animator.SetBool("IsSmacking", true);
@@ -49,11 +43,11 @@ public class PlayerSmackState : PlayerBaseState
     private void Smacking()
     {
         var currentPos = new Vector2(transform.position.x, transform.position.y);
-        offset = new Vector2(Mathf.Abs(offset.x) * _pbm.LastMoveDirection.x, offset.y);
+        offset = new Vector2(Mathf.Abs(offset.x) /* _pbm.LastMoveDirection.x*/, offset.y);
         
         var trueOffset = currentPos + offset;
 
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(trueOffset, hitRadius, enemyLayer);
+        var hitColliders = Physics2D.OverlapCircleAll(trueOffset, hitRadius, enemyLayer);
         if (hitColliders == null) return;
         
         for (int i = 0; i < hitColliders.Length; i++)
