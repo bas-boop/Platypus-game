@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class EnemyAttackState : EnemyBaseState
@@ -8,21 +7,21 @@ public class EnemyAttackState : EnemyBaseState
     [SerializeField] private LayerMask playerLayer;
     private HealthData _playerHealth;
     
-    public override void EnterState(EnemyStateManger enemy)
+    protected override void EnterState(EnemyStateManager enemy)
     {
         Smacking(enemy);
     }
 
-    public override void UpdateState(EnemyStateManger enemy) { }
-
-    public override void ExitState(EnemyStateManger enemy) { }
+    protected override void UpdateState(EnemyStateManager enemy) { }
+    protected override void FixedUpdateState(EnemyStateManager enemy) { }
+    protected override void ExitState(EnemyStateManager enemy) { }
 
     private void Awake()
     {
         _playerHealth = FindObjectOfType<HealthData>();
     }
 
-    private void Smacking(EnemyStateManger enemy)
+    private void Smacking(EnemyStateManager enemy)
     {
         var currentPos = new Vector2(transform.position.x, transform.position.y);
         hitOffset = new Vector2(Mathf.Abs(hitOffset.x) * enemy.movingState.WalkDirection, hitOffset.y);
@@ -32,6 +31,7 @@ public class EnemyAttackState : EnemyBaseState
 
         if (didHit) _playerHealth.TakeDamage(damage);
 
+        IsValidToSwitch = true;
         enemy.SwitchState(enemy.idleState);
     }
 }
