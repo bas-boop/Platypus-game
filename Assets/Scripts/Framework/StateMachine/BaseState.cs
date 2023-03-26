@@ -2,13 +2,13 @@ using UnityEngine;
 
 public abstract class BaseState : MonoBehaviour
 {
-    protected StateMachineManger Parent;
+    protected StateMachineManager Parent;
     public bool IsValidToSwitch { get; protected set; }
 
-    public void SetParent(StateMachineManger targetMachine) => Parent = targetMachine;
+    public void SetParent(StateMachineManager targetMachine) => Parent = targetMachine;
 
-    public virtual void EnterState(StateMachineManger stateMachine) => IsValidToSwitch = false;
-    public abstract void UpdateState(StateMachineManger stateMachine);
-    public abstract void FixedUpdateState(StateMachineManger stateMachine);
-    public abstract void ExitState(StateMachineManger stateMachine);
+    public virtual void EnterState(StateMachineManager stateMachine) => IsValidToSwitch = false;
+    public abstract void UpdateState(StateMachineManager stateMachine);
+    public abstract void FixedUpdateState(StateMachineManager stateMachine);
+    public abstract void ExitState(StateMachineManager stateMachine);
 }

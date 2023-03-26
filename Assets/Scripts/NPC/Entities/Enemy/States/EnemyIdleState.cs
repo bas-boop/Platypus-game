@@ -8,18 +8,18 @@ public class EnemyIdleState : EnemyBaseState
 
     private bool _wasMoving;
     
-    protected override void EnterState(EnemyStateManger enemy)
+    protected override void EnterState(EnemyStateManager enemy)
     {
         //todo: Idle Animation
         
         StartCoroutine(WaitToWalk(enemy));
     }
 
-    protected override void UpdateState(EnemyStateManger enemy) { }
-    protected override void FixedUpdateState(EnemyStateManger enemy) { }
-    protected override void ExitState(EnemyStateManger enemy) { }
+    protected override void UpdateState(EnemyStateManager enemy) { }
+    protected override void FixedUpdateState(EnemyStateManager enemy) { }
+    protected override void ExitState(EnemyStateManager enemy) { }
 
-    private IEnumerator WaitToWalk(EnemyStateManger enemy)
+    private IEnumerator WaitToWalk(EnemyStateManager enemy)
     {
         var waitTime = Random.Range(minIdleTime, maxIdleTime);
         yield return new WaitForSeconds(waitTime);

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyStateManger : StateMachineManger
+public class EnemyStateManager : StateMachineManager
 {
     [Header("States")]
     public EnemyIdleState idleState;

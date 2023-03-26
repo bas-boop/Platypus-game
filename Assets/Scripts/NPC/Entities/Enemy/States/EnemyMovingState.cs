@@ -11,7 +11,7 @@ public class EnemyMovingState : EnemyBaseState
 
     public int WalkDirection { get; private set; } = 1;
 
-    protected override void EnterState(EnemyStateManger enemy)
+    protected override void EnterState(EnemyStateManager enemy)
     {
         //todo: Moving Animation
         
@@ -19,14 +19,14 @@ public class EnemyMovingState : EnemyBaseState
         StartCoroutine(StopMoving(enemy));
     }
 
-    protected override void UpdateState(EnemyStateManger enemy)
+    protected override void UpdateState(EnemyStateManager enemy)
     {
         Walk();
     }
     
-    protected override void FixedUpdateState(EnemyStateManger enemy) { }
+    protected override void FixedUpdateState(EnemyStateManager enemy) { }
 
-    protected override void ExitState(EnemyStateManger enemy)
+    protected override void ExitState(EnemyStateManager enemy)
     {
         _rigidbody2D.velocity = Vector2.zero;
     }
@@ -53,7 +53,7 @@ public class EnemyMovingState : EnemyBaseState
         _rigidbody2D.velocity = desiredPosition * Time.deltaTime;
     }
 
-    private IEnumerator StopMoving(EnemyStateManger enemy)
+    private IEnumerator StopMoving(EnemyStateManager enemy)
     {
         yield return new WaitForSeconds(moveTime);
         IsValidToSwitch = true;

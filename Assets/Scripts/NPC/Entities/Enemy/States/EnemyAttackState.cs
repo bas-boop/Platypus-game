@@ -7,21 +7,21 @@ public class EnemyAttackState : EnemyBaseState
     [SerializeField] private LayerMask playerLayer;
     private HealthData _playerHealth;
     
-    protected override void EnterState(EnemyStateManger enemy)
+    protected override void EnterState(EnemyStateManager enemy)
     {
         Smacking(enemy);
     }
 
-    protected override void UpdateState(EnemyStateManger enemy) { }
-    protected override void FixedUpdateState(EnemyStateManger enemy) { }
-    protected override void ExitState(EnemyStateManger enemy) { }
+    protected override void UpdateState(EnemyStateManager enemy) { }
+    protected override void FixedUpdateState(EnemyStateManager enemy) { }
+    protected override void ExitState(EnemyStateManager enemy) { }
 
     private void Awake()
     {
         _playerHealth = FindObjectOfType<HealthData>();
     }
 
-    private void Smacking(EnemyStateManger enemy)
+    private void Smacking(EnemyStateManager enemy)
     {
         var currentPos = new Vector2(transform.position.x, transform.position.y);
         hitOffset = new Vector2(Mathf.Abs(hitOffset.x) * enemy.movingState.WalkDirection, hitOffset.y);

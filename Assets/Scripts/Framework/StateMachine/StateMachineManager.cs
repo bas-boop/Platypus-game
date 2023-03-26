@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class StateMachineManger : MonoBehaviour
+public abstract class StateMachineManager : MonoBehaviour
 {
     [Header("Base StateMachine")]
     [SerializeField] protected BaseState startingState;

@@ -1,29 +1,29 @@
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyStateManger))]
+[RequireComponent(typeof(EnemyStateManager))]
 public abstract class EnemyBaseState : BaseState
 {
     #region BaseState to EnemyState
 
-    public override void EnterState(StateMachineManger entity)
+    public override void EnterState(StateMachineManager entity)
     {
         base.EnterState(Parent);
-        EnterState((EnemyStateManger) Parent);
+        EnterState((EnemyStateManager) Parent);
     }
 
-    public override void UpdateState(StateMachineManger entity) => UpdateState((EnemyStateManger)Parent);
-    public override void FixedUpdateState(StateMachineManger entity) => FixedUpdateState((EnemyStateManger)Parent);
-    public override void ExitState(StateMachineManger entity) => ExitState((EnemyStateManger)Parent);
+    public override void UpdateState(StateMachineManager entity) => UpdateState((EnemyStateManager)Parent);
+    public override void FixedUpdateState(StateMachineManager entity) => FixedUpdateState((EnemyStateManager)Parent);
+    public override void ExitState(StateMachineManager entity) => ExitState((EnemyStateManager)Parent);
 
     #endregion
 
     
     #region Functions called by state's
 
-    protected abstract void EnterState(EnemyStateManger enemy);
-    protected abstract void UpdateState(EnemyStateManger enemy);
-    protected abstract void FixedUpdateState(EnemyStateManger enemy);
-    protected abstract void ExitState(EnemyStateManger enemy);
+    protected abstract void EnterState(EnemyStateManager enemy);
+    protected abstract void UpdateState(EnemyStateManager enemy);
+    protected abstract void FixedUpdateState(EnemyStateManager enemy);
+    protected abstract void ExitState(EnemyStateManager enemy);
 
     #endregion
 }
