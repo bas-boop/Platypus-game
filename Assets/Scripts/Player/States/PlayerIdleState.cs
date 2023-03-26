@@ -4,23 +4,44 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
 {
-    protected override void EnterState(PlayerStateManager player)
-    {
-        throw new System.NotImplementedException();
-    }
+    [SerializeField] private Animator animator;
+    [SerializeField] private float blinkTimerStartTime;
+    [SerializeField] private float sitTimerStartTime;
+    private float _blinkTimer;
+    private float _sitTimer;
+    
+    protected override void EnterState(PlayerStateManager player) { }
 
     protected override void UpdateState(PlayerStateManager player)
     {
-        throw new System.NotImplementedException();
+        UpdateAnimations();
     }
 
-    protected override void FixedUpdateState(PlayerStateManager player)
-    {
-        throw new System.NotImplementedException();
-    }
+    protected override void FixedUpdateState(PlayerStateManager player) { }
+    protected override void ExitState(PlayerStateManager player) { }
 
-    protected override void ExitState(PlayerStateManager player)
+    private void UpdateAnimations()
     {
-        throw new System.NotImplementedException();
+        /*if (_isWalking)
+        {
+            _blinkTimer = blinkTimerStartTime;
+            _sitTimer = sitTimerStartTime;
+            return;
+        }*/
+        
+        _blinkTimer -= Time.deltaTime;
+        _sitTimer -= Time.deltaTime;
+
+        if (_blinkTimer <= 0)
+        {
+            animator.SetTrigger("DoBlink");
+            _blinkTimer = blinkTimerStartTime;
+        }
+
+        if (_sitTimer <= 0)
+        {
+            animator.SetTrigger("DoSit");
+            _sitTimer = sitTimerStartTime;
+        }
     }
 }
