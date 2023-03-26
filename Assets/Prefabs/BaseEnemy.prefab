@@ -187,9 +187,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad6b46b435b07046b32538efd81b293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingState: {fileID: 3405430404426713288}
   idleState: {fileID: 0}
   movingState: {fileID: 0}
   attackState: {fileID: 0}
+  states:
+  - {fileID: 3405430404426713288}
+  - {fileID: -6415558049794951790}
+  - {fileID: 4600399318113569090}
 --- !u!114 &3405430404426713288
 MonoBehaviour:
   m_ObjectHideFlags: 0
