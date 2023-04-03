@@ -63,6 +63,7 @@ public class PlayerDashState : PlayerBaseState
         
         yield return new WaitForSeconds(dashTime);
 
+        IsValidToSwitch = true;
         IsDashing = false;
         animator.SetBool("IsDashing", false);
         

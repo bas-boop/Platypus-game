@@ -72,6 +72,7 @@ public class PlayerRollState : PlayerBaseState
         /*if (!_da.IsDashing)*/ _rigidbody.velocity = Vector2.zero;
         animator.SetBool("IsRolling", false);
         ToggleCanMove();
+        IsValidToSwitch = true;
 
         yield return null;
     }

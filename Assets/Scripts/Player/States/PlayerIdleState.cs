@@ -9,8 +9,11 @@ public class PlayerIdleState : PlayerBaseState
     [SerializeField] private float sitTimerStartTime;
     private float _blinkTimer;
     private float _sitTimer;
-    
-    protected override void EnterState(PlayerStateManager player) { }
+
+    protected override void EnterState(PlayerStateManager player)
+    {
+        IsValidToSwitch = true;
+    }
 
     protected override void UpdateState(PlayerStateManager player)
     {
@@ -18,17 +21,15 @@ public class PlayerIdleState : PlayerBaseState
     }
 
     protected override void FixedUpdateState(PlayerStateManager player) { }
-    protected override void ExitState(PlayerStateManager player) { }
+
+    protected override void ExitState(PlayerStateManager player)
+    {
+        _blinkTimer = blinkTimerStartTime;
+        _sitTimer = sitTimerStartTime;
+    }
 
     private void UpdateAnimations()
     {
-        /*if (_isWalking)
-        {
-            _blinkTimer = blinkTimerStartTime;
-            _sitTimer = sitTimerStartTime;
-            return;
-        }*/
-        
         _blinkTimer -= Time.deltaTime;
         _sitTimer -= Time.deltaTime;
 

@@ -36,6 +36,7 @@ public class PlayerSmackState : PlayerBaseState
         yield return new WaitForSeconds(0.2f);
         
         Smacking();
+        IsValidToSwitch = true;
         
         yield return null;
     }

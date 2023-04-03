@@ -33,7 +33,11 @@ public class PlayerWalkingState : PlayerBaseState
     [Header("Other")]
     [SerializeField] private float deadzone;
 
-    protected override void EnterState(PlayerStateManager player) { }
+    protected override void EnterState(PlayerStateManager player)
+    {
+        IsValidToSwitch = true;
+    }
+    
     protected override void UpdateState(PlayerStateManager player) { }
 
     protected override void FixedUpdateState(PlayerStateManager player)
@@ -112,4 +116,5 @@ public class PlayerWalkingState : PlayerBaseState
         animator.SetFloat("LastMoveDirection", _lastMoveDirection.x);
     }
     
+    public void ToggleCanMove() => canMove = !canMove;
 }

@@ -6,9 +6,13 @@ public abstract class StateMachineManager : MonoBehaviour
     [SerializeField] protected BaseState startingState;
     [SerializeField] protected BaseState[] states;
     
-    private static BaseState _currentState;
+    private BaseState _currentState;
 
-    private void Update() => _currentState.UpdateState(this);
+    private void Update()
+    {
+        _currentState.UpdateState(this);
+        Debug.Log(_currentState);
+    }
     private void FixedUpdate() => _currentState.FixedUpdateState(this);
 
     /// <summary>
