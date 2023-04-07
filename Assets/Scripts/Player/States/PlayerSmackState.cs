@@ -1,46 +1,43 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerMoveData))]
 public class PlayerSmackState : PlayerBaseState
 {
-    [SerializeField] private Animator animator;
-
-    private bool _isSmacking;
-
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Vector2 offset;
     [SerializeField] private float hitRadius;
     
     protected override void EnterState(PlayerStateManager player)
     {
-        ActivateSmack();
+        ActivateSmack(player);
     }
 
     protected override void UpdateState(PlayerStateManager player) { }
     protected override void FixedUpdateState(PlayerStateManager player) { }
     protected override void ExitState(PlayerStateManager player) { }
 
-    public void ActivateSmack()
+    public void ActivateSmack(PlayerStateManager player)
     {
-        if (_isSmacking) return;
+        if (player.moveData.IsSmacking) return;
         
-        _isSmacking = true;
-        animator.SetBool("IsSmacking", true);
+        player.moveData.IsSmacking = true;
+        player.moveData.Animator.SetBool("IsSmacking", true);
         
-        StartCoroutine(StartSmack());
+        StartCoroutine(StartSmack(player));
     }
     
-    private IEnumerator StartSmack()
+    private IEnumerator StartSmack(PlayerStateManager player)
     {
         yield return new WaitForSeconds(0.2f);
         
-        Smacking();
-        IsValidToSwitch = true;// todo: na animation op true zetten
+        Smacking(player);
+        IsValidToSwitch = true;// todo: na animation op true zetten + ToggelCanMove()
         
         yield return null;
     }
 
-    private void Smacking()
+    private void Smacking(PlayerStateManager player)
     {
         var currentPos = new Vector2(transform.position.x, transform.position.y);
         offset = new Vector2(Mathf.Abs(offset.x) /* _pbm.LastMoveDirection.x*/, offset.y);
@@ -55,7 +52,7 @@ public class PlayerSmackState : PlayerBaseState
             hitColliders[i].GetComponent<SmackTarget>().ActivateTargetSmack();
         }
 
-        _isSmacking = false;
-        animator.SetBool("IsSmacking", false);
+        player.moveData.IsSmacking = false;
+        player.moveData.Animator.SetBool("IsSmacking", false);
     }
 }

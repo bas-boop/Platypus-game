@@ -1,18 +1,11 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerMoveData))]
 public class PlayerRollState : PlayerBaseState
 {
-    [SerializeField] private bool isRolling;
-    [SerializeField] private bool canMove = true;
-    [SerializeField] private Animator animator;
     [SerializeField] private float rollPower;
     [SerializeField] private float rollTime;
-    private Rigidbody2D _rigidbody;
-    private GroundChecker _groundChecker;
-    private Vector2 _lastMoveDirection;
 
     protected override void EnterState(PlayerStateManager player)
     {
@@ -24,38 +17,32 @@ public class PlayerRollState : PlayerBaseState
 
     protected override void ExitState(PlayerStateManager player)
     {
-        CancelRoll();
-    }
-
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _groundChecker = GetComponent<GroundChecker>();
+        CancelRoll(player);
     }
 
     private void ActivateRoll(PlayerStateManager player)
     {
-        if(!canMove) return;
-        if (isRolling || !_groundChecker.IsGrounded || _lastMoveDirection.x == 0)
+        if(!player.moveData.CanMove) return;
+        if (player.moveData.IsRolling || !player.moveData.GroundChecker.IsGrounded || player.moveData.LastMoveDirection.x == 0)
         {
             IsValidToSwitch = true;
             player.SwitchState(player.idleState);
             return;
         }
 
-        StartCoroutine(Roll(_lastMoveDirection.x));
+        StartCoroutine(Roll(player.moveData.LastMoveDirection.x, player));
     }
 
-    public void CancelRoll()
+    private void CancelRoll(PlayerStateManager player)
     {
-        StopCoroutine(Roll(_lastMoveDirection.x));
-        isRolling = false;
+        StopCoroutine(Roll(player.moveData.LastMoveDirection.x, player));
+        player.moveData.IsRolling = false;
     }
     
-    private IEnumerator Roll(float rollDirection)
+    private IEnumerator Roll(float rollDirection, PlayerStateManager player)
     {
-        ToggleCanMove();
-        animator.SetBool("IsRolling", true);
+        player.moveData.ToggleCanMove();
+        player.moveData.Animator.SetBool("IsRolling", true);
         
         yield return new WaitForSeconds(0.2f);
         
@@ -65,22 +52,20 @@ public class PlayerRollState : PlayerBaseState
         var timer = rollTime;
         while (timer > 0)
         {
-            isRolling = true;
-            _rigidbody.velocity = rollForce;
+            player.moveData.IsRolling = true;
+            player.moveData.Rigidbody.velocity = rollForce;
 
             timer -= Time.deltaTime;
         }
 
         yield return new WaitForSeconds(rollTime);
         
-        isRolling = false;
-        /*if (!_da.IsDashing)*/ _rigidbody.velocity = Vector2.zero;
-        animator.SetBool("IsRolling", false);
-        ToggleCanMove();
+        player.moveData.IsRolling = false;
+        if (!player.moveData.IsDashing) player.moveData.Rigidbody.velocity = Vector2.zero;
+        player.moveData.Animator.SetBool("IsRolling", false);
+        player.moveData.ToggleCanMove();
         IsValidToSwitch = true;
 
         yield return null;
     }
-    
-    public void ToggleCanMove() => canMove = !canMove;
 }

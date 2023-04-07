@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerMoveData))]
 public class PlayerIdleState : PlayerBaseState
 {
-    [SerializeField] private Animator animator;
     [SerializeField] private float blinkTimerStartTime;
     [SerializeField] private float sitTimerStartTime;
     private float _blinkTimer;
@@ -17,7 +17,7 @@ public class PlayerIdleState : PlayerBaseState
 
     protected override void UpdateState(PlayerStateManager player)
     {
-        UpdateAnimations();
+        UpdateAnimations(player);
     }
 
     protected override void FixedUpdateState(PlayerStateManager player) { }
@@ -28,20 +28,20 @@ public class PlayerIdleState : PlayerBaseState
         _sitTimer = sitTimerStartTime;
     }
 
-    private void UpdateAnimations()
+    private void UpdateAnimations(PlayerStateManager player)
     {
         _blinkTimer -= Time.deltaTime;
         _sitTimer -= Time.deltaTime;
 
         if (_blinkTimer <= 0)
         {
-            animator.SetTrigger("DoBlink");
+            player.moveData.Animator.SetTrigger("DoBlink");
             _blinkTimer = blinkTimerStartTime;
         }
 
         if (_sitTimer <= 0)
         {
-            animator.SetTrigger("DoSit");
+            player.moveData.Animator.SetTrigger("DoSit");
             _sitTimer = sitTimerStartTime;
         }
     }

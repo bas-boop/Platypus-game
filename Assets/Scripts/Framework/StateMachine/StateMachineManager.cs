@@ -51,7 +51,7 @@ public abstract class StateMachineManager : MonoBehaviour
     {
         if (!CurrentState.IsValidToSwitch)
         {
-            Debug.LogWarning("Switching state was not valid!!!");
+            Debug.LogWarning("Switching state was not valid!!!\n" + CurrentState);
             return;
         }
         

@@ -2,20 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(GroundChecker))]
+[RequireComponent(typeof(PlayerMoveData))]
 public class PlayerDashState : PlayerBaseState
 {
-    [Header("Refrence's")]
-    [SerializeField] private Animator animator;
-    private Rigidbody2D _rb;
-    private GroundChecker _gc;
     private PlayerInput _playerInput;
     private InputActionAsset _playerControlsActions;
     
     private Vector2 _mouseWorldPosition;
-
-    private bool _canDash = true;
 
     [Header("Value")]
     [SerializeField] private float dashForcePower;
@@ -27,7 +20,7 @@ public class PlayerDashState : PlayerBaseState
     
     protected override void EnterState(PlayerStateManager player)
     {
-        ActivateDash();
+        ActivateDash(player);
     }
 
     protected override void UpdateState(PlayerStateManager player) { }
@@ -36,41 +29,38 @@ public class PlayerDashState : PlayerBaseState
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _gc = GetComponent<GroundChecker>();
-        
         _playerInput = GetComponent<PlayerInput>();
         _playerControlsActions = _playerInput.actions;
     }
 
-    public void ActivateDash()
+    public void ActivateDash(PlayerStateManager player)
     {
-        if (!_canDash) return;
-        if(IsDashing || !_gc.IsGrounded) return;
+        if (!player.moveData.CanDash) return;
+        if(player.moveData.IsDashing || !player.moveData.GroundChecker.IsGrounded) return;
 
         _mouseWorldPosition = SetMousePos();
-        StartCoroutine(StartDash());
+        StartCoroutine(StartDash(player));
     }
     
-    private IEnumerator StartDash()
+    private IEnumerator StartDash(PlayerStateManager player)
     {
-        IsDashing = true;
-        animator.SetBool("IsDashing", true);
+        player.moveData.IsDashing = true;
+        player.moveData.Animator.SetBool("IsDashing", true);
         
         yield return new WaitForSeconds(0.4f);
         
-        Dash();
+        Dash(player);
         
         yield return new WaitForSeconds(dashTime);
 
         IsValidToSwitch = true;
-        IsDashing = false;
-        animator.SetBool("IsDashing", false);
+        player.moveData.IsDashing = false;
+        player.moveData.Animator.SetBool("IsDashing", false);
         
         yield return null;
     }
 
-    private void Dash()
+    private void Dash(PlayerStateManager player)
     {
         var currentPos = new Vector2(transform.position.x, transform.position.y);
         var dashDirection = _mouseWorldPosition - currentPos;
@@ -78,7 +68,7 @@ public class PlayerDashState : PlayerBaseState
         if(dashDirection.y < minY) return;
         if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x) return;
         
-        _rb.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
+        player.moveData.Rigidbody.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
     }
 
     private Vector2 SetMousePos()
@@ -88,8 +78,4 @@ public class PlayerDashState : PlayerBaseState
     }
 
     private Vector2 SetDashDirection() => _playerControlsActions["Move"].ReadValue<Vector2>();
-    
-    public void SetIsDashing(bool input) => IsDashing = input;
-    public void ToggleCanDash() => _canDash = !_canDash;
-    public bool IsDashing { get; private set; }
 }

@@ -1,37 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerMoveData))]
 public class PlayerWalkingState : PlayerBaseState
 {
-    [Header("Refrence's")]
-    [SerializeField] private SpriteRenderer sprite;
-    [SerializeField] private Animator animator;
-    private Rigidbody2D _rigidbody;
-    private GroundChecker _groundChecker;
-
-    private float _gravity;
-    private float _accelerationSpeed;
-
-    private bool _isWalking;
-    private bool _isDecelerating;
-
-    private Vector2 _lastMoveDirection;
-    
     [Header("Read value's")]
     [SerializeField] private float topSpeed;
-    [SerializeField] private Vector2 moveDirection;
-    [SerializeField] private bool canMove = true;
-    [SerializeField] private bool isRolling;
 
     [Header("Walk")]
     [SerializeField] private float groundedSpeed;
     [SerializeField] private float airedSpeed;
     [SerializeField] private float accelerationTime;
     [SerializeField] private float decelerationStrength;
-
-    [Header("Other")]
-    [SerializeField] private float deadzone;
+    
+    private float _accelerationSpeed;
+    
+    private bool _isDecelerating; //?
 
     protected override void EnterState(PlayerStateManager player)
     {
@@ -42,81 +25,48 @@ public class PlayerWalkingState : PlayerBaseState
 
     protected override void FixedUpdateState(PlayerStateManager player)
     {
-        _gravity = _rigidbody.velocity.y;
-
-        if(canMove) Walking();
+        if(player.moveData.CanMove) Walking(player);
     }
 
     protected override void ExitState(PlayerStateManager player)
     {
-        Decelerate();
+        Decelerate(player);
     }
-    
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _groundChecker = GetComponent<GroundChecker>();
-    }
-    
-    private void Walking()
-    {
-        if(isRolling) return;
 
-        topSpeed = _groundChecker.IsGrounded ? groundedSpeed : airedSpeed;
+    private void Walking(PlayerStateManager player)
+    {
+        if(player.moveData.IsRolling) return;
+
+        topSpeed = player.moveData.GroundChecker.IsGrounded ? groundedSpeed : airedSpeed;
         
         var acceleration = topSpeed / accelerationTime;
 
         if(_accelerationSpeed < topSpeed) _accelerationSpeed += acceleration;
         else if (_accelerationSpeed >= topSpeed) _accelerationSpeed = topSpeed;
 
-        var velocity = _rigidbody.velocity;
+        var velocity = player.moveData.Rigidbody.velocity;
         
         var moveForce = velocity.x =+ _accelerationSpeed;
-        var move = moveForce * moveDirection.x;
+        var move = moveForce * player.moveData.MoveDirection.x;
 
-        var appliedVelocity = new Vector2(move, _gravity);
+        var appliedVelocity = new Vector2(move, player.moveData.Gravity);
 
-        _rigidbody.velocity = appliedVelocity;
+        player.moveData.Rigidbody.velocity = appliedVelocity;
         _isDecelerating = false;
         
-        animator.SetBool("IsWalking", true);
+        player.moveData.Animator.SetBool("IsWalking", true);
     }
     
-    private void Decelerate()
+    private void Decelerate(PlayerStateManager player)
     {
         _accelerationSpeed = 0;
         
         if(_isDecelerating) return;
 
-        var resetVelocity = new Vector2(decelerationStrength * _lastMoveDirection.x, _gravity);
-        _rigidbody.velocity = resetVelocity;
+        var resetVelocity = new Vector2(decelerationStrength * player.moveData.LastMoveDirection.x, player.moveData.Gravity);
+        player.moveData.Rigidbody.velocity = resetVelocity;
 
         _isDecelerating = true;
-        animator.SetBool("IsWalking", false);
+        player.moveData.Animator.SetBool("IsWalking", false);
     }
-    
-    public void SetMoveDirection(Vector2 input)
-    {
-        if(!canMove) return;
-        
-        if (input.x > deadzone) input.x = 1;
-        else if (input.x < -deadzone) input.x = -1;
-        else input.x = 0;
-        
-        if (input.y > deadzone) input.y = 1;
-        else if (input.y < -deadzone) input.y = -1;
-        else input.y = 0;
-
-        moveDirection = input;
-
-        _isWalking = moveDirection != Vector2.zero;
-
-        if (moveDirection != Vector2.zero) _lastMoveDirection.x = moveDirection.x;
-        else Decelerate();
-
-        sprite.flipX = _lastMoveDirection.x > 0;
-        animator.SetFloat("LastMoveDirection", _lastMoveDirection.x);
-    }
-    
-    public void ToggleCanMove() => canMove = !canMove;
 }
