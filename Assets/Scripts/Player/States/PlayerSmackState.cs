@@ -40,7 +40,7 @@ public class PlayerSmackState : PlayerBaseState
     private void Smacking(PlayerStateManager player)
     {
         var currentPos = new Vector2(transform.position.x, transform.position.y);
-        offset = new Vector2(Mathf.Abs(offset.x) /* _pbm.LastMoveDirection.x*/, offset.y);
+        offset = new Vector2(Mathf.Abs(offset.x) * player.moveData.LastMoveDirection.x, offset.y);
         
         var trueOffset = currentPos + offset;
 

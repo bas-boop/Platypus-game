@@ -1,15 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerMoveData))]
 public class PlayerDashState : PlayerBaseState
 {
-    private PlayerInput _playerInput;
-    private InputActionAsset _playerControlsActions;
-    
-    private Vector2 _mouseWorldPosition;
-
     [Header("Value")]
     [SerializeField] private float dashForcePower;
     [SerializeField] private float dashTime;
@@ -27,18 +21,11 @@ public class PlayerDashState : PlayerBaseState
     protected override void FixedUpdateState(PlayerStateManager player) { }
     protected override void ExitState(PlayerStateManager player) { }
 
-    private void Awake()
-    {
-        _playerInput = GetComponent<PlayerInput>();
-        _playerControlsActions = _playerInput.actions;
-    }
-
     public void ActivateDash(PlayerStateManager player)
     {
         if (!player.moveData.CanDash) return;
         if(player.moveData.IsDashing || !player.moveData.GroundChecker.IsGrounded) return;
-
-        _mouseWorldPosition = SetMousePos();
+        
         StartCoroutine(StartDash(player));
     }
     
@@ -63,19 +50,11 @@ public class PlayerDashState : PlayerBaseState
     private void Dash(PlayerStateManager player)
     {
         var currentPos = new Vector2(transform.position.x, transform.position.y);
-        var dashDirection = _mouseWorldPosition - currentPos;
+        var dashDirection = player.moveData.MouseWorldPosition - currentPos;
 
         if(dashDirection.y < minY) return;
         if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x) return;
         
         player.moveData.Rigidbody.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
     }
-
-    private Vector2 SetMousePos()
-    {
-        var mousePos = _playerControlsActions["MousePosition"].ReadValue<Vector2>();
-        return Camera.main.ScreenToWorldPoint(new Vector2(mousePos.x, mousePos.y));
-    }
-
-    private Vector2 SetDashDirection() => _playerControlsActions["Move"].ReadValue<Vector2>();
 }

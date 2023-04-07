@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -13,19 +12,20 @@ public class PlayerMoveData : MonoBehaviour
     
     [field: SerializeField] public bool CanMove { get; private set; } = true;
     [SerializeField] private float deadzone;
+    [SerializeField] private Vector2 lastMoveDirection;
+    
     public Vector2 MoveDirection { get; private set; }
+    public Vector2 LastMoveDirection => lastMoveDirection;
+    public Vector2 MouseWorldPosition { get; set; }
 
     public float Gravity { get; private set; }
 
     public bool IsDashing { get; set; }
+    public bool IsDecelerating { get; set; }
     public bool IsRolling { get; set; }
     public bool IsSmacking { get; set; }
     public bool CanDash { get; private set; } = true;
-
-    public Vector2 LastMoveDirection => lastMoveDirection;
-    [SerializeField] private Vector2 lastMoveDirection;
-    // public Vector2 MouseWorldPosition { get; set; }
-
+    
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -60,7 +60,7 @@ public class PlayerMoveData : MonoBehaviour
         sprite.flipX = LastMoveDirection.x > 0;
         Animator.SetFloat("LastMoveDirection", LastMoveDirection.x);
     }
-    
+
     public void ToggleCanMove()
     {
         CanMove = !CanMove;
