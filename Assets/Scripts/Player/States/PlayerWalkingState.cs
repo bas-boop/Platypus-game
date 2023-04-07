@@ -44,12 +44,13 @@ public class PlayerWalkingState : PlayerBaseState
     {
         _gravity = _rigidbody.velocity.y;
 
-        if(!canMove) return;
-        
-        if(_isWalking) Walking();
+        if(canMove) Walking();
     }
 
-    protected override void ExitState(PlayerStateManager player) { }
+    protected override void ExitState(PlayerStateManager player)
+    {
+        Decelerate();
+    }
     
     private void Awake()
     {
@@ -93,6 +94,7 @@ public class PlayerWalkingState : PlayerBaseState
         _isDecelerating = true;
         animator.SetBool("IsWalking", false);
     }
+    
     public void SetMoveDirection(Vector2 input)
     {
         if(!canMove) return;

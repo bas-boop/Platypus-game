@@ -16,7 +16,7 @@ public class PlayerRollState : PlayerBaseState
 
     protected override void EnterState(PlayerStateManager player)
     {
-        ActivateRoll();
+        ActivateRoll(player);
     }
 
     protected override void UpdateState(PlayerStateManager player) { }
@@ -33,10 +33,15 @@ public class PlayerRollState : PlayerBaseState
         _groundChecker = GetComponent<GroundChecker>();
     }
 
-    private void ActivateRoll()
+    private void ActivateRoll(PlayerStateManager player)
     {
         if(!canMove) return;
-        if(isRolling || !_groundChecker.IsGrounded || _lastMoveDirection.x == 0) return;
+        if (isRolling || !_groundChecker.IsGrounded || _lastMoveDirection.x == 0)
+        {
+            IsValidToSwitch = true;
+            player.SwitchState(player.idleState);
+            return;
+        }
 
         StartCoroutine(Roll(_lastMoveDirection.x));
     }

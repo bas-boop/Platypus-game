@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerSmackState : PlayerBaseState
@@ -36,7 +35,7 @@ public class PlayerSmackState : PlayerBaseState
         yield return new WaitForSeconds(0.2f);
         
         Smacking();
-        IsValidToSwitch = true;
+        IsValidToSwitch = true;// todo: na animation op true zetten
         
         yield return null;
     }

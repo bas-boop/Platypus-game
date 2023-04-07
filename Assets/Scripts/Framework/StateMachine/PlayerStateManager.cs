@@ -13,7 +13,7 @@ public class PlayerStateManager : StateMachineManager
     public PlayerDashState dashState;
     public PlayerSmackState smackState;
 
-    private  void Awake()
+    private new void Awake()
     {
         idleState = GetComponent<PlayerIdleState>();
         walkingState = GetComponent<PlayerWalkingState>();
@@ -21,9 +21,23 @@ public class PlayerStateManager : StateMachineManager
         dashState = GetComponent<PlayerDashState>();
         smackState = GetComponent<PlayerSmackState>();
         
-        InitStateMachine();
+        base.Awake();
         
         AddListeners();
+    }
+
+    private new void FixedUpdate()
+    {
+        base.FixedUpdate();
+        
+        var moveInput = _playerControlsActions["Move"].ReadValue<Vector2>();
+
+        if (moveInput.x == 0) SwitchState(idleState);
+        else
+        {
+            if (CurrentState != walkingState) SwitchState(walkingState);
+            walkingState.SetMoveDirection(moveInput);
+        }
     }
 
     #region Inputs

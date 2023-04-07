@@ -7,12 +7,12 @@ public class EnemyStateManager : StateMachineManager
     public EnemyMovingState movingState;
     public EnemyAttackState attackState;
 
-    private  void Awake()
+    private new void Awake()
     {
         idleState = GetComponent<EnemyIdleState>();
         movingState = GetComponent<EnemyMovingState>();
         attackState = GetComponent<EnemyAttackState>();
         
-        InitStateMachine();
+        base.Awake();
     }
 }
