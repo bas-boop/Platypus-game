@@ -10,13 +10,14 @@ public class PlayerMoveData : MonoBehaviour
     public Rigidbody2D Rigidbody { get; private set; }
     public GroundChecker GroundChecker { get; private set; }
     
-    [field: SerializeField] public bool CanMove { get; private set; } = true;
+    [Header("Other")]
     [SerializeField] private float deadzone;
-    [SerializeField] private Vector2 lastMoveDirection;
+    [field: SerializeField] public bool CanMove { get; private set; } = true;
     
     public Vector2 MoveDirection { get; private set; }
-    public Vector2 LastMoveDirection => lastMoveDirection;
     public Vector2 MouseWorldPosition { get; set; }
+    public Vector2 LastMoveDirection => _lastMoveDirection;
+    private Vector2 _lastMoveDirection;
 
     public float Gravity { get; private set; }
 
@@ -53,8 +54,8 @@ public class PlayerMoveData : MonoBehaviour
 
         if (MoveDirection != Vector2.zero)
         {
-            lastMoveDirection = LastMoveDirection;
-            lastMoveDirection.x = MoveDirection.x;
+            _lastMoveDirection = LastMoveDirection;
+            _lastMoveDirection.x = MoveDirection.x;
         }
 
         sprite.flipX = LastMoveDirection.x > 0;
