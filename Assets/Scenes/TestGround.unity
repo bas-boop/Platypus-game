@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!95 &3252237 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3614955163935981306, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
-  m_PrefabInstance: {fileID: 1174295135}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &69654585
 GameObject:
   m_ObjectHideFlags: 3
@@ -888,14 +883,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4266640848073341704, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4266640848073341710, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
-      propertyPath: onGroundEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4266640848073341716, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -944,16 +931,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platypus
       objectReference: {fileID: 0}
-    - target: {fileID: 4266640848073341718, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8146961832491452985, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 3252237}
-    m_RemovedComponents:
-    - {fileID: 4266640848073341704, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
 --- !u!1 &1256070402
 GameObject:
