@@ -21,7 +21,7 @@ public class PlayerDashState : PlayerBaseState
     protected override void FixedUpdateState(PlayerStateManager player) { }
     protected override void ExitState(PlayerStateManager player) { }
 
-    public void ActivateDash(PlayerStateManager player)
+    private void ActivateDash(PlayerStateManager player)
     {
         if (!player.moveData.CanMove) return;
         if(player.moveData.IsDashing || !player.moveData.GroundChecker.IsGrounded) return;

@@ -17,7 +17,7 @@ public class PlayerSmackState : PlayerBaseState
     protected override void FixedUpdateState(PlayerStateManager player) { }
     protected override void ExitState(PlayerStateManager player) { }
 
-    public void ActivateSmack(PlayerStateManager player)
+    private void ActivateSmack(PlayerStateManager player)
     {
         if (player.moveData.IsSmacking) return;
         
