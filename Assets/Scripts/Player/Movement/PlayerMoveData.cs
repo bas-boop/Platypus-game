@@ -12,7 +12,7 @@ public class PlayerMoveData : MonoBehaviour
     
     [Header("Other")]
     [SerializeField] private float deadzone;
-    [field: SerializeField] public bool CanMove { get; private set; } = true;
+    [field: SerializeField] public bool CanMove { get; set; } = true;
     
     public Vector2 MoveDirection { get; private set; }
     public Vector2 MouseWorldPosition { get; set; }
@@ -25,8 +25,7 @@ public class PlayerMoveData : MonoBehaviour
     public bool IsDecelerating { get; set; }
     public bool IsRolling { get; set; }
     public bool IsSmacking { get; set; }
-    public bool CanDash { get; private set; } = true;
-    
+
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -62,9 +61,5 @@ public class PlayerMoveData : MonoBehaviour
         Animator.SetFloat("LastMoveDirection", LastMoveDirection.x);
     }
 
-    public void ToggleCanMove()
-    {
-        CanMove = !CanMove;
-        CanDash = !CanDash;
-    }
+    public void ToggleCanMove() => CanMove = !CanMove;
 }

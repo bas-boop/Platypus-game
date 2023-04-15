@@ -23,7 +23,7 @@ public class PlayerDashState : PlayerBaseState
 
     public void ActivateDash(PlayerStateManager player)
     {
-        if (!player.moveData.CanDash) return;
+        if (!player.moveData.CanMove) return;
         if(player.moveData.IsDashing || !player.moveData.GroundChecker.IsGrounded) return;
         
         StartCoroutine(StartDash(player));

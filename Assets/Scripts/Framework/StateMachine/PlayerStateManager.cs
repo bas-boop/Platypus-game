@@ -8,12 +8,11 @@ public class PlayerStateManager : StateMachineManager
 
     public PlayerMoveData moveData;
     
-    [Header("States")]
-    public PlayerIdleState idleState;
-    public PlayerWalkingState walkingState;
-    public PlayerRollState rollState;
-    public PlayerDashState dashState;
-    public PlayerSmackState smackState;
+    [HideInInspector] public PlayerIdleState idleState;
+    [HideInInspector] public PlayerWalkingState walkingState;
+    [HideInInspector] public PlayerRollState rollState;
+    [HideInInspector] public PlayerDashState dashState;
+    [HideInInspector] public PlayerSmackState smackState;
 
     private new void Awake()
     {

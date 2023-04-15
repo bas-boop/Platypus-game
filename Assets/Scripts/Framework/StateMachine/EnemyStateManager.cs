@@ -2,10 +2,9 @@ using UnityEngine;
 
 public class EnemyStateManager : StateMachineManager
 {
-    [Header("States")]
-    public EnemyIdleState idleState;
-    public EnemyMovingState movingState;
-    public EnemyAttackState attackState;
+    [HideInInspector] public EnemyIdleState idleState;
+    [HideInInspector] public EnemyMovingState movingState;
+    [HideInInspector] public EnemyAttackState attackState;
 
     private new void Awake()
     {
