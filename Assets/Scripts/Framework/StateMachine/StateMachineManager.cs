@@ -6,29 +6,23 @@ public abstract class StateMachineManager : MonoBehaviour
     [SerializeField] protected BaseState startingState;
     [SerializeField] protected BaseState[] states;
     
-    private static BaseState _currentState;
+    protected BaseState CurrentState;
 
-    private void Update() => _currentState.UpdateState(this);
-    private void FixedUpdate() => _currentState.FixedUpdateState(this);
+    protected void Awake()
+    {
+        InitStateMachine();
+    }
 
-    /// <summary>
-    /// Initialization of the state machine
-    /// </summary>
-    /// <list type="Functions">
-    ///     <listheader>
-    ///         <term>Functions</term>
-    ///         <description>description</description>
-    ///     </listheader>
-    ///     <item>
-    ///         <term>SetStatesParent</term>
-    ///         <description>Sets the state parent, that's a state machine.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term>EnterStartingState</term>
-    ///         <description>Enters the starting state.</description>
-    ///     </item>
-    /// </list>>
-    protected void InitStateMachine()
+    protected void Update()
+    {
+        CurrentState.UpdateState(this);
+    }
+    protected void FixedUpdate()
+    {
+        CurrentState.FixedUpdateState(this);
+    }
+    
+    private void InitStateMachine()
     {
         SetStatesParent();
         EnterStartingState();
@@ -44,8 +38,8 @@ public abstract class StateMachineManager : MonoBehaviour
 
     private void EnterStartingState()
     {
-        _currentState = startingState;
-        _currentState.EnterState(this);
+        CurrentState = startingState;
+        CurrentState.EnterState(this);
     }
 
     /// <summary>
@@ -55,14 +49,14 @@ public abstract class StateMachineManager : MonoBehaviour
     /// <param name="state">Target state to switch into.</param>
     public void SwitchState(BaseState state)
     {
-        if (!_currentState.IsValidToSwitch)
+        if (!CurrentState.IsValidToSwitch)
         {
-            Debug.LogWarning("Switching state was not valid!!!");
+            Debug.LogWarning("Switching state was not valid!!!\n" + CurrentState);
             return;
         }
         
-        _currentState.ExitState(this);
-        _currentState = state;
+        CurrentState.ExitState(this);
+        CurrentState = state;
         state.EnterState(this);
     }
 }

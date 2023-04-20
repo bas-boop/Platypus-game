@@ -12,17 +12,14 @@ GameObject:
   - component: {fileID: 4266640848073341707}
   - component: {fileID: 4266640848073341706}
   - component: {fileID: 4266640848073341705}
+  - component: {fileID: 4266640848073341704}
+  - component: {fileID: 4266640848073341717}
   - component: {fileID: 4266640848073341710}
+  - component: {fileID: 4266640848073341711}
+  - component: {fileID: 4266640848073341708}
   - component: {fileID: 1183489825}
-  - component: {fileID: 7141954085615704045}
-  - component: {fileID: 6099884607191249837}
-  - component: {fileID: 8146961832491452985}
-  - component: {fileID: 8347413690068307507}
-  - component: {fileID: 597268178772961311}
-  - component: {fileID: 5720107238787075003}
-  - component: {fileID: 8105518661931420211}
   m_Layer: 7
-  m_Name: Platypus
+  m_Name: Platypus_No_SM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,6 +117,48 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerInput
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4266640848073341704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4266640848073341718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15d65d79cc92be140afb3620cb6d5d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 4266640848073341717}
+  dashAbillity: {fileID: 4266640848073341711}
+  smack: {fileID: 4266640848073341708}
+--- !u!114 &4266640848073341717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4266640848073341718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 362767f84b6bcc14c865c98fe30262eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 3196953888520116111}
+  animator: {fileID: 3614955163935981306}
+  topSpeed: 0
+  moveDirection: {x: 0, y: 0}
+  canMove: 1
+  isRolling: 0
+  groundedSpeed: 7.5
+  airedSpeed: 5
+  accelerationTime: 0.3
+  decelerationStrength: 2
+  rollPower: 15
+  rollTime: 0.4
+  deadzone: 0.65
+  blinkTimerStartTime: 3
+  sitTimerStartTime: 15
 --- !u!114 &4266640848073341710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +181,7 @@ MonoBehaviour:
   onGroundEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4266640848073341711}
         m_TargetAssemblyTypeName: DashAbillity, Assembly-CSharp
         m_MethodName: SetIsDashing
         m_Mode: 6
@@ -157,6 +196,41 @@ MonoBehaviour:
   onGroundLeave:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4266640848073341711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4266640848073341718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffc8fdb429faa2045b7bec2da408f062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3614955163935981306}
+  dashForcePower: 1.5
+  dashTime: 0.8
+  minY: 1
+  longDistance: {x: 5, y: 2}
+--- !u!114 &4266640848073341708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4266640848073341718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80de4b0f8fe82d429382f8bb27337fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3614955163935981306}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  offset: {x: 0.5, y: 0}
+  hitRadius: 0.65
 --- !u!114 &1183489825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,126 +260,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isDead: 0
---- !u!114 &7141954085615704045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4266640848073341718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa96567c40feebd4a87b80275bae9e6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 3196953888520116111}
-  <Animator>k__BackingField: {fileID: 3614955163935981306}
-  <CanMove>k__BackingField: 1
-  deadzone: 0.65
-  lastMoveDirection: {x: 0, y: 0}
---- !u!114 &6099884607191249837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4266640848073341718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 732af19dc7df8a449827078ce8d31d92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingState: {fileID: 8146961832491452985}
-  states:
-  - {fileID: 8146961832491452985}
-  - {fileID: 8347413690068307507}
-  - {fileID: 597268178772961311}
-  - {fileID: 5720107238787075003}
-  - {fileID: 8105518661931420211}
-  moveData: {fileID: 7141954085615704045}
-  idleState: {fileID: 0}
-  walkingState: {fileID: 0}
-  rollState: {fileID: 0}
-  dashState: {fileID: 0}
-  smackState: {fileID: 0}
---- !u!114 &8146961832491452985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4266640848073341718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37e4bde86fef6040bde4a68aebe8b9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blinkTimerStartTime: 3
-  sitTimerStartTime: 14.9
---- !u!114 &8347413690068307507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4266640848073341718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a030abadef8c9604d8a3c44677959c69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  topSpeed: 0
-  groundedSpeed: 7.5
-  airedSpeed: 5
-  accelerationTime: 0.3
-  decelerationStrength: 2
---- !u!114 &597268178772961311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4266640848073341718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2425ef13eb43b94daa4f728e4c1616c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rollPower: 15
-  rollTime: 0.4
---- !u!114 &5720107238787075003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4266640848073341718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9d7f75564850a349889ccbf83db4495, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dashForcePower: 1.5
-  dashTime: 0.8
-  minY: 1
-  longDistance: {x: 5, y: 2}
---- !u!114 &8105518661931420211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4266640848073341718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a5d5dccfbe64894f9fc5b304a35305a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  offset: {x: 0.5, y: 0}
-  hitRadius: 0.65
 --- !u!1 &4376565836614875925
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +330,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3b42c3b2097180b4ba8aef7178bd0d72, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
