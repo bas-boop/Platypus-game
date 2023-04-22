@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public sealed class Pickup : MonoBehaviour
 {
+    public string pickupType;
     private PickupSystem _system;
 
     [SerializeField] private GameObject visual;
@@ -20,8 +21,8 @@ public sealed class Pickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(IsPickedUp || !col == _system.Player()) return;
-        
+        if(IsPickedUp || col.gameObject != _system.Player()) return;
+
         _system.AddPickup(this);
         IsPickedUp = true;
         visual.SetActive(false);
