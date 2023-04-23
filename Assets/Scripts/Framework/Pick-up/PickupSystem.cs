@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.Events;
 
 public sealed class PickupSystem : Singleton<PickupSystem>
 {
@@ -47,6 +44,22 @@ public sealed class PickupSystem : Singleton<PickupSystem>
         
         Debug.LogError("Unique pick-up already exist.\nPick-up type: " + pickup.pickupType);
         return false;
+    }
+
+    /// <summary>
+    /// Removes pick-up if there is more then 0 of it. If keyType does not exist there is going to be an error.
+    /// </summary>
+    /// <param name="pickupType">Pick-up type that is going to be removed.</param>
+    public void RemovePickup(string pickupType)
+    {
+        if (_inventory[pickupType] == 0)
+        {
+            Debug.LogError("There is none if that type of pick-up.");
+            return;
+        }
+
+        _inventory[pickupType]--;
+        UpdateCustomInspector();
     }
     
     #region Gets & Sets

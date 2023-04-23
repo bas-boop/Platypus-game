@@ -60,6 +60,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Temp-remove-pickup",
+                    "type": "Button",
+                    "id": "6eab300f-5117-47a0-81b9-7aa0347af0db",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -293,6 +301,17 @@
                     "action": "DisableMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "79095085-2638-4d38-a5e9-a1e0f04a71ed",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Temp-remove-pickup",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
