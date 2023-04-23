@@ -16,14 +16,39 @@ public sealed class PickupSystem : Singleton<PickupSystem>
         _player = GameObject.Find("Platypus");
     }
 
-    public void AddPickup(Pickup pickup)
+    /// <summary>
+    /// Adds the pick-up to inventory. If it's unique if checks if it already exist or not.
+    /// </summary>
+    /// <param name="pickup">The pick-up that's wants to be added.</param>
+    /// <returns>If it's added.</returns>
+    public bool AddPickup(Pickup pickup)
     {
-        if (_inventory.ContainsKey(pickup.pickupType)) _inventory[pickup.pickupType] += 1;
+        if (_inventory.ContainsKey(pickup.pickupType))
+        {
+            if (pickup.isUnique) return AddUniquePickup(pickup);
+
+            _inventory[pickup.pickupType]++;
+        }
         else _inventory[pickup.pickupType] = 1;
 
         UpdateCustomInspector();
+        
+        return true;
     }
 
+    private bool AddUniquePickup(Pickup pickup)
+    {
+        if (_inventory[pickup.pickupType] == 0)
+        {
+            _inventory[pickup.pickupType] = 1;
+            UpdateCustomInspector();
+            return true;
+        }
+        
+        Debug.LogError("Unique pick-up already exist.\nPick-up type: " + pickup.pickupType);
+        return false;
+    }
+    
     #region Gets & Sets
 
         public GameObject Player() => _player;

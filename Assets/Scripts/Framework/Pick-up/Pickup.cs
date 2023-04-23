@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public sealed class Pickup : MonoBehaviour
 {
     public string pickupType;
+    public bool isUnique;
     private PickupSystem _system;
 
     [SerializeField] private GameObject visual;
@@ -23,7 +24,9 @@ public sealed class Pickup : MonoBehaviour
     {
         if(IsPickedUp || col.gameObject != _system.Player()) return;
 
-        _system.AddPickup(this);
+        var isAdded = _system.AddPickup(this);
+        if (!isAdded) return;
+        
         IsPickedUp = true;
         visual.SetActive(false);
         onPickedUp?.Invoke();
