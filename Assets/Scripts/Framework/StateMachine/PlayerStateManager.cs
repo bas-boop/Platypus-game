@@ -59,6 +59,8 @@ public class PlayerStateManager : StateMachineManager
         _playerControlsActions["Smack"].performed += Smack;
 
         _playerControlsActions["DisableMovement"].performed += DisableMovement;
+
+        _playerControlsActions["Temp-remove-pickup"].performed += Remove;
     }
     
     private void OnDestroy()
@@ -73,6 +75,8 @@ public class PlayerStateManager : StateMachineManager
         _playerControlsActions["Smack"].performed -= Smack;
         
         _playerControlsActions["DisableMovement"].performed -= DisableMovement;
+        
+        _playerControlsActions["Temp-remove-pickup"].performed -= Remove;
     }
 
     private void Roll(InputAction.CallbackContext context) => SwitchState(rollState);
@@ -88,6 +92,8 @@ public class PlayerStateManager : StateMachineManager
         moveData.ToggleCanMove();
         SwitchState(idleState);
     }
+    
+    private void Remove(InputAction.CallbackContext context) => PickupSystem.Instance.RemovePickup(PickupType.Stick);
 
     #endregion
 }
