@@ -14,9 +14,9 @@ public sealed class PickupSystemEditor : Editor
 
         EditorGUILayout.LabelField("Inventory", EditorStyles.boldLabel);
 
-        foreach (var kvp in pickupSystem.Inventory()) // kvp = key-value pair
+        foreach (var keyValuePair in pickupSystem.Inventory())
         {
-            EditorGUILayout.LabelField(kvp.Key + ": " + kvp.Value);
+            EditorGUILayout.LabelField(keyValuePair.Key + ": " + keyValuePair.Value);
         }
     }
 }
