@@ -1469,6 +1469,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sticks: 0
   _maxSticks: 2
+  reachedMaxAmount:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &1842818311
 BoxCollider2D:
   m_ObjectHideFlags: 0
