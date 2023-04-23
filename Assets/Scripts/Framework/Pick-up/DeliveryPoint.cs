@@ -5,19 +5,12 @@ using UnityEngine;
 
 public class DeliveryPoint : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-    
-    void Update()
-    {
-        
-    }
+    [SerializeField]private int _sticks;
     
     private void OnTriggerEnter2D(Collider2D playerCollider)
     {
         if (playerCollider.gameObject != PickupSystem.Instance.Player()) return;
-        PickupSystem.Instance.RemovePickup(PickupType.Stick);
+
+        if (PickupSystem.Instance.RemovePickup(PickupType.Stick)) _sticks++;
     }
 }

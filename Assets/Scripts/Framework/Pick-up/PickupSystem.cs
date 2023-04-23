@@ -50,16 +50,17 @@ public sealed class PickupSystem : Singleton<PickupSystem>
     /// Removes pick-up if there is more then 0 of it. If keyType does not exist there is going to be an error.
     /// </summary>
     /// <param name="pickupType">Pick-up type that is going to be removed.</param>
-    public void RemovePickup(PickupType pickupType)
+    public bool RemovePickup(PickupType pickupType)
     {
         if (_inventory[pickupType] == 0)
         {
             Debug.LogError("There is none if that type of pick-up.");
-            return;
+            return false;
         }
 
         _inventory[pickupType]--;
         UpdateCustomInspector();
+        return true;
     }
     
     #region Gets & Sets
