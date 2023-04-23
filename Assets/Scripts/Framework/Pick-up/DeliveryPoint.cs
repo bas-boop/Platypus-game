@@ -1,29 +1,35 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DeliveryPoint : MonoBehaviour
+public sealed class DeliveryPoint : MonoBehaviour
 {
-    [SerializeField] private int _sticks;
-    [SerializeField] private int _maxSticks;
+    [SerializeField] private PickupType deliverablePickupType;
+    
+    [SerializeField] private int items;
+    [SerializeField] private int maxAmountItems;
 
     [SerializeField] private UnityEvent reachedMaxAmount = new UnityEvent();
     [SerializeField] private UnityEvent onDeposit = new UnityEvent();
     
     private void OnTriggerEnter2D(Collider2D playerCollider)
     {
-        if (playerCollider.gameObject != PickupSystem.Instance.Player()) return;
+        if (playerCollider.gameObject != PickupSystem.Instance.Player() || items == maxAmountItems) return;
 
-        if (_sticks == _maxSticks) return;
+        if (!PickupSystem.Instance.RemovePickup(deliverablePickupType)) return;
+        
+        AddItem();
+    }
 
-        if (PickupSystem.Instance.RemovePickup(PickupType.Stick))
+    private void AddItem()
+    {
+        items++;
+        
+        if (items == maxAmountItems)
         {
-            _sticks++;
-            if (_sticks == _maxSticks)
-            {
-                reachedMaxAmount?.Invoke();
-                return;
-            }
-            onDeposit?.Invoke();
+            reachedMaxAmount?.Invoke();
+            return;
         }
+        
+        onDeposit?.Invoke();
     }
 }
