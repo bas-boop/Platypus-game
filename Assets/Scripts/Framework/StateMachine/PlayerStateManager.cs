@@ -93,7 +93,7 @@ public class PlayerStateManager : StateMachineManager
         SwitchState(idleState);
     }
     
-    private void Remove(InputAction.CallbackContext context) => PickupSystem.Instance.RemovePickup("Stick");
+    private void Remove(InputAction.CallbackContext context) => PickupSystem.Instance.RemovePickup(PickupType.Stick);
 
     #endregion
 }

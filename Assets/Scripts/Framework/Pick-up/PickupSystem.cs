@@ -4,7 +4,7 @@ using UnityEditor;
 
 public sealed class PickupSystem : Singleton<PickupSystem>
 {
-    private readonly Dictionary<string, int> _inventory = new Dictionary<string, int>();
+    private readonly Dictionary<PickupType, int> _inventory = new Dictionary<PickupType, int>();
     private GameObject _player;
 
     protected override void Awake()
@@ -50,7 +50,7 @@ public sealed class PickupSystem : Singleton<PickupSystem>
     /// Removes pick-up if there is more then 0 of it. If keyType does not exist there is going to be an error.
     /// </summary>
     /// <param name="pickupType">Pick-up type that is going to be removed.</param>
-    public void RemovePickup(string pickupType)
+    public void RemovePickup(PickupType pickupType)
     {
         if (_inventory[pickupType] == 0)
         {
@@ -65,7 +65,7 @@ public sealed class PickupSystem : Singleton<PickupSystem>
     #region Gets & Sets
 
         public GameObject Player() => _player;
-        public Dictionary<string, int> Inventory() => _inventory;
+        public Dictionary<PickupType, int> Inventory() => _inventory;
 
     #endregion
 

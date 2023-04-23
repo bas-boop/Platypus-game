@@ -7,7 +7,7 @@ public sealed class Pickup : MonoBehaviour
     private bool _isPickedUp;
     
     [SerializeField] private GameObject visual;
-    [field: SerializeField] public string PickupType { get; private set; }
+    [field: SerializeField] public PickupType PickupType { get; private set; }
     [field: SerializeField] public bool IsUnique { get; private set; }
 
     [SerializeField] private UnityEvent onPickedUp = new UnityEvent();
