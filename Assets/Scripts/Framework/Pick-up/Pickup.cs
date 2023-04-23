@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public sealed class Pickup : MonoBehaviour
 {
-    private PickupSystem _system;
+    private PickupSystem _pickupSystem;
     private bool _isPickedUp;
     
     [SerializeField] private GameObject visual;
@@ -12,16 +12,13 @@ public sealed class Pickup : MonoBehaviour
 
     [SerializeField] private UnityEvent onPickedUp = new UnityEvent();
     
-    private void Awake()
-    {
-        _system = PickupSystem.Instance;
-    }
+    private void Awake() => _pickupSystem = PickupSystem.Instance;
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(_isPickedUp || col.gameObject != _system.Player()) return;
+        if(_isPickedUp || col.gameObject != _pickupSystem.Player()) return;
 
-        var isAdded = _system.AddPickup(this);
+        var isAdded = _pickupSystem.AddPickup(this);
         if (!isAdded) return;
         
         _isPickedUp = true;

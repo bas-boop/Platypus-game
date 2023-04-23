@@ -14,7 +14,7 @@ public sealed class PickupSystemEditor : Editor
 
         EditorGUILayout.LabelField("Inventory", EditorStyles.boldLabel);
 
-        foreach (var kvp in pickupSystem.Inventory())
+        foreach (var kvp in pickupSystem.Inventory()) // kvp = key-value pair
         {
             EditorGUILayout.LabelField(kvp.Key + ": " + kvp.Value);
         }
