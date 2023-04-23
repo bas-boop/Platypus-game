@@ -1,18 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public sealed class Pickup : MonoBehaviour
 {
-    public string pickupType;
-    public bool isUnique;
     private PickupSystem _system;
-
-    [SerializeField] private GameObject visual;
+    private bool _isPickedUp;
     
-    public bool IsPickedUp { get; private set; }
+    [SerializeField] private GameObject visual;
+    [field: SerializeField] public string PickupType { get; private set; }
+    [field: SerializeField] public bool IsUnique { get; private set; }
+
     [SerializeField] private UnityEvent onPickedUp = new UnityEvent();
     
     private void Awake()
@@ -22,12 +19,12 @@ public sealed class Pickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(IsPickedUp || col.gameObject != _system.Player()) return;
+        if(_isPickedUp || col.gameObject != _system.Player()) return;
 
         var isAdded = _system.AddPickup(this);
         if (!isAdded) return;
         
-        IsPickedUp = true;
+        _isPickedUp = true;
         visual.SetActive(false);
         onPickedUp?.Invoke();
     }

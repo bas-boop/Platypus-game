@@ -20,13 +20,13 @@ public sealed class PickupSystem : Singleton<PickupSystem>
     /// <returns>If it's added.</returns>
     public bool AddPickup(Pickup pickup)
     {
-        if (_inventory.ContainsKey(pickup.pickupType))
+        if (_inventory.ContainsKey(pickup.PickupType))
         {
-            if (pickup.isUnique) return AddUniquePickup(pickup);
+            if (pickup.IsUnique) return AddUniquePickup(pickup);
 
-            _inventory[pickup.pickupType]++;
+            _inventory[pickup.PickupType]++;
         }
-        else _inventory[pickup.pickupType] = 1;
+        else _inventory[pickup.PickupType] = 1;
 
         UpdateCustomInspector();
         
@@ -35,14 +35,14 @@ public sealed class PickupSystem : Singleton<PickupSystem>
 
     private bool AddUniquePickup(Pickup pickup)
     {
-        if (_inventory[pickup.pickupType] == 0)
+        if (_inventory[pickup.PickupType] == 0)
         {
-            _inventory[pickup.pickupType] = 1;
+            _inventory[pickup.PickupType] = 1;
             UpdateCustomInspector();
             return true;
         }
         
-        Debug.LogError("Unique pick-up already exist.\nPick-up type: " + pickup.pickupType);
+        Debug.LogError("Unique pick-up already exist.\nPick-up type: " + pickup.PickupType);
         return false;
     }
 

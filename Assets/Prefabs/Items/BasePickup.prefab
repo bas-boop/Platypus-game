@@ -128,6 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visual: {fileID: 2023665887763475460}
+  <PickupType>k__BackingField: Base
+  <IsUnique>k__BackingField: 0
   onPickedUp:
     m_PersistentCalls:
       m_Calls: []

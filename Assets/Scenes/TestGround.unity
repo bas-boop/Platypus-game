@@ -597,6 +597,10 @@ PrefabInstance:
       propertyPath: pickupType
       value: Stick
       objectReference: {fileID: 0}
+    - target: {fileID: 2236734241356285136, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
+      propertyPath: <PickupType>k__BackingField
+      value: Stick
+      objectReference: {fileID: 0}
     - target: {fileID: 2236734241356285137, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
       propertyPath: m_Name
       value: BasePickup (1)
@@ -770,6 +774,14 @@ PrefabInstance:
     - target: {fileID: 2236734241356285136, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
       propertyPath: pickupType
       value: egg
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236734241356285136, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
+      propertyPath: <IsUnique>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236734241356285136, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
+      propertyPath: <PickupType>k__BackingField
+      value: Egg
       objectReference: {fileID: 0}
     - target: {fileID: 2236734241356285137, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
       propertyPath: m_Name
@@ -1020,6 +1032,14 @@ PrefabInstance:
     - target: {fileID: 2236734241356285136, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
       propertyPath: pickupType
       value: egg
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236734241356285136, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
+      propertyPath: <IsUnique>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236734241356285136, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
+      propertyPath: <PickupType>k__BackingField
+      value: Egg
       objectReference: {fileID: 0}
     - target: {fileID: 2236734241356285137, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
       propertyPath: m_Name
@@ -1489,6 +1509,10 @@ PrefabInstance:
       propertyPath: pickupType
       value: Stick
       objectReference: {fileID: 0}
+    - target: {fileID: 2236734241356285136, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
+      propertyPath: <PickupType>k__BackingField
+      value: Stick
+      objectReference: {fileID: 0}
     - target: {fileID: 2236734241356285137, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
       propertyPath: m_Name
       value: BasePickup (2)
@@ -1547,7 +1571,7 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2236734241356285136, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
-      propertyPath: pickupType
+      propertyPath: <PickupType>k__BackingField
       value: Stick
       objectReference: {fileID: 0}
     - target: {fileID: 2236734241356285137, guid: 52ee19166a9b9464fa22ab359c7bf244, type: 3}
