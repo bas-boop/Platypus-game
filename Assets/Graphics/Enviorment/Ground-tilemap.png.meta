@@ -23,6 +23,9 @@ TextureImporter:
   - first:
       213: 4440289393293847560
     second: Ground-tilemap_6
+  - first:
+      213: 3974867102292835378
+    second: Ground-tilemap_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -53,7 +56,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -178,8 +181,8 @@ TextureImporter:
       name: Ground-tilemap_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 144
+        y: 48
         width: 48
         height: 48
       alignment: 0
@@ -199,7 +202,7 @@ TextureImporter:
       name: Ground-tilemap_4
       rect:
         serializedVersion: 2
-        x: 48
+        x: 0
         y: 0
         width: 48
         height: 48
@@ -220,7 +223,7 @@ TextureImporter:
       name: Ground-tilemap_5
       rect:
         serializedVersion: 2
-        x: 96
+        x: 48
         y: 0
         width: 48
         height: 48
@@ -241,7 +244,7 @@ TextureImporter:
       name: Ground-tilemap_6
       rect:
         serializedVersion: 2
-        x: 144
+        x: 96
         y: 0
         width: 48
         height: 48
@@ -254,6 +257,27 @@ TextureImporter:
       bones: []
       spriteID: 80ce6337da31f9d30800000000000000
       internalID: 4440289393293847560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground-tilemap_7
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23cfc8dd190992730800000000000000
+      internalID: 3974867102292835378
       vertices: []
       indices: 
       edges: []
