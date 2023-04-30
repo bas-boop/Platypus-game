@@ -7,6 +7,7 @@ public class PlayerStateManager : StateMachineManager
     private InputActionAsset _playerControlsActions;
 
     public PlayerMoveData moveData;
+    [SerializeField] private PlayerState currentState;
     
     [HideInInspector] public PlayerIdleState idleState;
     [HideInInspector] public PlayerWalkingState walkingState;
@@ -31,14 +32,37 @@ public class PlayerStateManager : StateMachineManager
     {
         base.FixedUpdate();
         
-        var moveInput = _playerControlsActions["Move"].ReadValue<Vector2>();
+        if (!CurrentState.IsValidToSwitch) return;
 
+        var moveInput = _playerControlsActions["Move"].ReadValue<Vector2>();
+        
         if (moveInput.x != 0)
         {
-            if(CurrentState != walkingState) SwitchState(walkingState);
+            if(currentState != PlayerState.Walking) SwitchState(PlayerState.Walking);
             moveData.SetMoveDirection(moveInput);
         }
-        else if(CurrentState != idleState) SwitchState(idleState);
+        else if (currentState != PlayerState.Idle) SwitchState(PlayerState.Idle);
+    }
+
+    /// <summary>
+    /// Switch the current targetState to a different one.
+    /// Is it valid to switch targetState?
+    /// </summary>
+    /// <param name="targetState">Give target state to switch into.</param>
+    public void SwitchState(PlayerState targetState)
+    {
+        var state = targetState switch
+        {
+            PlayerState.Idle => idleState,
+            PlayerState.Walking => walkingState,
+            PlayerState.Dashing => dashState,
+            PlayerState.Rolling => rollState,
+            PlayerState.Smacking => smackState,
+            _ => startingState
+        };
+
+        base.SwitchState(state);
+        currentState = targetState;
     }
 
     #region Inputs
@@ -79,18 +103,18 @@ public class PlayerStateManager : StateMachineManager
         _playerControlsActions["Temp-remove-pickup"].performed -= Remove;
     }
 
-    private void Roll(InputAction.CallbackContext context) => SwitchState(rollState);
+    private void Roll(InputAction.CallbackContext context) => SwitchState(PlayerState.Rolling);
     private void Dash(InputAction.CallbackContext context)
     {
         moveData.MouseWorldPosition = SetMousePos();
-        SwitchState(dashState);
+        SwitchState(PlayerState.Dashing);
     }
 
-    private void Smack(InputAction.CallbackContext context) => SwitchState(smackState);
+    private void Smack(InputAction.CallbackContext context) => SwitchState(PlayerState.Smacking);
     private void DisableMovement(InputAction.CallbackContext context)
     {
         moveData.ToggleCanMove();
-        SwitchState(idleState);
+        SwitchState(PlayerState.Idle);
     }
     
     private void Remove(InputAction.CallbackContext context) => PickupSystem.Instance.RemovePickup(PickupType.Stick);
