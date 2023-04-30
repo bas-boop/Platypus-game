@@ -43,20 +43,20 @@ public abstract class StateMachineManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Switch the current state to a different one.
-    /// Is it valid to switch state?
+    /// Switch the current targetState to a different one.
+    /// Is it valid to switch targetState?
     /// </summary>
-    /// <param name="state">Target state to switch into.</param>
-    public void SwitchState(BaseState state)
+    /// <param name="targetState">Give target state to switch into.</param>
+    public void SwitchState(BaseState targetState)
     {
         if (!CurrentState.IsValidToSwitch)
         {
-            Debug.LogWarning("Switching state was not valid!!!\n" + CurrentState);
+            Debug.LogWarning("Switching targetState was not valid!!!\n" + CurrentState);
             return;
         }
         
         CurrentState.ExitState(this);
-        CurrentState = state;
-        state.EnterState(this);
+        CurrentState = targetState;
+        targetState.EnterState(this);
     }
 }

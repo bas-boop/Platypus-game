@@ -23,7 +23,7 @@ public class PlayerWalkingState : PlayerBaseState
 
     protected override void FixedUpdateState(PlayerStateManager player)
     {
-        if(player.moveData.CanMove) Walking(player);
+        if (player.moveData.CanMove) Walking(player);
     }
 
     protected override void ExitState(PlayerStateManager player)
