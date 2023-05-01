@@ -3,12 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateManager : StateMachineManager
 {
-    private PlayerInput _playerInput;
-    private InputActionAsset _playerControlsActions;
-
     public PlayerMoveData moveData;
     [SerializeField] private PlayerState currentState;
     
+    private PlayerInput _playerInput;
+    private InputActionAsset _playerControlsActions;
+
     private PlayerIdleState _idleState;
     private PlayerWalkingState _walkingState;
     private PlayerRollState _rollState;
