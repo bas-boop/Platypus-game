@@ -26,7 +26,7 @@ public class PlayerRollState : PlayerBaseState
         if (player.moveData.IsRolling || !player.moveData.GroundChecker.IsGrounded || player.moveData.LastMoveDirection.x == 0)
         {
             IsValidToSwitch = true;
-            player.SwitchState(player.idleState);
+            player.SwitchState(PlayerState.Idle);
             return;
         }
 

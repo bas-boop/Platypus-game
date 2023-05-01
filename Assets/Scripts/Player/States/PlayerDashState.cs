@@ -19,7 +19,11 @@ public class PlayerDashState : PlayerBaseState
 
     protected override void UpdateState(PlayerStateManager player) { }
     protected override void FixedUpdateState(PlayerStateManager player) { }
-    protected override void ExitState(PlayerStateManager player) { }
+
+    protected override void ExitState(PlayerStateManager player)
+    {
+        player.SwitchState(PlayerState.Falling, true);
+    }
 
     private void ActivateDash(PlayerStateManager player)
     {

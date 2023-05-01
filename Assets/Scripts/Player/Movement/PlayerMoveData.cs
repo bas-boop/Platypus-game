@@ -19,7 +19,16 @@ public class PlayerMoveData : MonoBehaviour
     public Vector2 LastMoveDirection => _lastMoveDirection;
     private Vector2 _lastMoveDirection;
 
-    public float Gravity { get; private set; }
+    public float Gravity 
+    {
+        get => Rigidbody.velocity.y;
+        set
+        {
+            var targetVelocity = new Vector2(Rigidbody.velocity.x, value);
+            Rigidbody.velocity = targetVelocity;
+        }
+        
+    }
 
     public bool IsDashing { get; set; }
     public bool IsDecelerating { get; set; }
@@ -30,11 +39,6 @@ public class PlayerMoveData : MonoBehaviour
     {
         Rigidbody = GetComponent<Rigidbody2D>();
         GroundChecker = GetComponent<GroundChecker>();
-    }
-
-    private void FixedUpdate()
-    {
-        Gravity = Rigidbody.velocity.y;
     }
 
     public void SetMoveDirection(Vector2 input)

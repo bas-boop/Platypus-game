@@ -4,5 +4,6 @@ public enum PlayerState
     Walking,
     Dashing,
     Rolling,
-    Smacking
+    Smacking,
+    Falling
 }

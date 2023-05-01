@@ -9,19 +9,21 @@ public class PlayerStateManager : StateMachineManager
     public PlayerMoveData moveData;
     [SerializeField] private PlayerState currentState;
     
-    [HideInInspector] public PlayerIdleState idleState;
-    [HideInInspector] public PlayerWalkingState walkingState;
-    [HideInInspector] public PlayerRollState rollState;
-    [HideInInspector] public PlayerDashState dashState;
-    [HideInInspector] public PlayerSmackState smackState;
+    private PlayerIdleState _idleState;
+    private PlayerWalkingState _walkingState;
+    private PlayerRollState _rollState;
+    private PlayerDashState _dashState;
+    private PlayerSmackState _smackState;
+    private PlayerFallingState _fallingState;
 
     private new void Awake()
     {
-        idleState = GetComponent<PlayerIdleState>();
-        walkingState = GetComponent<PlayerWalkingState>();
-        rollState = GetComponent<PlayerRollState>();
-        dashState = GetComponent<PlayerDashState>();
-        smackState = GetComponent<PlayerSmackState>();
+        _idleState = GetComponent<PlayerIdleState>();
+        _walkingState = GetComponent<PlayerWalkingState>();
+        _rollState = GetComponent<PlayerRollState>();
+        _dashState = GetComponent<PlayerDashState>();
+        _smackState = GetComponent<PlayerSmackState>();
+        _fallingState = GetComponent<PlayerFallingState>();
         
         base.Awake();
         
@@ -49,19 +51,20 @@ public class PlayerStateManager : StateMachineManager
     /// Is it valid to switch targetState?
     /// </summary>
     /// <param name="targetState">Give target state to switch into.</param>
-    public void SwitchState(PlayerState targetState)
+    public void SwitchState(PlayerState targetState, bool isCalledFormExitState = false)
     {
         var state = targetState switch
         {
-            PlayerState.Idle => idleState,
-            PlayerState.Walking => walkingState,
-            PlayerState.Dashing => dashState,
-            PlayerState.Rolling => rollState,
-            PlayerState.Smacking => smackState,
+            PlayerState.Idle => _idleState,
+            PlayerState.Walking => _walkingState,
+            PlayerState.Dashing => _dashState,
+            PlayerState.Rolling => _rollState,
+            PlayerState.Smacking => _smackState,
+            PlayerState.Falling => _fallingState,
             _ => startingState
         };
 
-        base.SwitchState(state);
+        base.SwitchState(state, isCalledFormExitState);
         currentState = targetState;
     }
 
