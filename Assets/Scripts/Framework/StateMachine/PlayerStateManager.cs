@@ -43,7 +43,7 @@ public class PlayerStateManager : StateMachineManager
             if(currentState != PlayerState.Walking) SwitchState(PlayerState.Walking);
             moveData.SetMoveDirection(moveInput);
         }
-        else if (currentState != PlayerState.Idle) SwitchState(PlayerState.Idle);
+        else if (currentState != PlayerState.Idle && moveData.GroundChecker.IsGrounded) SwitchState(PlayerState.Idle);
     }
 
     /// <summary>
@@ -51,7 +51,7 @@ public class PlayerStateManager : StateMachineManager
     /// Is it valid to switch targetState?
     /// </summary>
     /// <param name="targetState">Give target state to switch into.</param>
-    public void SwitchState(PlayerState targetState, bool isCalledFormExitState = false)
+    public void SwitchState(PlayerState targetState)
     {
         var state = targetState switch
         {
@@ -64,9 +64,15 @@ public class PlayerStateManager : StateMachineManager
             _ => startingState
         };
 
-        base.SwitchState(state, isCalledFormExitState);
-        currentState = targetState;
+        base.SwitchState(state);
+        if(CurrentState == state) currentState = targetState;
     }
+
+    /// <summary>
+    /// This function is used for Unity Events, because they can not have an Enum as parameter.
+    /// </summary>
+    /// <param name="enumValue">The PlayerState in int variable.</param>
+    public void SwitchStateEvent(int enumValue) => SwitchState((PlayerState)enumValue);
 
     #region Inputs
     

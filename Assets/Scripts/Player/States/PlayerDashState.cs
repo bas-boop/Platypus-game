@@ -19,16 +19,16 @@ public class PlayerDashState : PlayerBaseState
 
     protected override void UpdateState(PlayerStateManager player) { }
     protected override void FixedUpdateState(PlayerStateManager player) { }
-
-    protected override void ExitState(PlayerStateManager player)
-    {
-        player.SwitchState(PlayerState.Falling, true);
-    }
+    protected override void ExitState(PlayerStateManager player) { }
 
     private void ActivateDash(PlayerStateManager player)
     {
-        if (!player.moveData.CanMove) return;
-        if(player.moveData.IsDashing || !player.moveData.GroundChecker.IsGrounded) return;
+        if (!player.moveData.CanMove || player.moveData.IsDashing || !player.moveData.GroundChecker.IsGrounded)
+        {
+            IsValidToSwitch = true;
+            player.SwitchState(PlayerState.Idle);
+            return;
+        }
         
         StartCoroutine(StartDash(player));
     }
@@ -47,6 +47,8 @@ public class PlayerDashState : PlayerBaseState
         IsValidToSwitch = true;
         player.moveData.IsDashing = false;
         player.moveData.Animator.SetBool("IsDashing", false);
+        
+        player.SwitchState(PlayerState.Falling);
         
         yield return null;
     }
