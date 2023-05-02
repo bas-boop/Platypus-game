@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class StateMachineManager : MonoBehaviour
@@ -5,8 +7,11 @@ public abstract class StateMachineManager : MonoBehaviour
     [Header("Base StateMachine")]
     [SerializeField] protected BaseState startingState;
     [SerializeField] protected BaseState[] states;
+    [SerializeField] protected BaseState currentState;
     
-    protected BaseState CurrentState;
+    [SerializeField] private float removeStateQueueTime;
+    
+    private List<BaseState> _switchStateQueue = new List<BaseState>();
 
     protected void Awake()
     {
@@ -15,11 +20,16 @@ public abstract class StateMachineManager : MonoBehaviour
 
     protected void Update()
     {
-        CurrentState.UpdateState(this);
+        currentState.UpdateState(this);
     }
     protected void FixedUpdate()
     {
-        CurrentState.FixedUpdateState(this);
+        currentState.FixedUpdateState(this);
+
+        if (!currentState.IsValidToSwitch || _switchStateQueue.Count <= 0) return;
+        
+        SwitchState(_switchStateQueue[0]);
+        _switchStateQueue.Remove(_switchStateQueue[0]);
     }
     
     private void InitStateMachine()
@@ -38,8 +48,8 @@ public abstract class StateMachineManager : MonoBehaviour
 
     private void EnterStartingState()
     {
-        CurrentState = startingState;
-        CurrentState.EnterState(this);
+        currentState = startingState;
+        currentState.EnterState(this);
     }
 
     /// <summary>
@@ -50,14 +60,23 @@ public abstract class StateMachineManager : MonoBehaviour
     /// <param name="isCalledFormExitState">If the SwitchState is called form a ExitState function, this needs to be true!</param>
     public void SwitchState(BaseState targetState, bool isCalledFormExitState = false)
     {
-        if (!CurrentState.IsValidToSwitch)
+        if (!currentState.IsValidToSwitch)
         {
-            Debug.LogWarning("Switching targetState was not valid!!!\n" + CurrentState);
+            Debug.LogWarning("Switching targetState was not valid!!!\n" + currentState);
             return;
         }
         
-        if (!isCalledFormExitState) CurrentState.ExitState(this);
-        CurrentState = targetState;
+        if (!isCalledFormExitState) currentState.ExitState(this);
+        currentState = targetState;
         targetState.EnterState(this);
+    }
+    
+    protected IEnumerator AddStateInQueue(BaseState queueAbleState)
+    {
+        _switchStateQueue.Add(queueAbleState);
+
+        yield return new WaitForSeconds(removeStateQueueTime);
+    
+        if (_switchStateQueue.Contains(queueAbleState)) _switchStateQueue.Remove(queueAbleState);
     }
 }

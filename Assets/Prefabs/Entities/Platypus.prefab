@@ -152,7 +152,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   onGroundLeave:
@@ -225,6 +225,7 @@ MonoBehaviour:
   - {fileID: 320149135}
   moveData: {fileID: 7141954085615704045}
   currentState: 0
+  _removeStateQueue: 0.5
 --- !u!114 &8146961832491452985
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9680,10 +9680,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platypus
       objectReference: {fileID: 0}
-    - target: {fileID: 6099884607191249837, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
-      propertyPath: _removeStateQueue
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
 --- !u!1 &1256070402

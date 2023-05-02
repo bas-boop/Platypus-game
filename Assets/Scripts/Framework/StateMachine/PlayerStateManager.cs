@@ -1,16 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerStateManager : StateMachineManager
 {
+    [Header("Player State Manger")]
     public PlayerMoveData moveData;
-    [SerializeField] private PlayerState currentState;
-    [SerializeField] private float _removeStateQueue;
-    
+
     private PlayerInput _playerInput;
     private InputActionAsset _playerControlsActions;
+    
+    private PlayerState _currentPlayerState;
 
     private PlayerIdleState _idleState;
     private PlayerWalkingState _walkingState;
@@ -19,8 +18,6 @@ public class PlayerStateManager : StateMachineManager
     private PlayerSmackState _smackState;
     private PlayerFallingState _fallingState;
 
-    private List<BaseState> _switchStateQueue = new List<BaseState>();
-    
     private new void Awake()
     {
         _idleState = GetComponent<PlayerIdleState>();
@@ -39,29 +36,22 @@ public class PlayerStateManager : StateMachineManager
     {
         base.FixedUpdate();
         
-        if (!CurrentState.IsValidToSwitch) return;
+        if (!currentState.IsValidToSwitch) return;
 
-        if (_switchStateQueue.Count > 0)
-        {
-            base.SwitchState(_switchStateQueue[0]);
-            _switchStateQueue.Remove(_switchStateQueue[0]);
-            Debug.Log("Geen Pedro");
-        }
-        
         var moveInput = _playerControlsActions["Move"].ReadValue<Vector2>();
         
         if (moveInput.x != 0)
         {
-            if(currentState != PlayerState.Walking) SwitchState(PlayerState.Walking);
+            if(_currentPlayerState != PlayerState.Walking) SwitchState(PlayerState.Walking);
             moveData.SetMoveDirection(moveInput);
         }
-        else if (currentState != PlayerState.Idle && moveData.GroundChecker.IsGrounded) SwitchState(PlayerState.Idle);
+        else if (_currentPlayerState != PlayerState.Idle && moveData.GroundChecker.IsGrounded) SwitchState(PlayerState.Idle);
     }
 
     #region Switch State
 
     /// <summary>
-    /// Switch the current targetState to a different one.
+    /// Switch the current targetState to currentPlayerState different one.
     /// Is it valid to switch targetState?
     /// </summary>
     /// <param name="targetState">Give target state to switch into.</param>
@@ -78,14 +68,14 @@ public class PlayerStateManager : StateMachineManager
             _ => startingState
         };
 
-        if (!CurrentState.IsValidToSwitch)
+        if (!currentState.IsValidToSwitch)
         {
             StartCoroutine(AddStateInQueue(state));
         }
         else
         {
             base.SwitchState(state);
-            if(CurrentState == state) currentState = targetState;
+            if(currentState == state) _currentPlayerState = targetState;
         }
     }
     
@@ -94,25 +84,6 @@ public class PlayerStateManager : StateMachineManager
     /// </summary>
     /// <param name="enumValue">The PlayerState in int variable.</param>
     public void SwitchStateEvent(int enumValue) => SwitchState((PlayerState)enumValue);
-
-    private IEnumerator AddStateInQueue(BaseState queueAbleState)
-    {
-        _switchStateQueue.Add(queueAbleState);
-        
-        //probeer? while(true)
-        
-        yield return new WaitForSeconds(_removeStateQueue);//todo: Dit moet tergelijkertijd als...
-    
-        if (_switchStateQueue.Contains(queueAbleState))
-        {
-            _switchStateQueue.Remove(queueAbleState);
-            Debug.Log("Pedro");
-        }
-    
-        // yield return new WaitUntil(() => CurrentState.IsValidToSwitch);//todo: Dit
-        // base.SwitchState(_switchStateQueue[0]);
-        // _switchStateQueue.Remove(_switchStateQueue[0]);
-    }
 
     #endregion
 
