@@ -223,9 +223,9 @@ MonoBehaviour:
   - {fileID: 5720107238787075003}
   - {fileID: 8105518661931420211}
   - {fileID: 320149135}
+  currentState: {fileID: 0}
+  removeStateQueueTime: 0.5
   moveData: {fileID: 7141954085615704045}
-  currentState: 0
-  _removeStateQueue: 0.5
 --- !u!114 &8146961832491452985
 MonoBehaviour:
   m_ObjectHideFlags: 0

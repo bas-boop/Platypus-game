@@ -62,6 +62,10 @@ public abstract class StateMachineManager : MonoBehaviour
     {
         if (!currentState.IsValidToSwitch)
         {
+            StartCoroutine(AddStateInQueue(targetState));
+            
+            if(!_switchStateQueue.Contains(targetState)) return;
+            
             Debug.LogWarning("Switching targetState was not valid!!!\n" + currentState);
             return;
         }
@@ -71,9 +75,10 @@ public abstract class StateMachineManager : MonoBehaviour
         targetState.EnterState(this);
     }
     
-    protected IEnumerator AddStateInQueue(BaseState queueAbleState)
+    private IEnumerator AddStateInQueue(BaseState queueAbleState)
     {
         _switchStateQueue.Add(queueAbleState);
+        Debug.Log("TargetState has bin added to the state queue\n" + queueAbleState);
 
         yield return new WaitForSeconds(removeStateQueueTime);
     

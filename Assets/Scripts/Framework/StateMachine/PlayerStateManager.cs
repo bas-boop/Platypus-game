@@ -51,7 +51,7 @@ public class PlayerStateManager : StateMachineManager
     #region Switch State
 
     /// <summary>
-    /// Switch the current targetState to currentPlayerState different one.
+    /// Switch the current targetState to a different one.
     /// Is it valid to switch targetState?
     /// </summary>
     /// <param name="targetState">Give target state to switch into.</param>
@@ -67,16 +67,9 @@ public class PlayerStateManager : StateMachineManager
             PlayerState.Falling => _fallingState,
             _ => startingState
         };
-
-        if (!currentState.IsValidToSwitch)
-        {
-            StartCoroutine(AddStateInQueue(state));
-        }
-        else
-        {
-            base.SwitchState(state);
-            if(currentState == state) _currentPlayerState = targetState;
-        }
+        
+        base.SwitchState(state);
+        if(currentState == state) _currentPlayerState = targetState;
     }
     
     /// <summary>
