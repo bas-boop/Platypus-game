@@ -7,6 +7,7 @@ public class PlayerStateManager : StateMachineManager
 {
     public PlayerMoveData moveData;
     [SerializeField] private PlayerState currentState;
+    [SerializeField] private float _removeStateQueue;
     
     private PlayerInput _playerInput;
     private InputActionAsset _playerControlsActions;
@@ -69,11 +70,16 @@ public class PlayerStateManager : StateMachineManager
             PlayerState.Falling => _fallingState,
             _ => startingState
         };
-        
-        if(!CurrentState.IsValidToSwitch) StartCoroutine(AddStateInQueue(state));
 
-        base.SwitchState(state);
-        if(CurrentState == state) currentState = targetState;
+        if (!CurrentState.IsValidToSwitch)
+        {
+            StartCoroutine(AddStateInQueue(state));
+        }
+        else
+        {
+            base.SwitchState(state);
+            if(CurrentState == state) currentState = targetState;
+        }
     }
     
     /// <summary>
@@ -81,15 +87,23 @@ public class PlayerStateManager : StateMachineManager
     /// </summary>
     /// <param name="enumValue">The PlayerState in int variable.</param>
     public void SwitchStateEvent(int enumValue) => SwitchState((PlayerState)enumValue);
-    
+
     private IEnumerator AddStateInQueue(BaseState queueAbleState)
     {
         _switchStateQueue.Add(queueAbleState);
-
-        yield return new WaitUntil(() => CurrentState.IsValidToSwitch);
-
-        SwitchState(_switchStateQueue[0]);
-        _switchStateQueue.Remove(_switchStateQueue[0]);
+        
+        //probeer while(true)
+        
+        yield return new WaitForSeconds(_removeStateQueue);//todo: Dit moet tergelijkertijd als...
+    
+        if (_switchStateQueue.Contains(queueAbleState))
+        {
+            _switchStateQueue.Remove(queueAbleState);
+            Debug.Log("Pedro");
+        }
+    
+        yield return new WaitUntil(() => CurrentState.IsValidToSwitch);//todo: Dit
+        base.SwitchState(queueAbleState);
     }
 
     #endregion
