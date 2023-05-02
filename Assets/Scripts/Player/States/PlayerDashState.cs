@@ -23,8 +23,12 @@ public class PlayerDashState : PlayerBaseState
 
     private void ActivateDash(PlayerStateManager player)
     {
-        if (!player.moveData.CanMove) return;
-        if(player.moveData.IsDashing || !player.moveData.GroundChecker.IsGrounded) return;
+        if (!player.moveData.CanMove || player.moveData.IsDashing || !player.moveData.GroundChecker.IsGrounded)
+        {
+            IsValidToSwitch = true;
+            player.SwitchState(PlayerState.Idle);
+            return;
+        }
         
         StartCoroutine(StartDash(player));
     }
@@ -43,6 +47,8 @@ public class PlayerDashState : PlayerBaseState
         IsValidToSwitch = true;
         player.moveData.IsDashing = false;
         player.moveData.Animator.SetBool("IsDashing", false);
+        
+        player.SwitchState(PlayerState.Falling);
         
         yield return null;
     }

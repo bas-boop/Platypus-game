@@ -3,25 +3,27 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateManager : StateMachineManager
 {
-    private PlayerInput _playerInput;
-    private InputActionAsset _playerControlsActions;
-
     public PlayerMoveData moveData;
     [SerializeField] private PlayerState currentState;
     
-    [HideInInspector] public PlayerIdleState idleState;
-    [HideInInspector] public PlayerWalkingState walkingState;
-    [HideInInspector] public PlayerRollState rollState;
-    [HideInInspector] public PlayerDashState dashState;
-    [HideInInspector] public PlayerSmackState smackState;
+    private PlayerInput _playerInput;
+    private InputActionAsset _playerControlsActions;
+
+    private PlayerIdleState _idleState;
+    private PlayerWalkingState _walkingState;
+    private PlayerRollState _rollState;
+    private PlayerDashState _dashState;
+    private PlayerSmackState _smackState;
+    private PlayerFallingState _fallingState;
 
     private new void Awake()
     {
-        idleState = GetComponent<PlayerIdleState>();
-        walkingState = GetComponent<PlayerWalkingState>();
-        rollState = GetComponent<PlayerRollState>();
-        dashState = GetComponent<PlayerDashState>();
-        smackState = GetComponent<PlayerSmackState>();
+        _idleState = GetComponent<PlayerIdleState>();
+        _walkingState = GetComponent<PlayerWalkingState>();
+        _rollState = GetComponent<PlayerRollState>();
+        _dashState = GetComponent<PlayerDashState>();
+        _smackState = GetComponent<PlayerSmackState>();
+        _fallingState = GetComponent<PlayerFallingState>();
         
         base.Awake();
         
@@ -41,7 +43,7 @@ public class PlayerStateManager : StateMachineManager
             if(currentState != PlayerState.Walking) SwitchState(PlayerState.Walking);
             moveData.SetMoveDirection(moveInput);
         }
-        else if (currentState != PlayerState.Idle) SwitchState(PlayerState.Idle);
+        else if (currentState != PlayerState.Idle && moveData.GroundChecker.IsGrounded) SwitchState(PlayerState.Idle);
     }
 
     /// <summary>
@@ -53,17 +55,24 @@ public class PlayerStateManager : StateMachineManager
     {
         var state = targetState switch
         {
-            PlayerState.Idle => idleState,
-            PlayerState.Walking => walkingState,
-            PlayerState.Dashing => dashState,
-            PlayerState.Rolling => rollState,
-            PlayerState.Smacking => smackState,
+            PlayerState.Idle => _idleState,
+            PlayerState.Walking => _walkingState,
+            PlayerState.Dashing => _dashState,
+            PlayerState.Rolling => _rollState,
+            PlayerState.Smacking => _smackState,
+            PlayerState.Falling => _fallingState,
             _ => startingState
         };
 
         base.SwitchState(state);
-        currentState = targetState;
+        if(CurrentState == state) currentState = targetState;
     }
+
+    /// <summary>
+    /// This function is used for Unity Events, because they can not have an Enum as parameter.
+    /// </summary>
+    /// <param name="enumValue">The PlayerState in int variable.</param>
+    public void SwitchStateEvent(int enumValue) => SwitchState((PlayerState)enumValue);
 
     #region Inputs
     

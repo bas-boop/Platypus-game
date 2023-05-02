@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 597268178772961311}
   - component: {fileID: 5720107238787075003}
   - component: {fileID: 8105518661931420211}
+  - component: {fileID: 320149135}
   m_Layer: 7
   m_Name: Platypus
   m_TagString: Untagged
@@ -142,16 +143,16 @@ MonoBehaviour:
   onGroundEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DashAbillity, Assembly-CSharp
-        m_MethodName: SetIsDashing
-        m_Mode: 6
+      - m_Target: {fileID: 6099884607191249837}
+        m_TargetAssemblyTypeName: PlayerStateManager, Assembly-CSharp
+        m_MethodName: SwitchStateEvent
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument:
           m_BoolArgument: 0
         m_CallState: 2
   onGroundLeave:
@@ -200,9 +201,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 3196953888520116111}
   <Animator>k__BackingField: {fileID: 3614955163935981306}
-  <CanMove>k__BackingField: 1
   deadzone: 0.65
-  lastMoveDirection: {x: 0, y: 0}
+  <CanMove>k__BackingField: 1
 --- !u!114 &6099884607191249837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,12 +222,9 @@ MonoBehaviour:
   - {fileID: 597268178772961311}
   - {fileID: 5720107238787075003}
   - {fileID: 8105518661931420211}
+  - {fileID: 320149135}
   moveData: {fileID: 7141954085615704045}
-  idleState: {fileID: 0}
-  walkingState: {fileID: 0}
-  rollState: {fileID: 0}
-  dashState: {fileID: 0}
-  smackState: {fileID: 0}
+  currentState: 0
 --- !u!114 &8146961832491452985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,6 +303,19 @@ MonoBehaviour:
     m_Bits: 64
   offset: {x: 0.5, y: 0}
   hitRadius: 0.65
+--- !u!114 &320149135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4266640848073341718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313ac694fc1a8764b8fd028d629d3785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  greaterGravity: -2.5
 --- !u!1 &4376565836614875925
 GameObject:
   m_ObjectHideFlags: 0
