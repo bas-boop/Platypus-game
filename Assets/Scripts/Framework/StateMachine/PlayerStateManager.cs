@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +18,9 @@ public class PlayerStateManager : StateMachineManager
     private PlayerDashState _dashState;
     private PlayerSmackState _smackState;
     private PlayerFallingState _fallingState;
+
+    // private BaseState[] _switchStateQueue;
+    private List<BaseState> _switchStateQueue = new List<BaseState>();
 
     private new void Awake()
     {
@@ -46,6 +52,8 @@ public class PlayerStateManager : StateMachineManager
         else if (currentState != PlayerState.Idle && moveData.GroundChecker.IsGrounded) SwitchState(PlayerState.Idle);
     }
 
+    #region Switch State
+    
     /// <summary>
     /// Switch the current targetState to a different one.
     /// Is it valid to switch targetState?
@@ -53,6 +61,7 @@ public class PlayerStateManager : StateMachineManager
     /// <param name="targetState">Give target state to switch into.</param>
     public void SwitchState(PlayerState targetState)
     {
+        
         var state = targetState switch
         {
             PlayerState.Idle => _idleState,
@@ -64,6 +73,8 @@ public class PlayerStateManager : StateMachineManager
             _ => startingState
         };
 
+        if(!CurrentState.IsValidToSwitch) StartCoroutine(AddStateInQueue(state));
+        
         base.SwitchState(state);
         if(CurrentState == state) currentState = targetState;
     }
@@ -73,6 +84,18 @@ public class PlayerStateManager : StateMachineManager
     /// </summary>
     /// <param name="enumValue">The PlayerState in int variable.</param>
     public void SwitchStateEvent(int enumValue) => SwitchState((PlayerState)enumValue);
+
+    private IEnumerator AddStateInQueue(BaseState queueAbleState)
+    {
+        _switchStateQueue.Add(queueAbleState);
+
+        yield return new WaitUntil(() => CurrentState.IsValidToSwitch);
+        
+        SwitchState(_switchStateQueue[0]);
+        _switchStateQueue.Remove(_switchStateQueue[0]);
+    }
+
+    #endregion
 
     #region Inputs
     
