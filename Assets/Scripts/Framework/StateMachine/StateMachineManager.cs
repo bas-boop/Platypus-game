@@ -47,7 +47,8 @@ public abstract class StateMachineManager : MonoBehaviour
     /// Is it valid to switch targetState?
     /// </summary>
     /// <param name="targetState">Give target state to switch into.</param>
-    public void SwitchState(BaseState targetState)
+    /// <param name="isCalledFormExitState">If the SwitchState is called form a ExitState function, this needs to be true!</param>
+    public void SwitchState(BaseState targetState, bool isCalledFormExitState = false)
     {
         if (!CurrentState.IsValidToSwitch)
         {
@@ -55,7 +56,7 @@ public abstract class StateMachineManager : MonoBehaviour
             return;
         }
         
-        CurrentState.ExitState(this);
+        if (!isCalledFormExitState) CurrentState.ExitState(this);
         CurrentState = targetState;
         targetState.EnterState(this);
     }

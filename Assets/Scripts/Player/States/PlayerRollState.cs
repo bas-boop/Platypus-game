@@ -22,11 +22,10 @@ public class PlayerRollState : PlayerBaseState
 
     private void ActivateRoll(PlayerStateManager player)
     {
-        if(!player.moveData.CanMove) return;
-        if (player.moveData.IsRolling || !player.moveData.GroundChecker.IsGrounded || player.moveData.LastMoveDirection.x == 0)
+        if (!player.moveData.CanMove || player.moveData.IsRolling || !player.moveData.GroundChecker.IsGrounded || player.moveData.LastMoveDirection.x == 0)
         {
             IsValidToSwitch = true;
-            player.SwitchState(player.idleState);
+            player.SwitchState(PlayerState.Idle);
             return;
         }
 
