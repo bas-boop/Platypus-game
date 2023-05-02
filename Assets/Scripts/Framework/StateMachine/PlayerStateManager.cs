@@ -41,6 +41,13 @@ public class PlayerStateManager : StateMachineManager
         
         if (!CurrentState.IsValidToSwitch) return;
 
+        if (_switchStateQueue.Count > 0)
+        {
+            base.SwitchState(_switchStateQueue[0]);
+            _switchStateQueue.Remove(_switchStateQueue[0]);
+            Debug.Log("Geen Pedro");
+        }
+        
         var moveInput = _playerControlsActions["Move"].ReadValue<Vector2>();
         
         if (moveInput.x != 0)
@@ -92,7 +99,7 @@ public class PlayerStateManager : StateMachineManager
     {
         _switchStateQueue.Add(queueAbleState);
         
-        //probeer while(true)
+        //probeer? while(true)
         
         yield return new WaitForSeconds(_removeStateQueue);//todo: Dit moet tergelijkertijd als...
     
@@ -102,8 +109,9 @@ public class PlayerStateManager : StateMachineManager
             Debug.Log("Pedro");
         }
     
-        yield return new WaitUntil(() => CurrentState.IsValidToSwitch);//todo: Dit
-        base.SwitchState(queueAbleState);
+        // yield return new WaitUntil(() => CurrentState.IsValidToSwitch);//todo: Dit
+        // base.SwitchState(_switchStateQueue[0]);
+        // _switchStateQueue.Remove(_switchStateQueue[0]);
     }
 
     #endregion
