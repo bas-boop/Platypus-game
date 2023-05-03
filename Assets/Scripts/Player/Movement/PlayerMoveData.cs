@@ -27,7 +27,11 @@ public class PlayerMoveData : MonoBehaviour
             var targetVelocity = new Vector2(Rigidbody.velocity.x, value);
             Rigidbody.velocity = targetVelocity;
         }
-        
+    }
+
+    private void FixedUpdate()
+    {
+        Debug.Log(Rigidbody.velocity);
     }
 
     public bool IsDashing { get; set; }
