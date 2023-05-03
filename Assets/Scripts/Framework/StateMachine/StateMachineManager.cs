@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class StateMachineManager : MonoBehaviour
@@ -5,8 +7,11 @@ public abstract class StateMachineManager : MonoBehaviour
     [Header("Base StateMachine")]
     [SerializeField] protected BaseState startingState;
     [SerializeField] protected BaseState[] states;
+    [SerializeField] protected BaseState currentState;
     
-    protected BaseState CurrentState;
+    [SerializeField] private float removeStateQueueTime;
+    
+    private readonly List<BaseState> _switchStateQueue = new List<BaseState>();
 
     protected void Awake()
     {
@@ -15,11 +20,16 @@ public abstract class StateMachineManager : MonoBehaviour
 
     protected void Update()
     {
-        CurrentState.UpdateState(this);
+        currentState.UpdateState(this);
     }
     protected void FixedUpdate()
     {
-        CurrentState.FixedUpdateState(this);
+        currentState.FixedUpdateState(this);
+
+        if (!currentState.IsValidToSwitch || _switchStateQueue.Count <= 0) return;
+        
+        SwitchState(_switchStateQueue[0]);
+        _switchStateQueue.Remove(_switchStateQueue[0]);
     }
     
     private void InitStateMachine()
@@ -38,8 +48,8 @@ public abstract class StateMachineManager : MonoBehaviour
 
     private void EnterStartingState()
     {
-        CurrentState = startingState;
-        CurrentState.EnterState(this);
+        currentState = startingState;
+        currentState.EnterState(this);
     }
 
     /// <summary>
@@ -47,17 +57,31 @@ public abstract class StateMachineManager : MonoBehaviour
     /// Is it valid to switch targetState?
     /// </summary>
     /// <param name="targetState">Give target state to switch into.</param>
-    /// <param name="isCalledFormExitState">If the SwitchState is called form a ExitState function, this needs to be true!</param>
-    public void SwitchState(BaseState targetState, bool isCalledFormExitState = false)
+    /// <param name="isCalledFromExitState">If the SwitchState is called form a ExitState function, this needs to be true!</param>
+    public void SwitchState(BaseState targetState, bool isCalledFromExitState = false)
     {
-        if (!CurrentState.IsValidToSwitch)
+        if (!currentState.IsValidToSwitch)
         {
-            Debug.LogWarning("Switching targetState was not valid!!!\n" + CurrentState);
+            StartCoroutine(AddStateInQueue(targetState));
+            
+            if(!_switchStateQueue.Contains(targetState)) return;
+            
+            Debug.LogWarning("Switching targetState was not valid!!!\n" + currentState);
             return;
         }
         
-        if (!isCalledFormExitState) CurrentState.ExitState(this);
-        CurrentState = targetState;
+        if (!isCalledFromExitState) currentState.ExitState(this);
+        currentState = targetState;
         targetState.EnterState(this);
+    }
+    
+    private IEnumerator AddStateInQueue(BaseState queueableState)
+    {
+        _switchStateQueue.Add(queueableState);
+        Debug.Log("TargetState has been added to the state queue\n" + queueableState);
+
+        yield return new WaitForSeconds(removeStateQueueTime);
+    
+        if (_switchStateQueue.Contains(queueableState)) _switchStateQueue.Remove(queueableState);
     }
 }

@@ -3,11 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateManager : StateMachineManager
 {
+    [Header("Player State Manager")]
     public PlayerMoveData moveData;
-    [SerializeField] private PlayerState currentState;
-    
+
     private PlayerInput _playerInput;
     private InputActionAsset _playerControlsActions;
+    
+    private PlayerState _currentPlayerState;
 
     private PlayerIdleState _idleState;
     private PlayerWalkingState _walkingState;
@@ -34,17 +36,19 @@ public class PlayerStateManager : StateMachineManager
     {
         base.FixedUpdate();
         
-        if (!CurrentState.IsValidToSwitch) return;
+        if (!currentState.IsValidToSwitch) return;
 
         var moveInput = _playerControlsActions["Move"].ReadValue<Vector2>();
         
         if (moveInput.x != 0)
         {
-            if(currentState != PlayerState.Walking) SwitchState(PlayerState.Walking);
+            if(_currentPlayerState != PlayerState.Walking) SwitchState(PlayerState.Walking);
             moveData.SetMoveDirection(moveInput);
         }
-        else if (currentState != PlayerState.Idle && moveData.GroundChecker.IsGrounded) SwitchState(PlayerState.Idle);
+        else if (_currentPlayerState != PlayerState.Idle && moveData.GroundChecker.IsGrounded) SwitchState(PlayerState.Idle);
     }
+
+    #region Switch State
 
     /// <summary>
     /// Switch the current targetState to a different one.
@@ -63,16 +67,18 @@ public class PlayerStateManager : StateMachineManager
             PlayerState.Falling => _fallingState,
             _ => startingState
         };
-
+        
         base.SwitchState(state);
-        if(CurrentState == state) currentState = targetState;
+        if(currentState == state) _currentPlayerState = targetState;
     }
-
+    
     /// <summary>
     /// This function is used for Unity Events, because they can not have an Enum as parameter.
     /// </summary>
     /// <param name="enumValue">The PlayerState in int variable.</param>
     public void SwitchStateEvent(int enumValue) => SwitchState((PlayerState)enumValue);
+
+    #endregion
 
     #region Inputs
     
