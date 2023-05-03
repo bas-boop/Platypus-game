@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateManager : StateMachineManager
 {
-    [Header("Player State Manger")]
+    [Header("Player State Manager")]
     public PlayerMoveData moveData;
 
     private PlayerInput _playerInput;

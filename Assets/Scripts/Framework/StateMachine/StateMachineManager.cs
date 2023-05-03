@@ -11,7 +11,7 @@ public abstract class StateMachineManager : MonoBehaviour
     
     [SerializeField] private float removeStateQueueTime;
     
-    private List<BaseState> _switchStateQueue = new List<BaseState>();
+    private readonly List<BaseState> _switchStateQueue = new List<BaseState>();
 
     protected void Awake()
     {
@@ -57,8 +57,8 @@ public abstract class StateMachineManager : MonoBehaviour
     /// Is it valid to switch targetState?
     /// </summary>
     /// <param name="targetState">Give target state to switch into.</param>
-    /// <param name="isCalledFormExitState">If the SwitchState is called form a ExitState function, this needs to be true!</param>
-    public void SwitchState(BaseState targetState, bool isCalledFormExitState = false)
+    /// <param name="isCalledFromExitState">If the SwitchState is called form a ExitState function, this needs to be true!</param>
+    public void SwitchState(BaseState targetState, bool isCalledFromExitState = false)
     {
         if (!currentState.IsValidToSwitch)
         {
@@ -70,18 +70,18 @@ public abstract class StateMachineManager : MonoBehaviour
             return;
         }
         
-        if (!isCalledFormExitState) currentState.ExitState(this);
+        if (!isCalledFromExitState) currentState.ExitState(this);
         currentState = targetState;
         targetState.EnterState(this);
     }
     
-    private IEnumerator AddStateInQueue(BaseState queueAbleState)
+    private IEnumerator AddStateInQueue(BaseState queueableState)
     {
-        _switchStateQueue.Add(queueAbleState);
-        Debug.Log("TargetState has bin added to the state queue\n" + queueAbleState);
+        _switchStateQueue.Add(queueableState);
+        Debug.Log("TargetState has been added to the state queue\n" + queueableState);
 
         yield return new WaitForSeconds(removeStateQueueTime);
     
-        if (_switchStateQueue.Contains(queueAbleState)) _switchStateQueue.Remove(queueAbleState);
+        if (_switchStateQueue.Contains(queueableState)) _switchStateQueue.Remove(queueableState);
     }
 }
