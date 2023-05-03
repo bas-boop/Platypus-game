@@ -19,7 +19,7 @@ public class PlayerMoveData : MonoBehaviour
     public Vector2 LastMoveDirection => _lastMoveDirection;
     private Vector2 _lastMoveDirection;
 
-    public float Gravity 
+    public float Gravity
     {
         get => Rigidbody.velocity.y;
         set
@@ -27,7 +27,6 @@ public class PlayerMoveData : MonoBehaviour
             var targetVelocity = new Vector2(Rigidbody.velocity.x, value);
             Rigidbody.velocity = targetVelocity;
         }
-        
     }
 
     public bool IsDashing { get; set; }
