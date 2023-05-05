@@ -1,3 +1,5 @@
+using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -25,7 +27,8 @@ public class GroundChecker : MonoBehaviour
     private void FixedUpdate()
     {
         var origin = transform.position + new Vector3(offSet.x, offSet.y, 0);
-        isGrounded = Physics2D.Raycast(origin, Vector2.down, rayDistance, thisIsGround);
+        // isGrounded = Physics2D.Raycast(origin, Vector2.down, rayDistance, thisIsGround);
+        isGrounded = Physics2D.OverlapCircle(origin, rayDistance, thisIsGround);
 
         if (isGrounded)
         {
@@ -44,5 +47,11 @@ public class GroundChecker : MonoBehaviour
                 _leavesGround = true;
                 break;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        var origin = transform.position + new Vector3(offSet.x, offSet.y, 0);
+        Gizmos.DrawWireSphere(origin, rayDistance);
     }
 }

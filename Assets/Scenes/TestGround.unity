@@ -334,38 +334,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4266640848073341718, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
   m_PrefabInstance: {fileID: 1174295135}
   m_PrefabAsset: {fileID: 0}
---- !u!58 &320149148
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 320149134}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.79
---- !u!70 &320149149
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 320149134}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1.38}
-  m_Direction: 0
 --- !u!1 &352933393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,6 +1247,14 @@ PrefabInstance:
     - target: {fileID: 4266640848073341707, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266640848073341710, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
+      propertyPath: offSet.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266640848073341710, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
+      propertyPath: rayDistance
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4266640848073341716, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
       propertyPath: m_RootOrder
