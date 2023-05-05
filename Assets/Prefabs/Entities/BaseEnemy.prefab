@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3405430404426713335}
   - component: {fileID: 6183026404726876375}
   - component: {fileID: 1772740662970771966}
-  - component: {fileID: 5222781085207547307}
+  - component: {fileID: 2778248101261955964}
   - component: {fileID: 3405430404426713290}
   - component: {fileID: 3405430404426713289}
   - component: {fileID: 3405430404426713288}
@@ -137,7 +137,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.8828125}
   m_EdgeRadius: 0
---- !u!114 &5222781085207547307
+--- !u!114 &2778248101261955964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,12 +150,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  gizmos: 0
+  gizmosColor: {r: 0, g: 1, b: 1, a: 1}
   isGrounded: 0
-  rayDistance: 1
+  rayRadius: 0.3
   thisIsGround:
     serializedVersion: 2
-    m_Bits: 8
-  offSet: {x: 0, y: 0}
+    m_Bits: 0
+  offSet: {x: 0, y: -0.3}
   onGroundEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -188,13 +190,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingState: {fileID: 3405430404426713288}
-  idleState: {fileID: 0}
-  movingState: {fileID: 0}
-  attackState: {fileID: 0}
   states:
   - {fileID: 3405430404426713288}
   - {fileID: -6415558049794951790}
   - {fileID: 4600399318113569090}
+  currentState: {fileID: 0}
+  removeStateQueueTime: 0
+  idleState: {fileID: 0}
+  movingState: {fileID: 0}
+  attackState: {fileID: 0}
 --- !u!114 &3405430404426713288
 MonoBehaviour:
   m_ObjectHideFlags: 0
