@@ -23,6 +23,7 @@ public sealed class DeliveryPoint : MonoBehaviour
     private void AddItem()
     {
         items++;
+        GetFillAmount();
         
         if (items == maxAmountItems)
         {
@@ -31,5 +32,18 @@ public sealed class DeliveryPoint : MonoBehaviour
         }
         
         onDeposit?.Invoke();
+    }
+
+    /// <summary>
+    /// Calculates the percentage of how much it's filled with pick-ups.
+    /// </summary>
+    /// <returns>The percentage amount.</returns>
+    public float GetFillAmount()
+    {
+        if (items == maxAmountItems) return 100;
+        
+        var percentage  = 100 / maxAmountItems;
+        var fillAmount = items * percentage ;
+        return fillAmount;
     }
 }
