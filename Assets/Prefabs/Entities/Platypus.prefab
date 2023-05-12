@@ -134,12 +134,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3614955163935981306}
+  gizmos: 0
+  gizmosColor: {r: 0, g: 1, b: 1, a: 1}
   isGrounded: 0
-  rayDistance: 1
+  rayRadius: 0.5
   thisIsGround:
     serializedVersion: 2
     m_Bits: 8
-  offSet: {x: 0, y: 0}
+  offSet: {x: 0, y: -0.5}
   onGroundEnter:
     m_PersistentCalls:
       m_Calls:

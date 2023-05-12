@@ -15,7 +15,12 @@ public abstract class StateMachineManager : MonoBehaviour
 
     protected void Awake()
     {
-        InitStateMachine();
+        SetStatesParent();
+    }
+
+    private void Start()
+    {
+        EnterStartingState();
     }
 
     protected void Update()
@@ -30,12 +35,6 @@ public abstract class StateMachineManager : MonoBehaviour
         
         SwitchState(_switchStateQueue[0]);
         _switchStateQueue.Remove(_switchStateQueue[0]);
-    }
-    
-    private void InitStateMachine()
-    {
-        SetStatesParent();
-        EnterStartingState();
     }
 
     private void SetStatesParent()
