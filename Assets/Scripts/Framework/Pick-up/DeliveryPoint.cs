@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 public sealed class DeliveryPoint : MonoBehaviour
 {
+    [SerializeField] private DeliveryPointUI _ui;
     [SerializeField] private PickupType deliverablePickupType;
     
     [SerializeField] private int items;
@@ -10,7 +11,7 @@ public sealed class DeliveryPoint : MonoBehaviour
 
     [SerializeField] private UnityEvent reachedMaxAmount = new UnityEvent();
     [SerializeField] private UnityEvent onDeposit = new UnityEvent();
-    
+
     private void OnTriggerEnter2D(Collider2D playerCollider)
     {
         if (playerCollider.gameObject != PickupSystem.Instance.Player() || items == maxAmountItems) return;
@@ -23,7 +24,8 @@ public sealed class DeliveryPoint : MonoBehaviour
     private void AddItem()
     {
         items++;
-        GetFillAmount();
+
+        _ui.SetFillAmount();
         
         if (items == maxAmountItems)
         {
