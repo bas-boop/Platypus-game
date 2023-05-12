@@ -9,33 +9,34 @@ public class DeliveryPointUI : MonoBehaviour
     [SerializeField] private float fadeOutTime;
     [SerializeField] private float waitFadingTime;
     
-    private Image _color;
+    private Image _image;
     private RectTransform _fill;
 
     private void Awake()
     {
-        _color = GetComponent<Image>();
+        _image = GetComponent<Image>();
         _fill = GetComponent<RectTransform>();
     }
 
-    public void SetFillAmount(float widht)
+    public void SetFillAmount(float fillAmount, bool isFull)
     {
         ResetAlpha();
         
-        var scale = new Vector3(widht / 100, _fill.localScale.y);
+        var scale = new Vector3(fillAmount / 100, _fill.localScale.y);
         _fill.localScale = scale;
+        if (isFull) _image.color = Color.green;
         
         StartCoroutine(FadeOut());
     }
 
     private void ResetAlpha()
     {
-        _color.CrossFadeAlpha(1,0,false);
+        _image.CrossFadeAlpha(1,0,false);
     }
     
     private IEnumerator FadeOut()
     {
         yield return new WaitForSeconds(waitFadingTime);
-        _color.CrossFadeAlpha(0, fadeOutTime, false);
+        _image.CrossFadeAlpha(0, fadeOutTime, false);
     }
 }
