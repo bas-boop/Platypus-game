@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMoveData))]
 public class PlayerDashState : PlayerBaseState
 {
     [Header("Value")]
+    [SerializeField] private float maxDashBound;
     [SerializeField] private float dashForcePower;
     [SerializeField] private float dashTime;
 
@@ -55,11 +58,34 @@ public class PlayerDashState : PlayerBaseState
 
     private void Dash(PlayerStateManager player)
     {
-        var currentPos = new Vector2(transform.position.x, transform.position.y);
-        var dashDirection = player.moveData.MouseWorldPosition - currentPos;
+        // DashDirection(player.moveData.MouseWorldPosition);
         
-        if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x || dashDirection.y < minY) return; //todo: Failed dash state
+        // if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x || dashDirection.y < minY) return; //todo: Failed dash state
+
+        Debug.Log(player.moveData.MouseWorldPosition + " " + player.moveData.MouseWorldPosition.magnitude);
         
-        player.moveData.Rigidbody.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
+        if (player.moveData.MouseWorldPosition.magnitude < maxDashBound)
+        {
+            Debug.Log("In");
+            player.moveData.Rigidbody.AddForce(DashDirection(player.moveData.MouseWorldPosition) * 3f, ForceMode2D.Impulse);
+        }
+        else
+        {
+            Debug.Log("Out");
+            player.moveData.Rigidbody.AddForce(DashDirection(player.moveData.MouseWorldPosition).normalized * dashForcePower, ForceMode2D.Impulse);
+        }
+        
+    }
+
+    private Vector2 DashDirection(Vector2 mouseWorldPos)
+    {
+        var currentPos = (Vector2)transform.position;
+        return mouseWorldPos - currentPos;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, maxDashBound);
     }
 }
