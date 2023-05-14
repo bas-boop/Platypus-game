@@ -12,7 +12,7 @@ public sealed class DeliveryPoint : MonoBehaviour
     [SerializeField] private UnityEvent reachedMaxAmount = new UnityEvent();
     [SerializeField] private UnityEvent onDeposit = new UnityEvent();
     
-    private const int DecibelConvertor = 100;
+    private const int DecibelConverter = 100;
 
     private void OnTriggerEnter2D(Collider2D playerCollider)
     {
@@ -39,9 +39,9 @@ public sealed class DeliveryPoint : MonoBehaviour
     
     private (float, bool) GetFillAmount()
     {
-        if (items == maxAmountItems) return (DecibelConvertor, true);
+        if (items == maxAmountItems) return (DecibelConverter, true);
         
-        var percentage  = DecibelConvertor / maxAmountItems;
+        var percentage = DecibelConverter / maxAmountItems;
         var fillAmount = items * percentage;
         return (fillAmount, false);
     }

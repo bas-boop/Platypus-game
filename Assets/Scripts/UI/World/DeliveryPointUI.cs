@@ -10,7 +10,7 @@ public class DeliveryPointUI : MonoBehaviour
     private Image _image;
     private RectTransform _fill;
 
-    private const int DecibelConvertor = 100;
+    private const int DecibelConverter = 100;
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class DeliveryPointUI : MonoBehaviour
     /// <param name="isFull">Is the DeliveryPoint full</param>
     public void SetFillAmount(float fillAmount, bool isFull)
     {
-        var scale = new Vector3(fillAmount / DecibelConvertor, _fill.localScale.y);
+        var scale = new Vector3(fillAmount / DecibelConverter, _fill.localScale.y);
         _fill.localScale = scale;
         if (isFull) _image.color = Color.green;
         
