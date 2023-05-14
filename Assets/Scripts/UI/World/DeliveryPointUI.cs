@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,20 +10,26 @@ public class DeliveryPointUI : MonoBehaviour
     private Image _image;
     private RectTransform _fill;
 
+    private const int DecibelConvertor = 100;
+
     private void Awake()
     {
         _image = GetComponent<Image>();
         _fill = GetComponent<RectTransform>();
     }
 
+    /// <summary>
+    /// Sets the amount of the fill bar to the percentage of the items delivered.
+    /// </summary>
+    /// <param name="fillAmount">The percentage of the fill.</param>
+    /// <param name="isFull">Is the DeliveryPoint full</param>
     public void SetFillAmount(float fillAmount, bool isFull)
     {
-        ResetAlpha();
-        
-        var scale = new Vector3(fillAmount / 100, _fill.localScale.y);
+        var scale = new Vector3(fillAmount / DecibelConvertor, _fill.localScale.y);
         _fill.localScale = scale;
         if (isFull) _image.color = Color.green;
         
+        ResetAlpha();
         StartCoroutine(FadeOut());
     }
 

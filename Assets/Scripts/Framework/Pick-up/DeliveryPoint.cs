@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public sealed class DeliveryPoint : MonoBehaviour
 {
-    [SerializeField] private DeliveryPointUI _ui;
+    [SerializeField] private DeliveryPointUI ui;
     [SerializeField] private PickupType deliverablePickupType;
     
     [SerializeField] private int items;
@@ -11,13 +11,13 @@ public sealed class DeliveryPoint : MonoBehaviour
 
     [SerializeField] private UnityEvent reachedMaxAmount = new UnityEvent();
     [SerializeField] private UnityEvent onDeposit = new UnityEvent();
+    
+    private const int DecibelConvertor = 100;
 
     private void OnTriggerEnter2D(Collider2D playerCollider)
     {
-        if (playerCollider.gameObject != PickupSystem.Instance.Player() || items == maxAmountItems) return;
+        if (playerCollider.gameObject != PickupSystem.Instance.Player() || items == maxAmountItems || !PickupSystem.Instance.RemovePickup(deliverablePickupType)) return;
 
-        if (!PickupSystem.Instance.RemovePickup(deliverablePickupType)) return;
-        
         AddItem();
     }
 
@@ -26,7 +26,7 @@ public sealed class DeliveryPoint : MonoBehaviour
         items++;
 
         var (fillAmount, isFull) = GetFillAmount();
-        _ui.SetFillAmount(fillAmount, isFull);
+        ui.SetFillAmount(fillAmount, isFull);
         
         if (items == maxAmountItems)
         {
@@ -39,10 +39,10 @@ public sealed class DeliveryPoint : MonoBehaviour
     
     private (float, bool) GetFillAmount()
     {
-        if (items == maxAmountItems) return (100, true);
+        if (items == maxAmountItems) return (DecibelConvertor, true);
         
-        var percentage  = 100 / maxAmountItems;
-        var fillAmount = items * percentage ;
+        var percentage  = DecibelConvertor / maxAmountItems;
+        var fillAmount = items * percentage;
         return (fillAmount, false);
     }
 }
