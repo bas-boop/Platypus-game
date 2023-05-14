@@ -57,9 +57,8 @@ public class PlayerDashState : PlayerBaseState
     {
         var currentPos = new Vector2(transform.position.x, transform.position.y);
         var dashDirection = player.moveData.MouseWorldPosition - currentPos;
-
-        if(dashDirection.y < minY) return;
-        if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x) return;
+        
+        if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x || dashDirection.y < minY) return; //todo: Failed dash state
         
         player.moveData.Rigidbody.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
     }
