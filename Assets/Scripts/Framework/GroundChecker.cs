@@ -41,6 +41,8 @@ public class GroundChecker : MonoBehaviour
                 _leavesGround = true;
                 break;
         }
+        
+        Debug.Log(IsGrounded);
     }
 
     private void OnDrawGizmos()

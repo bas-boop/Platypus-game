@@ -59,25 +59,14 @@ public class PlayerDashState : PlayerBaseState
 
     private void Dash(PlayerStateManager player)
     {
-        // DashDirection(player.moveData.MouseWorldPosition);
-        
-        // if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x || dashDirection.y < minY) return; //todo: Failed dash state
-
         var dashDirection = DashDirection(player.moveData.MouseWorldPosition);
 
-        Debug.Log(dashDirection + " " + dashDirection.magnitude);
+        // Debug.Log(dashDirection.normalized);
         
-        if (dashDirection.magnitude < maxDashBound)
-        {
-            // Debug.Log("In");
-            player.moveData.Rigidbody.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
-        }
-        else
-        {
-            // Debug.Log("Out");
-            player.moveData.Rigidbody.AddForce(dashDirection.normalized * fullDashForcePower, ForceMode2D.Impulse);
-        }
-        
+        if (dashDirection.magnitude < maxDashBound) player.moveData.Rigidbody.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
+        else player.moveData.Rigidbody.AddForce(dashDirection.normalized * fullDashForcePower, ForceMode2D.Impulse);
+
+        player.moveData.WasDashing = true;
     }
 
     private Vector2 DashDirection(Vector2 mouseWorldPos)
