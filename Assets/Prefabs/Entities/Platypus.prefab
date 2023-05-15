@@ -133,15 +133,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d367a936a9c4b14283d60462d446f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 3614955163935981306}
   gizmos: 0
   gizmosColor: {r: 0, g: 1, b: 1, a: 1}
-  isGrounded: 0
   rayRadius: 0.5
   thisIsGround:
     serializedVersion: 2
     m_Bits: 8
   offSet: {x: 0, y: -0.5}
+  <IsGrounded>k__BackingField: 0
   onGroundEnter:
     m_PersistentCalls:
       m_Calls:
@@ -285,7 +284,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d7f75564850a349889ccbf83db4495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashForcePower: 1.5
+  maxDashBound: 3.5
+  fullDashForcePower: 12.5
+  dashForcePower: 3
   dashTime: 0.8
   minY: 1
   longDistance: {x: 5, y: 2}

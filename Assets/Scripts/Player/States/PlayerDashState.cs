@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMoveData))]
@@ -8,12 +6,15 @@ public class PlayerDashState : PlayerBaseState
 {
     [Header("Value")]
     [SerializeField] private float maxDashBound;
+    [SerializeField] private float fullDashForcePower;
     [SerializeField] private float dashForcePower;
     [SerializeField] private float dashTime;
 
     [Header("threshold's")]
     [SerializeField] private float minY;
     [SerializeField] private Vector2 longDistance;
+
+    private const float PreDashAnimationTime = 0.2f;
     
     protected override void EnterState(PlayerStateManager player)
     {
@@ -41,7 +42,7 @@ public class PlayerDashState : PlayerBaseState
         player.moveData.IsDashing = true;
         player.moveData.Animator.SetBool("IsDashing", true);
         
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(PreDashAnimationTime);
         
         Dash(player);
         
@@ -62,17 +63,19 @@ public class PlayerDashState : PlayerBaseState
         
         // if(dashDirection.y < longDistance.y && Mathf.Abs(dashDirection.x) > longDistance.x || dashDirection.y < minY) return; //todo: Failed dash state
 
-        Debug.Log(player.moveData.MouseWorldPosition + " " + player.moveData.MouseWorldPosition.magnitude);
+        var dashDirection = DashDirection(player.moveData.MouseWorldPosition);
+
+        Debug.Log(dashDirection + " " + dashDirection.magnitude);
         
-        if (player.moveData.MouseWorldPosition.magnitude < maxDashBound)
+        if (dashDirection.magnitude < maxDashBound)
         {
-            Debug.Log("In");
-            player.moveData.Rigidbody.AddForce(DashDirection(player.moveData.MouseWorldPosition) * 3f, ForceMode2D.Impulse);
+            // Debug.Log("In");
+            player.moveData.Rigidbody.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
         }
         else
         {
-            Debug.Log("Out");
-            player.moveData.Rigidbody.AddForce(DashDirection(player.moveData.MouseWorldPosition).normalized * dashForcePower, ForceMode2D.Impulse);
+            // Debug.Log("Out");
+            player.moveData.Rigidbody.AddForce(dashDirection.normalized * fullDashForcePower, ForceMode2D.Impulse);
         }
         
     }
@@ -81,11 +84,5 @@ public class PlayerDashState : PlayerBaseState
     {
         var currentPos = (Vector2)transform.position;
         return mouseWorldPos - currentPos;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, maxDashBound);
     }
 }
