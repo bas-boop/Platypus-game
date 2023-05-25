@@ -24,6 +24,7 @@ public class PlayerWalkingState : PlayerBaseState
     protected override void FixedUpdateState(PlayerStateManager player)
     {
         if (player.moveData.CanMove) Walking(player);
+        // if(player.moveData.GroundChecker)
     }
 
     protected override void ExitState(PlayerStateManager player)
@@ -48,6 +49,10 @@ public class PlayerWalkingState : PlayerBaseState
         var move = moveForce * player.moveData.MoveDirection.x;
 
         var appliedVelocity = new Vector2(move, player.moveData.Gravity);
+        if (!player.moveData.GroundChecker.IsGrounded && player.moveData.Gravity == 0)
+        {
+            appliedVelocity.y = -5;
+        }
 
         player.moveData.Rigidbody.velocity = appliedVelocity;
         player.moveData.IsDecelerating = false;
