@@ -144,6 +144,18 @@ MonoBehaviour:
   onGroundEnter:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 7141954085615704045}
+        m_TargetAssemblyTypeName: PlayerMoveData, Assembly-CSharp
+        m_MethodName: ResetWasDashing
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 6099884607191249837}
         m_TargetAssemblyTypeName: PlayerStateManager, Assembly-CSharp
         m_MethodName: SwitchStateEvent
@@ -202,8 +214,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 3196953888520116111}
   <Animator>k__BackingField: {fileID: 3614955163935981306}
+  decelerationStrength: 2
+  dashedDecelerationStrength: 4
   deadzone: 0.65
   <CanMove>k__BackingField: 1
+  <WasDashing>k__BackingField: 0
 --- !u!114 &6099884607191249837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,7 +272,6 @@ MonoBehaviour:
   groundedSpeed: 7.5
   airedSpeed: 5
   accelerationTime: 0.3
-  decelerationStrength: 2
 --- !u!114 &597268178772961311
 MonoBehaviour:
   m_ObjectHideFlags: 0

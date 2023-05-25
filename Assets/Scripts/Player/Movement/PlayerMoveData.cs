@@ -74,8 +74,7 @@ public class PlayerMoveData : MonoBehaviour
         var decelStrength = wasDashing ? dashedDecelerationStrength : decelerationStrength;
         var resetVelocity = new Vector2(decelStrength * LastMoveDirection.x, Gravity);
         Rigidbody.velocity = resetVelocity;
-
-        Debug.Log(Rigidbody.velocity);
+        
         IsDecelerating = true;
     }
 
