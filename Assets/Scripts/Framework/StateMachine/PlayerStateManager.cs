@@ -45,7 +45,7 @@ public class PlayerStateManager : StateMachineManager
             if(_currentPlayerState != PlayerState.Walking) SwitchState(PlayerState.Walking);
             moveData.SetMoveDirection(moveInput);
         }
-        else if (_currentPlayerState != PlayerState.Idle && moveData.GroundChecker.IsGrounded) SwitchState(PlayerState.Idle);
+        else if (_currentPlayerState != PlayerState.Idle) SwitchState(PlayerState.Idle);
     }
 
     #region Switch State
