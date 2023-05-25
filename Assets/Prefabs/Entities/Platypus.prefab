@@ -304,6 +304,8 @@ MonoBehaviour:
   dashTime: 0.8
   minY: 1
   longDistance: {x: 5, y: 2}
+  showGizmos: 0
+  gizmosColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &8105518661931420211
 MonoBehaviour:
   m_ObjectHideFlags: 0

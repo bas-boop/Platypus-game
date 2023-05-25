@@ -14,6 +14,10 @@ public class PlayerDashState : PlayerBaseState
     [SerializeField] private float minY;
     [SerializeField] private Vector2 longDistance;
 
+    [Header("Debug")]
+    [SerializeField] private bool showGizmos;
+    [SerializeField] private Color gizmosColor = Color.green;
+
     private const float PreDashAnimationTime = 0.2f;
     
     protected override void EnterState(PlayerStateManager player)
@@ -61,6 +65,8 @@ public class PlayerDashState : PlayerBaseState
     {
         var dashDirection = DashDirection(player.moveData.MouseWorldPosition);
 
+        Debug.Log(dashDirection.magnitude);
+        
         if (dashDirection.magnitude < maxDashBound) player.moveData.Rigidbody.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
         else player.moveData.Rigidbody.AddForce(dashDirection.normalized * fullDashForcePower, ForceMode2D.Impulse);
 
@@ -72,5 +78,13 @@ public class PlayerDashState : PlayerBaseState
     {
         var currentPos = (Vector2)transform.position;
         return mouseWorldPos - currentPos;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(!showGizmos) return;
+
+        Gizmos.color = gizmosColor;
+        Gizmos.DrawWireSphere(transform.position, maxDashBound);
     }
 }
