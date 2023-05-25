@@ -12,6 +12,7 @@ public class PlayerMoveData : MonoBehaviour
     
     [Header("Other")]
     [SerializeField] private float decelerationStrength;
+    [SerializeField] private float dashedDecelerationStrength;
     [SerializeField] private float deadzone;
     [field: SerializeField] public bool CanMove { get; set; } = true;
     [field: SerializeField] public bool WasDashing { get; set; } = false;
@@ -66,14 +67,15 @@ public class PlayerMoveData : MonoBehaviour
         Animator.SetFloat("LastMoveDirection", LastMoveDirection.x);
     }
 
-    public void Deceleration()
+    public void Deceleration(bool wasDashing = false)
     {
-        // Debug.Log(Rigidbody.velocity);
         if(IsDecelerating) return;
 
-        var resetVelocity = new Vector2(decelerationStrength * LastMoveDirection.x, Gravity);
+        var decelStrength = wasDashing ? dashedDecelerationStrength : decelerationStrength;
+        var resetVelocity = new Vector2(decelStrength * LastMoveDirection.x, Gravity);
         Rigidbody.velocity = resetVelocity;
 
+        Debug.Log(Rigidbody.velocity);
         IsDecelerating = true;
     }
 

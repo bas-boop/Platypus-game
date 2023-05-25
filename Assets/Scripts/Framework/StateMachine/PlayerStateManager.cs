@@ -10,6 +10,7 @@ public class PlayerStateManager : StateMachineManager
     private InputActionAsset _playerControlsActions;
     
     private PlayerState _currentPlayerState;
+    public PlayerState PreviousPlayState { get; private set; }
 
     private PlayerIdleState _idleState;
     private PlayerWalkingState _walkingState;
@@ -69,7 +70,10 @@ public class PlayerStateManager : StateMachineManager
         };
         
         base.SwitchState(state);
-        if(currentState == state) _currentPlayerState = targetState;
+        if (currentState != state) return;
+        
+        PreviousPlayState = _currentPlayerState;
+        _currentPlayerState = targetState;
     }
     
     /// <summary>

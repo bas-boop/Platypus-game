@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMoveData))]
@@ -11,6 +12,8 @@ public class PlayerIdleState : PlayerBaseState
     protected override void EnterState(PlayerStateManager player)
     {
         IsValidToSwitch = true;
+        StartCoroutine(ChangeDecelerating(player));
+        if (player.PreviousPlayState.Equals(PlayerState.Dashing)) player.moveData.Deceleration(true);
     }
 
     protected override void UpdateState(PlayerStateManager player)
@@ -42,5 +45,11 @@ public class PlayerIdleState : PlayerBaseState
             player.moveData.Animator.SetTrigger("DoSit");
             _sitTimer = sitTimerStartTime;
         }
+    }
+
+    private static IEnumerator ChangeDecelerating(PlayerStateManager player)
+    {
+        yield return new WaitForSeconds(0.1f);
+        player.moveData.IsDecelerating = false;
     }
 }

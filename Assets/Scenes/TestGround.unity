@@ -1394,6 +1394,10 @@ PrefabInstance:
       propertyPath: decelerationStrength
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7141954085615704045, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
+      propertyPath: dashedDecelerationStrength
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c097a4f8bcc01142b187bc8b56a4cbd, type: 3}
 --- !u!1 &1256070402
