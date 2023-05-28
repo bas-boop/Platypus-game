@@ -67,11 +67,11 @@ public class PlayerMoveData : MonoBehaviour
         Animator.SetFloat("LastMoveDirection", LastMoveDirection.x);
     }
 
-    public void Deceleration(bool wasDashing = false)
+    public void Deceleration()
     {
         if(IsDecelerating) return;
 
-        var decelStrength = wasDashing ? dashedDecelerationStrength : decelerationStrength;
+        var decelStrength = WasDashing ? dashedDecelerationStrength : decelerationStrength;
         var resetVelocity = new Vector2(decelStrength * LastMoveDirection.x, Gravity);
         Rigidbody.velocity = resetVelocity;
         

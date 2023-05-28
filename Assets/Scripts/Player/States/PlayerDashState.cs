@@ -43,6 +43,14 @@ public class PlayerDashState : PlayerBaseState
     
     private IEnumerator StartDash(PlayerStateManager player)
     {
+        if (DashDirection(player.moveData.MouseWorldPosition).y < 0)
+        {
+            player.moveData.WasDashing = false;
+            IsValidToSwitch = true;
+            player.SwitchState(PlayerState.Idle);
+            yield break;
+        }
+    
         player.moveData.IsDashing = true;
         player.moveData.Animator.SetBool("IsDashing", true);
         
@@ -65,8 +73,6 @@ public class PlayerDashState : PlayerBaseState
     {
         var dashDirection = DashDirection(player.moveData.MouseWorldPosition);
 
-        Debug.Log(dashDirection.magnitude);
-        
         if (dashDirection.magnitude < maxDashBound) player.moveData.Rigidbody.AddForce(dashDirection * dashForcePower, ForceMode2D.Impulse);
         else player.moveData.Rigidbody.AddForce(dashDirection.normalized * fullDashForcePower, ForceMode2D.Impulse);
 

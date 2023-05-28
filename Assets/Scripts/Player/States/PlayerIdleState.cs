@@ -13,7 +13,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         IsValidToSwitch = true;
         StartCoroutine(ChangeDecelerating(player));
-        if (player.PreviousPlayState.Equals(PlayerState.Dashing)) player.moveData.Deceleration(true);
+        if (player.PreviousPlayState.Equals(PlayerState.Dashing)) player.moveData.Deceleration();
     }
 
     protected override void UpdateState(PlayerStateManager player)
