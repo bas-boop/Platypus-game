@@ -11,8 +11,11 @@ public class PlayerMoveData : MonoBehaviour
     public GroundChecker GroundChecker { get; private set; }
     
     [Header("Other")]
+    [SerializeField] private float decelerationStrength;
+    [SerializeField] private float dashedDecelerationStrength;
     [SerializeField] private float deadzone;
     [field: SerializeField] public bool CanMove { get; set; } = true;
+    [field: SerializeField] public bool WasDashing { get; set; } = false;
     
     public Vector2 MoveDirection { get; private set; }
     public Vector2 MouseWorldPosition { get; set; }
@@ -64,5 +67,21 @@ public class PlayerMoveData : MonoBehaviour
         Animator.SetFloat("LastMoveDirection", LastMoveDirection.x);
     }
 
+    public void Deceleration()
+    {
+        if(IsDecelerating) return;
+
+        var decelStrength = WasDashing ? dashedDecelerationStrength : decelerationStrength;
+        var resetVelocity = new Vector2(decelStrength * LastMoveDirection.x, Gravity);
+        Rigidbody.velocity = resetVelocity;
+        
+        IsDecelerating = true;
+    }
+
     public void ToggleCanMove() => CanMove = !CanMove;
+
+    public void ResetWasDashing()
+    {
+        if (WasDashing) WasDashing = false;
+    }
 }

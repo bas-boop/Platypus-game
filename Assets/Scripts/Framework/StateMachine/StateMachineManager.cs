@@ -8,7 +8,7 @@ public abstract class StateMachineManager : MonoBehaviour
     [SerializeField] protected BaseState startingState;
     [SerializeField] protected BaseState[] states;
     [SerializeField] protected BaseState currentState;
-    
+
     [SerializeField] private float removeStateQueueTime;
     
     private readonly List<BaseState> _switchStateQueue = new List<BaseState>();
