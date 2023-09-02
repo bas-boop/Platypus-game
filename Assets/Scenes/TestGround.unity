@@ -6218,6 +6218,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2092095435 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2270110443154692930, guid: 91027b6df9913674793f3dc584dbfa7d, type: 3}
+  m_PrefabInstance: {fileID: 559747804}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1839735485 &2092095441 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 2270110443154692957, guid: 91027b6df9913674793f3dc584dbfa7d, type: 3}
+  m_PrefabInstance: {fileID: 559747804}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2092095442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092095435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0255c74b98f257346a9da0efd568a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundTilemap: {fileID: 2092095441}
+  groundTiles:
+  - {fileID: 11400000, guid: 442a5a30d70695847840e36b68b00451, type: 2}
+  - {fileID: 11400000, guid: 11c77a8a59ad74a479540ac4280aa0d3, type: 2}
+  - {fileID: 11400000, guid: c8f3a5709cdd26c44b595b0e20065005, type: 2}
 --- !u!1 &2094547723
 GameObject:
   m_ObjectHideFlags: 0
