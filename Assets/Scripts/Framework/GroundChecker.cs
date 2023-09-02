@@ -10,11 +10,19 @@ public class GroundChecker : MonoBehaviour
     [SerializeField] private bool gizmos;
     [SerializeField] private Color gizmosColor = Color.cyan;
 
-    [Header("Setting's")]
+    [Header("Settings")]
     [SerializeField] private float rayRadius = 1f;
     [SerializeField] private LayerMask thisIsGround;
     [SerializeField] private Vector2 offSet;
     [field: SerializeField] public bool IsGrounded { get; private set; }
+
+    private enum GroundState
+    {
+        Grounded,
+        Aired
+    }
+
+    private GroundState _currentState;
 
     [SerializeField] private UnityEvent onGroundEnter = new UnityEvent();
     [SerializeField] private UnityEvent onGroundLeave = new UnityEvent();
@@ -24,19 +32,15 @@ public class GroundChecker : MonoBehaviour
         var origin = transform.position + new Vector3(offSet.x, offSet.y, 0);
         IsGrounded = Physics2D.OverlapCircle(origin, rayRadius, thisIsGround);
 
-        if (IsGrounded)
-        {
-            _isOnGround = true;
-            _leavesGround = false;
-        }
+        _currentState = IsGrounded ? GroundState.Grounded : GroundState.Aired;
 
-        switch (IsGrounded)
+        switch (_currentState)
         {
-            case true when !_isOnGround:
+            case GroundState.Grounded when !_isOnGround:
                 onGroundEnter?.Invoke();
                 _isOnGround = true;
                 break;
-            case true when !_leavesGround:
+            case GroundState.Grounded when !_leavesGround:
                 onGroundLeave?.Invoke();
                 _leavesGround = true;
                 break;

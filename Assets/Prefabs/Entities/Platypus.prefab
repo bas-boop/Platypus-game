@@ -133,18 +133,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d367a936a9c4b14283d60462d446f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 3614955163935981306}
   gizmos: 0
   gizmosColor: {r: 0, g: 1, b: 1, a: 1}
-  isGrounded: 0
   rayRadius: 0.5
   thisIsGround:
     serializedVersion: 2
     m_Bits: 8
   offSet: {x: 0, y: -0.5}
+  <IsGrounded>k__BackingField: 0
   onGroundEnter:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 7141954085615704045}
+        m_TargetAssemblyTypeName: PlayerMoveData, Assembly-CSharp
+        m_MethodName: ResetWasDashing
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 6099884607191249837}
         m_TargetAssemblyTypeName: PlayerStateManager, Assembly-CSharp
         m_MethodName: SwitchStateEvent
@@ -203,8 +214,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 3196953888520116111}
   <Animator>k__BackingField: {fileID: 3614955163935981306}
+  decelerationStrength: 2
+  dashedDecelerationStrength: 4
   deadzone: 0.65
   <CanMove>k__BackingField: 1
+  <WasDashing>k__BackingField: 0
 --- !u!114 &6099884607191249837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +272,6 @@ MonoBehaviour:
   groundedSpeed: 7.5
   airedSpeed: 5
   accelerationTime: 0.3
-  decelerationStrength: 2
 --- !u!114 &597268178772961311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,10 +298,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d7f75564850a349889ccbf83db4495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashForcePower: 1.5
+  maxDashBound: 3.5
+  fullDashForcePower: 12.5
+  dashForcePower: 3
   dashTime: 0.8
   minY: 1
   longDistance: {x: 5, y: 2}
+  showGizmos: 0
+  gizmosColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &8105518661931420211
 MonoBehaviour:
   m_ObjectHideFlags: 0

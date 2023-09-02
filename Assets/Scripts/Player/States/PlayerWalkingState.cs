@@ -10,8 +10,7 @@ public class PlayerWalkingState : PlayerBaseState
     [SerializeField] private float groundedSpeed;
     [SerializeField] private float airedSpeed;
     [SerializeField] private float accelerationTime;
-    [SerializeField] private float decelerationStrength;
-    
+
     private float _accelerationSpeed;
 
     protected override void EnterState(PlayerStateManager player)
@@ -29,7 +28,9 @@ public class PlayerWalkingState : PlayerBaseState
 
     protected override void ExitState(PlayerStateManager player)
     {
-        Decelerate(player);
+        _accelerationSpeed = 0;
+        player.moveData.Deceleration();
+        player.moveData.Animator.SetBool("IsWalking", false);
     }
 
     private void Walking(PlayerStateManager player)
@@ -58,18 +59,5 @@ public class PlayerWalkingState : PlayerBaseState
         player.moveData.IsDecelerating = false;
         
         player.moveData.Animator.SetBool("IsWalking", true);
-    }
-    
-    private void Decelerate(PlayerStateManager player)
-    {
-        _accelerationSpeed = 0;
-        
-        if(player.moveData.IsDecelerating) return;
-
-        var resetVelocity = new Vector2(decelerationStrength * player.moveData.LastMoveDirection.x, player.moveData.Gravity);
-        player.moveData.Rigidbody.velocity = resetVelocity;
-
-        player.moveData.IsDecelerating = true;
-        player.moveData.Animator.SetBool("IsWalking", false);
     }
 }
